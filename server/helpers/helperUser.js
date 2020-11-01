@@ -73,11 +73,25 @@ export default class Helperuser {
 
             // Add user to Json array
             users.push(user)
-    
+
             // Save data
             Helper.writeToFile(usersFile, users)
-    
+
             return user
         })
+    }
+
+    /**
+     * @param {string} email
+     * @param {Array} users
+     * @returns {null || user}
+     */
+    static getRecordByMail(mail, users) {
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].mail === mail) {
+                return users[i]
+            }
+        }
+        return null
     }
 }
