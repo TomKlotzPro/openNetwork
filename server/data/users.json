@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "firstName": "Sofiane",
+    "lastName": "Mektane",
+    "mail": "sofiane.mektane@gmail.com",
+    "password": "$2b$10$VsHtKrg6X0irochDLVYi7uhXnNparcUoCiIUptKEVaGfB1H9VHgsu",
+    "confirmedMail": false
+  },
+]
