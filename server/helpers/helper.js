@@ -50,8 +50,7 @@ export default class Helper {
         return hashedPassword
     }
 
-    static comparePassword(password, user){
-        console.log(user)
-       return bcrypt.compareSync(password, user['password']);
+    static comparePassword(password, user) {
+        return bcrypt.compareSync(password, user['password']);
     }
 }

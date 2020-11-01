@@ -1,57 +1,12 @@
 import Helper from './helper.js'
 import path from 'path'
+import fs from 'fs'
+import { promisify } from 'util'
 
+const readFile = promisify(fs.readFile)
 const usersFile = path.join(__dirname, '../data/users.json')
 
-export default class Helperuser {
-    /**
-     * @param {string} id
-     * @param {Array} users
-     * @returns {Todo}
-     */
-    static getuserByUserName(id, users) {
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].id === parseInt(id)) {
-                return users[i]
-            }
-        }
-        return null
-    }
-
-    /**
-     * @param {Todo} user
-     * @param {Array} users
-     */
-    static deleteuser(user, users) {
-        for (var i = 0; i < users.length; i++) {
-            if (users[i] === user) {
-                // Delete user
-                users.splice(i, 1)
-                // Save Data
-                Helper.writeToFile(usersFile, users)
-                return
-            }
-        }
-    }
-
-    /**
-     * @param {Todo} user
-     * @param {String} description
-     * @param {Boolean} finished
-     * @param {JSON} users
-     * @returns {Todo}
-     */
-    static updateuser(user, description = null, finished = null, users) {
-        for (var i = 0; i < users.length; i++) {
-            if (users[i] === user) {
-
-                // Save users
-                Helper.writeToFile(usersFile, users)
-                return users[i]
-            }
-        }
-    }
-
+export default class HelperUser {
     /**
      * @param {string} firstName
      * @param {string} lastName
@@ -60,7 +15,10 @@ export default class Helperuser {
      * @param {JSON} users
      * @returns {user}
      */
-    static createUsers(firstName, lastName, mail, password, users) {
+    static async createUsers(firstName, lastName, mail, password) {
+        // Load data
+        var users = JSON.parse(await readFile(usersFile, 'utf8'))
+
         Helper.getHashPassword(password).then((HashedPassword) => {
             var user = {
                 id: Helper.getNewId(users),
@@ -86,12 +44,23 @@ export default class Helperuser {
      * @param {Array} users
      * @returns {null || user}
      */
-    static getRecordByMail(mail, users) {
+    static async getRecordByMail(mail) {
+        // Load data
+        var users = JSON.parse(await readFile(usersFile, 'utf8'))
+
         for (var i = 0; i < users.length; i++) {
             if (users[i].mail === mail) {
                 return users[i]
             }
         }
         return null
+    }
+
+    static deleteUser() {
+
+    }
+
+    static updateUser() {
+
     }
 }

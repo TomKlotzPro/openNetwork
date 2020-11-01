@@ -8,8 +8,7 @@ export default function postLogin(req, res) {
             req.body.mail,
             req.body.password,
         ).then((code) => {
-            if (code === 404) res.status(404).send({ message: 'User not found' })
-            else if (code === 400) res.status(400).send({ message: 'Wrong password' })
+            if (code === 404) res.status(404).send({ message: 'Wrong email or wrong password' })
             else if (code === 200) res.status(200).send({ message: 'logged' })
         })
     }
