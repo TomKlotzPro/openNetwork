@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-size: 14px;
+  line-height: 20px;
+  font-family: "Hind", sans-serif;
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  color: #282932
+}
+a,a:link,a:active {
+  text-decoration: none;
+  color: #3944a0;
+}
+a:hover {
+  cursor: pointer;
+  color: #0b0f20;
+}
