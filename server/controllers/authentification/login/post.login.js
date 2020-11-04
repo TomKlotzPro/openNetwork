@@ -1,7 +1,8 @@
 import Authentification from '../../../models/authentification.model.js'
 
 export default function postLogin(req, res) {
-    if (req.body.mail === '' || req.body.password === '')
+    if ((req.body.mail === '' || req.body.mail === undefined) || 
+    (req.body.password === '' || req.body.password == undefined))
         return res.status(400).send({ message: 'Missing Parameters' })
     else {
         Authentification.login(
