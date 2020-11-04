@@ -29,8 +29,20 @@ export default {
     "@nuxtjs/tailwindcss"
   ],
 
+  // Defaults options
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    config: {}
+  },
+
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ["@nuxtjs/axios", "nuxt-webfontloader", "@nuxtjs/svg"],
+  modules: [
+    "@nuxtjs/axios",
+    "nuxt-webfontloader",
+    "@nuxtjs/svg"
+  ],
 
   webfontloader: {
     google: {
@@ -39,7 +51,9 @@ export default {
   },
 
   // Server Middleware
-  serverMiddleware: ["~/server/server.js"],
+  serverMiddleware: [
+    "~/server/server.js"
+  ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {}

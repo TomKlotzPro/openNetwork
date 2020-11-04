@@ -19,11 +19,13 @@
         <ProjectCard />
         <ProjectCard />
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
+
 import Hero from "~/components/Hero";
 import ProjectCard from "~/components/ProjectCard";
 export default {
@@ -33,3 +35,4 @@ export default {
   }
 };
 </script>
+
