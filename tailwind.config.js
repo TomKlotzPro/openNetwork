@@ -1,6 +1,9 @@
-// Load default theme settings
-module.export = {
-  purge: ["./src/**/*.html", "./src/**/*.vue", "./src/**/*.jsx"],
+module.exports = {
+  future: {
+    // removeDeprecatedGapUtilities: true,
+    // purgeLayersByDefault: true,
+  },
+  purge: [],
   theme: {
     extend: {
       colors: {
@@ -84,9 +87,14 @@ module.export = {
           "200": "#febdc5",
           "100": "#ffe6e9"
         }
+      },
+      fontFamily: {
+        hind: ["Hind", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        ubuntu: ["Ubuntu", "sans-serif"]
       }
     }
   },
   variants: {},
   plugins: []
-}
+};

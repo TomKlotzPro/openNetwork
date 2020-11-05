@@ -1,90 +1,65 @@
 <template>
-  <div>
-    <header
-      class="nav-opt-sprite nav-locale-fr nav-lang-fr nav-ssl nav-unrec nav-flex"
-    >
-      <div
-        id="navbar"
-        class=" nav-sprite-v1 celwidget nav-bluebeacon nav-ally-t1 layout2 nav-packard-glow hamburger bold-focus-hover nav-flex layout3 layout3-alt using-mouse"
+  <span>
+    <nav class="justify-center flex items-center bg-grey-100 p-3 flex-wrap">
+      <a href="#" class="p-2 mr-4 inline-flex items-center">
+        <LogoNode class="fill-current text-white h-8 w-8 mr-2" />
+        <span
+          class="text-xl text-nebula-500 font-ubuntu tracking-tighter font-medium"
+          >Openetwork</span
+        >
+      </a>
+      <Search />
+      <button
+        class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
+        data-target="#navigation"
       >
-        <div id="nav-belt">
-          <div class="nav-left">
-            <!-- LOGO -->
-            <div id="nav-logo">
-              <a href="" class="nav-logo-link nav-progressive-attribute">
-                <span class="nav-sprite nav-logo-base"></span>
-                <span
-                  class="nav-sprite nav-logo-ext nav-progressive-content"
-                ></span>
-              </a>
-            </div>
-            <!-- ADDRESS -->
-            <div id="nav-global-location-slot">
-              <span class="a-declarative">
-                <nuxt-link
-                  to="/address"
-                  class="nav-a nav-a-2 a-popover-trigger a-declarative"
-                >
-                  <div
-                    class="nav-location-icon"
-                    id="nav-packard-glow-loc-icon"
-                  ></div>
-                  <div id="glow-ingress-block">
-                    <span class="nav-line-1" id="glow-ingress-line1"
-                      >Hello</span
-                    >
-                    <span class="nav-line-2" id="glow-ingress-line2"
-                      >What's your address?</span
-                    >
-                  </div>
-                </nuxt-link>
-              </span>
-            </div>
-          </div>
-          <div class="nav-fill">
-            <div id="nav-search">
-              <Search />
-            </div>
-          </div>
-          <div class="nav-right">
-            <div id="nav-tools" class="layoutToolbarPadding">
-              <nuxt-link
-                to="/register"
-                class="nav-a nav-a-2"
-                id="nav-link-accountList"
-              >
-                <div class="nav-line-1-container">
-                  <span class="nav-line-1">Hello Sign in</span>
-                </div>
-                <span class="nav-line-2 nav-long-width">
-                  Acount and Others
-                  <span
-                    class="nav-icon nav-arrow null"
-                    style="visibility: visible"
-                  ></span>
-                </span>
-              </nuxt-link>
-              <nuxt-link to="/projects" class="nav-a nav-a-2" id="nav-orders">
-                <span class="nav-line-1">Your</span>
-                <span class="nav-line-2">Projects</span>
-              </nuxt-link>
-              <nuxt-link to="/contribute" class="nav-a nav-a-2" id="nav-orders">
-                <span class="nav-line-1">Donate or</span>
-                <span class="nav-line-2">Contribute</span>
-              </nuxt-link>
-            </div>
-          </div>
+        <i class="material-icons">Menu</i>
+      </button>
+      <div
+        class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto"
+        id="navigation"
+      >
+        <div
+          class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto"
+        >
+          <nuxt-link
+            to="/about"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-grey-500 items-center justify-center uppercase hover:text-nebula-500 tracking-widest font-semibold text-xs"
+          >
+            <span>About</span>
+          </nuxt-link>
+          <nuxt-link
+            to="/contact"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-grey-500 items-center justify-center uppercase hover:text-nebula-500 tracking-widest font-semibold text-xs"
+          >
+            <span>Contact Us</span>
+          </nuxt-link>
+          <nuxt-link
+            to="/login"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-grey-500 items-center justify-center uppercase hover:text-nebula-500 tracking-widest font-semibold text-xs"
+          >
+            <span>Log in</span>
+          </nuxt-link>
+          <nuxt-link
+            to="register"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-grey-500 items-center justify-center uppercase hover:text-nebula-500 tracking-widest font-semibold text-xs"
+          >
+            <span>Sign up</span>
+          </nuxt-link>
         </div>
       </div>
-    </header>
-  </div>
+    </nav>
+  </span>
 </template>
 
 <script>
 import Search from "~/components/Search";
+import LogoNode from "../assets/images/opentwk.svg?inline";
+
 export default {
   components: {
-    Search
+    Search,
+    LogoNode
   }
 };
 </script>

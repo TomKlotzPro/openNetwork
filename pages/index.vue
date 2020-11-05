@@ -6,11 +6,11 @@
       </div>
     </div>
     <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
-      <h1
-        class=" font-bold text-4xl md:text-5xl max-w-xl text-gray-900 leading-tight"
+      <h2
+        class=" font-normal text-2xl md:text-4xl max-w-xl text-grey-700 leading-none"
       >
         Featured Projects
-      </h1>
+      </h2>
       <div
         class="project-wrapper grid grid-cols-1 md:grid-cols-2 gap-3 items-center"
       >

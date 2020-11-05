@@ -13,13 +13,10 @@ body {
   padding: 0;
   margin: 0;
   background: #fff;
-  color: #282932
 }
 a,a:link,a:active {
   text-decoration: none;
-  color: #3944a0;
 }
 a:hover {
   cursor: pointer;
-  color: #0b0f20;
 }
