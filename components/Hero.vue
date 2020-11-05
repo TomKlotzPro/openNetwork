@@ -40,26 +40,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.white-button {
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
-  will-change: box-shadow, transform;
-  background: linear-gradient(#fff, #e4e4e9) no-repeat;
-  box-shadow: 0 7px 14px -3px rgba(45, 35, 66, 0.3),
-    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
-}
-.white-button:hover,
-.white-button:focus {
-  box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
-    0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
-  -webkit-transform: translateY(-2px);
-  -ms-transform: translateY(-2px);
-  transform: translateY(-2px);
-}
-.white-button:active {
-  box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
-    inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #e4e4e9;
-  transform: translateY(2px);
-}
-</style>
