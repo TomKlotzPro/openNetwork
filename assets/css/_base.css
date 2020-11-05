@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-size: 14px;
+  line-height: 20px;
+  font-family: "Hind", sans-serif;
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+}
+a,a:link,a:active {
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
