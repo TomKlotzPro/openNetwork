@@ -20,9 +20,9 @@
       </p>
       <div class="flex items-center justify-center mt-4 top-auto">
         <span class="mr-auto">
-          <Button buttonWidth="40">Learn More</Button>
+          <Button buttonType="anchor" buttonWidth="40">Learn More</Button>
         </span>
-        <Button buttonColor="black" buttonWidth="40">Git Repo</Button>
+        <Button buttonType="anchor" buttonColor="black" buttonWidth="40">Git Repo</Button>
       </div>
     </div>
   </div>

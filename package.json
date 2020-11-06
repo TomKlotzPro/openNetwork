@@ -22,7 +22,9 @@
     "typeface-hind": "^1.1.13",
     "typeface-poppins": "^1.1.13",
     "typefaces": "0.0.1",
-    "vue-svg-loader": "^0.16.0"
+    "vue-fragment": "^1.5.1",
+    "vue-svg-loader": "^0.16.0",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@nuxtjs/svg": "^0.1.12",

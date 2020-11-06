@@ -16,7 +16,7 @@ export default function postSignUp(req, res) {
             req.body.confirmedpassword
         ).then((code) => {
             if ( code === 123) res.status(400).send({message:'Password are not the same'})
-            res.status(200).send({ message: 'ok' })
+            res.status(200).send({ status:200, message: 'ok' })
         })
     }
 }
