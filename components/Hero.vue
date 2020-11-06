@@ -17,8 +17,8 @@
         donate on any open source projects!
       </p>
       <div class="get-app flex space-x-5 mt-10 justify-center md:justify-start">
-        <Button>Contribute</Button>
-        <Button buttonColor="nebula">Projects</Button>
+        <Button to="/">Contribute</Button>
+        <Button buttonType="a" href="http://google.com" buttonColor="nebula">Projects</Button>
       </div>
     </div>
 
