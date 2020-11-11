@@ -163,79 +163,73 @@ export default {
         lastName: "",
         mail: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
       },
       alert: {
-        alertType: "success",
-        alertShow: false
-      }
+        alertType: "",
+        alertShow: false,
+      },
     };
   },
   validations: {
     signUpForm: {
       firstName: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(3),
       },
       lastName: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(3),
       },
       mail: {
         required,
-        emailValidator: email
+        emailValidator: email,
       },
       password: {
         required,
-        minLength: minLength(6)
+        minLength: minLength(6),
       },
       confirmPassword: {
         required,
-        sameAs: sameAs("password")
-      }
-    }
+        sameAs: sameAs("password"),
+      },
+    },
   },
   methods: {
     onSubmit() {
       this.$v.signUpForm.$touch();
-      this.alert.alertType = "warning";
       this.alert.alertShow = true;
-      /* console.log({
-        firstName: this.signUpForm.firstName,
-        lastName: this.signUpForm.lastName,
-        mail: this.signUpForm.mail
-      }); */
-      /* this.$axios
+      this.$axios
         .$post("/api/signup", {
           firstname: this.signUpForm.firstName,
           lastname: this.signUpForm.lastName,
           mail: this.signUpForm.mail,
           password: this.signUpForm.password,
-          confirmedpassword: this.signUpForm.confirmPassword
+          confirmedpassword: this.signUpForm.confirmPassword,
         })
-        .then(result => {
+        .then((result) => {
           console.log(result);
           if (result.status === 200) {
             this.alert.alertType = "success";
-            this.alert.alertShow = true
+            this.alert.alertShow = true;
           } else {
             this.alert.alertType = "danger";
-            this.alert.alertShow = true
+            this.alert.alertShow = true;
           }
           // redirect
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
           if (e.response.status === 400) {
             this.alert.alertType = "warning";
-            this.alert.alertShow = true
+            this.alert.alertShow = true;
           } else {
             this.alert.alertType = "danger";
-            this.alert.alertShow = true
+            this.alert.alertShow = true;
           }
-        }); */
-    }
-  }
+        });
+    },
+  },
 };
 </script>
 
