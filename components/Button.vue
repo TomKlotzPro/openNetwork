@@ -1,6 +1,8 @@
 <template>
-  <a
-    class="bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center justify-center no-underline"
+  <nuxt-link
+    v-if="link"
+    :to="link"
+    class="bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center cursor-pointer justify-center no-underline"
     :class="[buttonCheck, buttonWidth ? 'w-' + buttonWidth : 'w-48']"
   >
     <div class="text">
@@ -10,36 +12,64 @@
         <slot></slot>
       </p>
     </div>
-  </a>
+  </nuxt-link>
+  <component
+    v-else
+    :is="typeButton"
+    class="bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center cursor-pointer justify-center no-underline"
+    :class="[buttonCheck, buttonWidth ? 'w-' + buttonWidth : 'w-48']"
+  >
+    <div class="text">
+      <p
+        class="font-hind text-xs md:text-xs font-semibold uppercase tracking-widest"
+      >
+        <slot></slot>
+      </p>
+    </div>
+  </component>
 </template>
 
 <script>
+import { Fragment } from "vue-fragment";
 export default {
-  props: ["buttonColor", "buttonWidth"],
+  props: {
+    buttonType: {
+      type: String,
+      default: "a"
+    },
+    link: {
+      type: String,
+      default: ""
+    },
+    buttonColor: {
+      type: String
+    },
+    buttonWidth: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      typeButton: this.buttonType
+    };
+  },
   computed: {
     buttonCheck: function() {
-      if (this.buttonColor === "nebula") {
-        const classes = "button nebula text-white";
-        return classes;
-      } else if (this.buttonColor === "black") {
-        const classes = "button black text-white";
-        return classes;
-      } else {
-        const classes = "button white text-grey-500";
-        return classes;
-      }
+      if (this.buttonColor === "nebula") return "button nebula text-white";
+      else if (this.buttonColor === "black") return "button black text-white";
+      else return "button white text-grey-500";
     }
   }
 };
 </script>
 
 <style scoped>
-.button{
+.button {
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   will-change: box-shadow, transform;
 }
 .button:hover,
-.button:focus{
+.button:focus {
   transform: translateY(-2px);
 }
 .button.white {

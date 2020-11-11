@@ -92,6 +92,10 @@ module.exports = {
         hind: ["Hind", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
         ubuntu: ["Ubuntu", "sans-serif"]
+      },
+      width: {
+        'w_lg': '48vw',
+        'w_sm': '71vw'
       }
     }
   },

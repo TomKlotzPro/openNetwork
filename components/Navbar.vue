@@ -1,7 +1,7 @@
 <template>
   <span>
     <nav class="justify-center flex items-center bg-grey-100 p-3 flex-wrap">
-      <a href="#" class="p-2 mr-4 inline-flex items-center">
+      <a href="/" class="p-2 mr-4 inline-flex items-center">
         <LogoNode class="fill-current text-white h-8 w-8 mr-2" />
         <span
           class="text-xl text-nebula-500 font-ubuntu tracking-tighter font-medium"
@@ -41,7 +41,7 @@
             <span>Log in</span>
           </nuxt-link>
           <nuxt-link
-            to="register"
+            to="signup"
             class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-grey-500 items-center justify-center uppercase hover:text-nebula-500 tracking-widest font-semibold text-xs"
           >
             <span>Sign up</span>
