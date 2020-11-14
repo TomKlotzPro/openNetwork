@@ -9,6 +9,13 @@ module.exports = {
       colors: {
         black: "#000000",
         white: "#ffffff",
+        sublime: "#FC466B",
+        vivid: "#3F5EFB",
+        purp: "#7F00FF",
+        ink: "#E100FF",
+        chat: "#c0392b",
+        mello: "#8e44ad",
+        sols: "#3a416f",
         transparent: "transparent",
         grey: {
           "900": "#23263b",

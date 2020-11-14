@@ -1,3 +1,10 @@
+.toast_styles {
+  background-image: radial-gradient(circle at 50% 0,#ed5a6a,#ed5868) !important;
+  padding: 24px !important;
+  font-family: 'Hind', sans-serif !important;
+  border-radius: 2px !important;
+  font-size: 16px!important;
+}
 /******** SEARCH STYLING **********/
 .sbx-amazon {
   display: inline-block;

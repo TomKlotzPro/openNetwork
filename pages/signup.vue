@@ -1,6 +1,5 @@
 <template>
   <div class="container mx-auto">
-    <Message :alertType="alert.alertType" :show="alert.alertShow" />
     <div class="flex justify-center px-6 my-12">
       <div class="w-full m-auto xl:w-3/4 lg:w-11/12 flex">
         <!-- first column -->
@@ -22,69 +21,69 @@
             <div class="mb-4 md:flex md:justify-between">
               <div class="mb-4 md:mr-2 md:mb-0">
                 <Input
-                  name="firstname"
-                  v-model="signUpForm.firstName"
-                  placeholder="John"
+                  name="username"
+                  v-model="signUpForm.username"
+                  placeholder="john95"
                   type="text"
-                  :error="$v.signUpForm.firstName.$error"
+                  :error="$v.signUpForm.username.$error"
                 >
-                  First Name
+                  Username
                   <template
                     v-slot:error_required
-                    v-if="!$v.signUpForm.firstName.required"
+                    v-if="!$v.signUpForm.username.required"
                   >
-                    First Name is required
+                    Username is required
                   </template>
                   <template
                     v-slot:error_message
-                    v-if="!$v.signUpForm.firstName.minLength"
+                    v-if="!$v.signUpForm.username.minLength"
                   >
-                    First Name minimum length is 3 characters
+                    Username minimum length is 3 characters
                   </template>
                 </Input>
               </div>
               <div class="md:ml-2">
                 <Input
-                  name="lastname"
-                  v-model="signUpForm.lastName"
-                  placeholder="Doe"
+                  name="name"
+                  v-model="signUpForm.name"
+                  placeholder="John Doe"
                   type="text"
-                  :error="$v.signUpForm.lastName.$error"
+                  :error="$v.signUpForm.name.$error"
                 >
-                  Last Name
+                  Name
                   <template
                     v-slot:error_required
-                    v-if="!$v.signUpForm.lastName.required"
+                    v-if="!$v.signUpForm.name.required"
                   >
-                    Last Name is required
+                    Name is required
                   </template>
                   <template
                     v-slot:error_message
-                    v-if="!$v.signUpForm.lastName.minLength"
+                    v-if="!$v.signUpForm.name.minLength"
                   >
-                    Last Name minimum length is 3 characters
+                    Name minimum length is 3 characters
                   </template>
                 </Input>
               </div>
             </div>
             <div class="mb-4">
               <Input
-                name="mail"
-                v-model="signUpForm.mail"
+                name="email"
+                v-model="signUpForm.email"
                 placeholder="Johndoe@gmail.com"
                 type="email"
-                :error="$v.signUpForm.mail.$error"
+                :error="$v.signUpForm.email.$error"
               >
                 Email
                 <template
                   v-slot:error_required
-                  v-if="!$v.signUpForm.mail.required"
+                  v-if="!$v.signUpForm.email.required"
                 >
                   Email is required
                 </template>
                 <template
                   v-slot:error_message
-                  v-if="!$v.signUpForm.mail.emailValidator"
+                  v-if="!$v.signUpForm.email.emailValidator"
                 >
                   Email address is not valid
                 </template>
@@ -117,20 +116,20 @@
               <Input
                 name="confirmedPassword"
                 placeholder="**********"
-                v-model="signUpForm.confirmPassword"
+                v-model="signUpForm.passwordConfirmation"
                 type="password"
-                :error="$v.signUpForm.confirmPassword.$error"
+                :error="$v.signUpForm.passwordConfirmation.$error"
               >
                 Confirm Password
                 <template
                   v-slot:error_required
-                  v-if="!$v.signUpForm.confirmPassword.required"
+                  v-if="!$v.signUpForm.passwordConfirmation.required"
                 >
                   Confirm Password is required
                 </template>
                 <template
                   v-slot:error_message
-                  v-if="!$v.signUpForm.confirmPassword.sameAs"
+                  v-if="!$v.signUpForm.passwordConfirmation.sameAs"
                 >
                   Both do not match
                 </template>
@@ -153,83 +152,73 @@ import Input from "~/components/Input";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
 
+const md5 = require("md5");
+
 export default {
+  middleware: 'user',
   components: { Button },
   name: "SignUpPage",
   data() {
     return {
       signUpForm: {
-        firstName: "",
-        lastName: "",
-        mail: "",
+        username: "",
+        name: "",
+        email: "",
         password: "",
-        confirmPassword: "",
-      },
-      alert: {
-        alertType: "",
-        alertShow: false,
-      },
+        avatar: "",
+        passwordConfirmation: ""
+      }
     };
+  },
+  computed: {
+    isFormValid() {
+      return !this.$v.signUpForm.$nvalidi;
+    }
   },
   validations: {
     signUpForm: {
-      firstName: {
+      username: {
         required,
-        minLength: minLength(3),
+        minLength: minLength(3)
       },
-      lastName: {
+      name: {
         required,
-        minLength: minLength(3),
+        minLength: minLength(3)
       },
-      mail: {
+      email: {
         required,
-        emailValidator: email,
+        emailValidator: email
       },
       password: {
         required,
-        minLength: minLength(6),
+        minLength: minLength(6)
       },
-      confirmPassword: {
+      passwordConfirmation: {
         required,
-        sameAs: sameAs("password"),
-      },
-    },
+        sameAs: sameAs("password")
+      }
+    }
   },
   methods: {
     onSubmit() {
       this.$v.signUpForm.$touch();
-      this.alert.alertShow = true;
-      this.$axios
-        .$post("/api/signup", {
-          firstname: this.signUpForm.firstName,
-          lastname: this.signUpForm.lastName,
-          mail: this.signUpForm.mail,
-          password: this.signUpForm.password,
-          confirmedpassword: this.signUpForm.confirmPassword,
-        })
-        .then((result) => {
-          console.log(result);
-          if (result.status === 200) {
-            this.alert.alertType = "success";
-            this.alert.alertShow = true;
-          } else {
-            this.alert.alertType = "danger";
-            this.alert.alertShow = true;
-          }
-          // redirect
-        })
-        .catch((e) => {
-          console.log(e);
-          if (e.response.status === 400) {
-            this.alert.alertType = "warning";
-            this.alert.alertShow = true;
-          } else {
-            this.alert.alertType = "danger";
-            this.alert.alertShow = true;
-          }
-        });
-    },
-  },
+      this.signUpForm.avatar =
+        "https://www.gravatar.com/avatar/" +
+        md5(this.signUpForm.email.toLowerCase().trim()) +
+        "?d=identicon";
+      console.log(this.signUpForm);
+      if (this.isFormValid) {
+        this.$store
+          .dispatch("auth/register", this.signUpForm)
+          .then(_ => this.$router.push("/signin"))
+          .catch(error =>
+            this.$toasted.global.on_error({
+              message: "an unexpected error occured, please try again!"
+            })
+          );
+      }
+    }
+  }
 };
 </script>
 

@@ -1,28 +1,30 @@
 <template>
   <nuxt-link
-    v-if="link"
-    :to="link"
-    class="bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center cursor-pointer justify-center no-underline"
-    :class="[buttonCheck, buttonWidth ? 'w-' + buttonWidth : 'w-48']"
+    v-if="to"
+    :to="to"
+    :class="[
+      buttonCheck,
+      buttonWidth ? 'w-' + buttonWidth : 'w-48',
+      buttonStyles.container
+    ]"
   >
     <div class="text">
-      <p
-        class="font-hind text-xs md:text-xs font-semibold uppercase tracking-widest"
-      >
+      <p :class="buttonStyles.paragraph">
         <slot></slot>
       </p>
     </div>
   </nuxt-link>
   <component
     v-else
-    :is="typeButton"
-    class="bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center cursor-pointer justify-center no-underline"
-    :class="[buttonCheck, buttonWidth ? 'w-' + buttonWidth : 'w-48']"
+    :is="setButtonType"
+    :class="[
+      buttonCheck,
+      buttonWidth ? 'w-' + buttonWidth : 'w-48',
+      buttonStyles.container
+    ]"
   >
     <div class="text">
-      <p
-        class="font-hind text-xs md:text-xs font-semibold uppercase tracking-widest"
-      >
+      <p :class="buttonStyles.paragraph">
         <slot></slot>
       </p>
     </div>
@@ -37,7 +39,7 @@ export default {
       type: String,
       default: "a"
     },
-    link: {
+    to: {
       type: String,
       default: ""
     },
@@ -50,7 +52,13 @@ export default {
   },
   data() {
     return {
-      typeButton: this.buttonType
+      setButtonType: this.buttonType,
+      buttonStyles: {
+        container:
+          "bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center cursor-pointer justify-center no-underline",
+        paragraph:
+          "font-hind text-xs md:text-xs font-semibold uppercase tracking-widest"
+      }
     };
   },
   computed: {
