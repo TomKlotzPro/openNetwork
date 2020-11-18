@@ -102,8 +102,11 @@ import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  middleware: 'user',
-  components: { Button },
+  middleware: "user",
+  components: {
+    Button,
+    Input
+  },
   name: "SignInPage",
   data() {
     return {

@@ -41,7 +41,6 @@ import { Fragment } from "vue-fragment";
 import WorkSpaceCard from "@/components/WorkSpaceCard";
 import Navbar from "~/components/Navbar"
 export default {
-  middleware: "auth",
   layout: "workspace",
   components: {
     Fragment,

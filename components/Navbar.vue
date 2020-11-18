@@ -30,11 +30,16 @@
             >
               Hi {{ user.username }}
             </span>
-            <CustomLink event @on-click="() => $router.push('/workspace')" v-if="dafaultNav">Workspace</CustomLink
-            >
-            <CustomLink event @on-click="logout" v-if="dafaultNav"
-              >Log out</CustomLink
-            >
+            <template v-if="dafaultNav">
+              <CustomLink event @on-click="() => $router.push('/workspace')"
+                >Workspace</CustomLink
+              >
+              <CustomLink event @on-click="logout">Log out</CustomLink>
+            </template>
+            <template v-else>
+              <slot name="actionMenu"></slot>
+              <Button v-if="exitLink" :to="exitLink" class="ml-2" buttonWidth="40">Exit</Button>
+            </template>
           </template>
           <template v-else>
             <template v-if="dafaultNav">
@@ -65,6 +70,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    exitLink: {
+      type: String,
+      required: false
     }
   },
   components: {

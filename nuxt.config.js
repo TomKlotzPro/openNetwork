@@ -21,7 +21,8 @@ export default {
   plugins: [
     {src: '~/plugins/vuelidate'},
     {src: '~/plugins/filters'},
-    {src: '~/plugins/toasted', ssr:false}
+    {src: '~/plugins/toasted', ssr:false},
+    {src: '~/plugins/form_wizard'}
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
