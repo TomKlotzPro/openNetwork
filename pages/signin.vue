@@ -95,9 +95,9 @@
 </template>
 
 <script>
-import Button from "~/components/Button";
+import Button from "~/components/shared/Button";
 import Message from "~/components/Message";
-import Input from "~/components/Input";
+import Input from "~/components/shared/Input";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
 

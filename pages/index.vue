@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Hero from "~/components/Hero";
+import Hero from "~/components/shared/Hero";
 import ProjectCard from "~/components/ProjectCard";
 import BlogPost from "~/components/BlogPost";
 import { mapState } from "vuex";

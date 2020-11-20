@@ -22,14 +22,15 @@
     :description="project.description"
     :image="project.image"
     :status="project.status"
+    :to="`/workspace/project/${project._id}/manage`"
     buttonActionName="Update"
     />
   </Fragment>
 </template>
 
 <script>
-import Button from "~/components/Button";
-import Navbar from "~/components/Navbar";
+import Button from "~/components/shared/Button";
+import Navbar from "~/components/shared/Navbar";
 import WorkSpaceProjectCard from "~/components/WorkSpaceProjectCard"
 import { Fragment } from "vue-fragment";
 export default {

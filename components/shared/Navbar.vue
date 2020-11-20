@@ -60,7 +60,7 @@
 <script>
 import Search from "~/components/Search";
 import CustomLink from "~/components/CustomLink";
-import LogoNode from "../assets/images/opentwk.svg?inline";
+import LogoNode from "../../assets/images/opentwk.svg?inline";
 import Button from "./Button";
 import { mapGetters } from "vuex";
 

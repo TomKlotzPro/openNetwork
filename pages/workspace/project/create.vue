@@ -30,6 +30,7 @@
                 name="project_name"
                 :error="$v.title.$error"
                 noLabel
+                showTextCount
                 :maxLength="60"
                 placeholder="C# REST API"
                 v-model="title"
@@ -69,11 +70,11 @@
 </template>
 
 <script>
-import Button from "~/components/Button";
-import Input from "~/components/Input";
+import Button from "~/components/shared/Button";
+import Input from "~/components/shared/Input";
 import WizardHeader from "~/components/WizardHeader";
 import SelectOption from "~/components/SelectOption";
-import Navbar from "~/components/Navbar";
+import Navbar from "~/components/shared/Navbar";
 import { required } from "vuelidate/lib/validators";
 export default {
   layout: "workspace",

@@ -43,7 +43,7 @@
       <div class="w-full sm:w-1/2 md:w-1/4 px-3 text-center">
         <div class="p-5 xl:px-8 md:py-5">
           <Button
-            buttonType="button"
+            :to="to"
             buttonColor="nebula"
             buttonWidth="full"
             class="mb-4"
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import Button from "./Button";
+import Button from "~/components/shared/Button";
 export default {
   props: {
     image: {
@@ -77,6 +77,10 @@ export default {
       required: true
     },
     status: {
+      type: String,
+      required: true
+    },
+    to: {
       type: String,
       required: true
     }

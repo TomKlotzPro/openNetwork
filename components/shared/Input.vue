@@ -1,6 +1,6 @@
 <template>
   <Fragment v-if="noLabel">
-    <span class="text-grey-400 absolute positioning">
+    <span v-if="showTextCount" class="text-grey-400 absolute positioning">
       {{ remainingLength }}
     </span>
     <input
@@ -20,7 +20,7 @@
     </span>
   </Fragment>
   <Fragment v-else>
-    <label class="block mb-2 text-l font-bold text-grey-800" :for="name">
+    <label :class="stylesLabel ? stylesLabel : 'block mb-2 text-l font-bold text-grey-800'" :for="name">
       <slot></slot>
     </label>
     <input
@@ -75,10 +75,17 @@ export default {
       type: Boolean,
       default: false
     },
+    showTextCount: {
+      type: Boolean,
+      default: false
+    },
     maxLength: {
       type: Number,
-      default: 50,
       required: false
+    },
+    stylesLabel: {
+      type: String,
+      required: false,
     }
   },
   computed: {

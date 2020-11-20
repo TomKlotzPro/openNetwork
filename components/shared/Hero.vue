@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import HeroSVG from "../assets/images/hero.svg?inline";
+import HeroSVG from "../../assets/images/hero.svg?inline";
 import Button from "./Button";
 export default {
   components: {

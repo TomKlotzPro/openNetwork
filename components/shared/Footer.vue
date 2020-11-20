@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import LogoNode from "../assets/images/opentwk.svg?inline";
+import LogoNode from "../../assets/images/opentwk.svg?inline";
 
 export default {
   components: {

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import Button from "./Button";
+import Button from "~/components/shared/Button";
 import ErrorInfo from "./ErrorInfo";
 import LogoNode from "../assets/images/opentwk_w_name.svg?inline";
 

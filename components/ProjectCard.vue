@@ -3,7 +3,7 @@
     class="md:flex shadow-lg  mx-6 md:mx-auto my-8 max-w-lg md:max-w-2xl h-64"
   >
     <img
-      class="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none pb-5/6"
+      class="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none"
       :src="project.image"
       alt="bag"
     />
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import Button from "./Button";
+import Button from "~/components/shared/Button";
 export default {
   props: {
     project: {

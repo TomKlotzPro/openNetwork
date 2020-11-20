@@ -101,11 +101,11 @@ module.exports = {
         ubuntu: ["Ubuntu", "sans-serif"]
       },
       width: {
-        'w_lg': '48vw',
-        'w_sm': '71vw'
+        w_lg: "48vw",
+        w_sm: "71vw"
       }
     }
   },
   variants: {},
-  plugins: []
+  plugins: [require("@tailwindcss/ui")]
 };

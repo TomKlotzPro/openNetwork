@@ -39,7 +39,7 @@
 <script>
 import { Fragment } from "vue-fragment";
 import WorkSpaceCard from "@/components/WorkSpaceCard";
-import Navbar from "~/components/Navbar"
+import Navbar from "~/components/shared/Navbar"
 export default {
   layout: "workspace",
   components: {
