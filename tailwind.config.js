@@ -16,6 +16,7 @@ module.exports = {
         chat: "#c0392b",
         mello: "#8e44ad",
         sols: "#3a416f",
+        input: "#d2d6dc",
         transparent: "transparent",
         grey: {
           "900": "#23263b",
