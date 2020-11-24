@@ -9,6 +9,14 @@ module.exports = {
       colors: {
         black: "#000000",
         white: "#ffffff",
+        sublime: "#FC466B",
+        vivid: "#3F5EFB",
+        purp: "#7F00FF",
+        ink: "#E100FF",
+        chat: "#c0392b",
+        mello: "#8e44ad",
+        sols: "#3a416f",
+        input: "#d2d6dc",
         transparent: "transparent",
         grey: {
           "900": "#23263b",
@@ -94,11 +102,11 @@ module.exports = {
         ubuntu: ["Ubuntu", "sans-serif"]
       },
       width: {
-        'w_lg': '48vw',
-        'w_sm': '71vw'
+        w_lg: "48vw",
+        w_sm: "71vw"
       }
     }
   },
   variants: {},
-  plugins: []
+  plugins: [require("@tailwindcss/ui")]
 };

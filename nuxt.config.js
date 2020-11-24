@@ -19,7 +19,10 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    {src: '~/plugins/vuelidate'}
+    {src: '~/plugins/vuelidate'},
+    {src: '~/plugins/filters'},
+    {src: '~/plugins/toasted', ssr:false},
+    {src: '~/plugins/form_wizard'}
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -53,7 +56,7 @@ export default {
   },
 
   // Server Middleware
-  serverMiddleware: ["~/server/server.js"],
+  serverMiddleware: ["~/server/routes/index.js"],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {}
