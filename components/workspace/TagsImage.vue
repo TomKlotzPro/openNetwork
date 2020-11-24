@@ -14,15 +14,18 @@
       </div>
     </div>
     <div class="col-span-6">
-      <label
-        for="project_tags"
-        class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
-        >Tags</label
+      <Input
+        name="project_tags"
+        placeholder="Provide some tags for your projects"
+        type="text"
+        tagInput
+        :tags="project.tags"
+        @addTag="addTag($event, 'tags')"
+        @removeTag="removeTag($event, 'tags')"
+        stylesLabel="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
       >
-      <input
-        id="project_tags"
-        class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-      />
+        Tags
+      </Input>
     </div>
     <div class="mt-6">
       <label
@@ -31,10 +34,11 @@
         >Cover Image</label
       >
       <div
-        class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+        class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md w-56"
       >
         <div class="text-center">
           <svg
+            v-show="!showPreview"
             class="mx-auto h-12 w-12 text-gray-400"
             stroke="currentColor"
             fill="none"
@@ -48,14 +52,17 @@
             />
           </svg>
           <p class="mt-1 text-sm text-gray-600">
+            <input name="file" type="file" id="file" ref="file" accept="image/*" @change="handleFileUpload()" class="hidden"/>
+            <img :src="imagePreview" alt="image" v-show="showPreview">
             <button
               class="font-medium text-nebula-500 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
+              @click="$refs.file.click()"
             >
               Upload a file
             </button>
           </p>
           <p class="mt-1 text-xs text-gray-500">
-            PNG, JPG, GIF up to 10MB
+            PNG, JPG up to 10MB
           </p>
         </div>
       </div>
@@ -64,10 +71,45 @@
 </template>
 
 <script>
-import { Fragment } from "vue-fragment";
+import Input from "~/components/shared/Input";
 export default {
-  components: {
-    Fragment
+  props: {
+    project: {
+      type: Object,
+      required: true
+    }
+  },
+  data(){
+    return {
+      file: '',
+      showPreview: false,
+      imagePreview: ''
+    }
+  },
+  methods: {
+    addTag(payload, field) {
+      this.$store.dispatch("user/project/updateTags", { payload, field });
+    },
+    removeTag(index, field) {
+      this.$store.dispatch("user/project/removeTag", { field, index });
+    },
+    emitUpdate(payload, index) {
+      this.$emit("updateinput", { payload, index });
+    },
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+      let reader = new FileReader();
+      reader.addEventListener("load", function() {
+        this.showPreview = true;
+        this.imagePreview = reader.result;
+      }.bind(this), false);
+
+      if(this.file) {
+        if(/\.(jpe?g|png)$/i.test(this.file.name)) {
+          reader.readAsDataURL(this.file);
+        }
+      }
+    }
   }
 };
 </script>

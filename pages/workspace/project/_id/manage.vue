@@ -3,7 +3,8 @@
     <Navbar exitLink="/workspace/projects">
       <template #actionMenu>
         <Button
-          to="/workspace/project/create"
+          buttonType="button"
+          @click.native = "updateProject"
           buttonColor="nebula"
           buttonWidth="40"
         >
@@ -64,12 +65,14 @@
             </ul>
           </div>
         </div>
-        <div class="mt-5 md:mt-0 md:col-span-2 mr-8">
+        <div class="mt-5 md:mt-0 md:col-span-2 mr-8 mb-3">
           <div>
             <div class="shadow sm:rounded-md sm:overflow-hidden">
               <div class="px-4 py-5 bg-white sm:p-6">
                 <keep-alive>
-                  <component :is="activeComponent" :project="project"> </component>
+                  <component
+                  @projectValueUpdated="handleProjectUpdate"
+                  :is="activeComponent" :project="project"> </component>
                 </keep-alive>
               </div>
             </div>
@@ -106,13 +109,28 @@ export default {
       steps: ["TargetAudience", "LandingPage", "TagsImage", "Status"]
     };
   },
-  fetch({store, params}) {
-    return store.dispatch('user/project/fetchProjectById', params.id)
+  async fetch({store, params}) {
+    await store.dispatch('user/project/fetchProjectById', params.id)
+    await store.dispatch('category/fetchCategories')
   },
   computed: {
     ...mapState ({
       project: ({user}) => user.project.item
     })
+  },
+  methods: {
+    updateProject() {
+      this.$store.dispatch('user/project/updateProject').then(() => this.$toasted.global.on_success({
+        message: 'Your project update was successful!'
+      })).catch(error => {
+        console.log(error);
+        this.$toasted.global.on_error({
+        message: 'Sorry something went wrong!'
+      })})
+    },
+    handleProjectUpdate({payload, field}) {
+      this.$store.dispatch('user/project/updateProjectValue', {field, payload})
+    }
   }
 };
 </script>

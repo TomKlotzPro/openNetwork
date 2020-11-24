@@ -2,7 +2,11 @@
   <Fragment>
     <Navbar exitLink="/">
       <template #actionMenu>
-        <Button to="/workspace/project/create" buttonColor="nebula" buttonWidth="40">
+        <Button
+          to="/workspace/project/create"
+          buttonColor="nebula"
+          buttonWidth="40"
+        >
           New Project
         </Button>
       </template>
@@ -10,20 +14,28 @@
     <!-- HEADER COMPONENT -->
     <header class="bg-white py-8 lg:py:12 px-6 relative text-center">
       <div class="m-auto relative max-w-lg md:max-w-6xl">
-        <h1 class="m-0 mx-auto text-grey-800 h1_ch font-poppins text-4xl lg:text-5xl tracking-tight font-bold leading-none txt_shadow">Your Projects</h1>
-        <h3 class="mx-auto mt-2 mb-0 text-grey-500 justify-center h3_ch font-hind text-lg lg:text-text-2xl font-normal leading-snug">Create, edit, delete, save, publish, ...</h3>
+        <h1
+          class="m-0 mx-auto text-grey-800 h1_ch font-poppins text-4xl lg:text-5xl tracking-tight font-bold leading-none txt_shadow"
+        >
+          Your Projects
+        </h1>
+        <h3
+          class="mx-auto mt-2 mb-0 text-grey-500 justify-center h3_ch font-hind text-lg lg:text-text-2xl font-normal leading-snug"
+        >
+          Create, edit, delete, save, publish, ...
+        </h3>
       </div>
     </header>
     <!-- HEADER COMPONENT -->
     <WorkSpaceProjectCard
-    v-for="project in projects"
-    :key="project._id"
-    :title="project.title"
-    :description="project.description"
-    :image="project.image"
-    :status="project.status"
-    :to="`/workspace/project/${project._id}/manage`"
-    buttonActionName="Update"
+      v-for="project in projects"
+      :key="project._id"
+      :title="project.title"
+      :description="project.description"
+      :image="getImage(project.image)"
+      :status="project.status"
+      :to="`/workspace/project/${project._id}/manage`"
+      buttonActionName="Update"
     />
   </Fragment>
 </template>
@@ -31,7 +43,7 @@
 <script>
 import Button from "~/components/shared/Button";
 import Navbar from "~/components/shared/Navbar";
-import WorkSpaceProjectCard from "~/components/WorkSpaceProjectCard"
+import WorkSpaceProjectCard from "~/components/WorkSpaceProjectCard";
 import { Fragment } from "vue-fragment";
 export default {
   layout: "workspace",
@@ -43,22 +55,33 @@ export default {
   },
   computed: {
     projects() {
-      return this.$store.state.user.project.items
+      return this.$store.state.user.project.items;
     }
   },
   /**
    * fetch() : when server-rendering the page,
    * set fetchOnServer to false if we only want fetch on client side ;) (Just discovered this options on Nuxt's doc)
    */
-  fetch({store}) {
-    return store.dispatch('user/project/fetchUserProjects')
+  fetch({ store }) {
+    return store.dispatch("user/project/fetchUserProjects");
+  },
+  methods: {
+    getImage(imageName) {
+      this.$store
+        .dispatch("user/project/getProjectImage", imageName)
+        .then(res => {
+          console.log(res);
+          return res;
+        })
+        .catch(e => Promise.reject(e));
+    }
   }
 };
 </script>
 
 <style scoped>
 .h1_ch {
-  max-width: 35ch
+  max-width: 35ch;
 }
 .h3_ch {
   max-width: 60ch;

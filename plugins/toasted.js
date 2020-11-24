@@ -6,13 +6,22 @@ Vue.use(Toasted, {
   iconPack : 'material'
 });
 
-
-let error_options = {
+const defaultOptions = {
   type: 'show',
-  icon: 'error_outline',
   position: 'top-right',
   duration: 8000,
-  className: 'toast_styles',
+}
+
+const error_options = {
+  ...defaultOptions,
+  icon: 'error_outline',
+  className: ' toast toast_error_styles',
+}
+
+const success_options = {
+  ...defaultOptions,
+  icon: 'done',
+  className: 'toast toast_success_styles'
 }
 
 Vue.toasted.register('on_error',
@@ -23,4 +32,14 @@ Vue.toasted.register('on_error',
     return "Oops.. " + payload.message
   },
   error_options
+)
+
+Vue.toasted.register('on_success',
+  (payload) => {
+    if (!payload.message) {
+      return "Hey! Your query was successful!"
+    }
+    return "Hey! " + payload.message
+  },
+  success_options
 )

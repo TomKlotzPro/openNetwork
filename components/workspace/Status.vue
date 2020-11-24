@@ -20,24 +20,32 @@
           class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
           >Status</label
         >
-        <select
-          id="project_status"
-          class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-        >
-          <option value="default">Change Status</option>
-          <option value="active">Active</option>
-          <option value="published">Published</option>
-        </select>
+        <SelectOption
+          :value="project.status"
+          status="true"
+          @input="$event => emitProjectValue($event, 'status')"
+        ></SelectOption>
       </div>
     </div>
   </span>
 </template>
 
 <script>
-import { Fragment } from "vue-fragment";
+import SelectOption from "~/components/SelectOption";
 export default {
   components: {
-    Fragment
+    SelectOption
+  },
+  props: {
+    project: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    emitProjectValue(payload, field) {
+      this.$emit("projectValueUpdated", { payload, field });
+    }
   }
 };
 </script>

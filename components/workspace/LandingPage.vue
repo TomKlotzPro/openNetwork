@@ -15,30 +15,28 @@
     </div>
 
     <div class="col-span-6 mb-3">
-      <label
-        for="project_title"
-        class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
-        >Project Title</label
-      >
-      <input
-        id="project_title"
-        type="text"
-        class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+      <Input
+        @input="$event => emitProjectValue($event, 'title')"
+        :value="project.title"
+        name="project_title"
         placeholder="ES6 BackEnd REST API"
-      />
+        type="text"
+        stylesLabel="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
+      >
+        Project Title
+      </Input>
     </div>
     <div class="col-span-6 mb-3">
-      <label
-        for="project_sub_title"
-        class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
-        >Project subtitle</label
-      >
-      <input
-        id="project_sub_title"
-        type="text"
-        class="mt-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+      <Input
+        @input="$event => emitProjectValue($event, 'subtitle')"
+        :value="project.subtitle"
+        name="project_sub_title"
         placeholder="Implementing the NextGen JavaScript BackEnd REST API"
-      />
+        type="text"
+        stylesLabel="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
+      >
+        Project subtitle
+      </Input>
     </div>
     <div class="col-span-6 mb-3">
       <label
@@ -46,11 +44,14 @@
         class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
         >Project Description</label
       >
-      <div class="rounded-md shadow-sm">
+      <div class="rounded shadow">
+        <!-- TODO: Refactor Input component to use textarea -->
         <textarea
+          @input="$event => emitProjectValue($event, 'description')"
+          :value="project.description"
           id="project_description"
           rows="3"
-          class="form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+          class="form-textarea mt-1 block w-full transition text-l text-grey-800 border focus:shadow-none focus:border-grey-800 focus:outline-none sm:text-sm sm:leading-5"
           placeholder="Write something catchy about your awesome project!"
         ></textarea>
       </div>
@@ -62,14 +63,11 @@
         class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
         >Project Category</label
       >
-      <select
-        id="project_category"
-        class="mt-1 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-      >
-        <option>Web Development</option>
-        <option>Mobile Development</option>
-        <option>Software Development</option>
-      </select>
+      <SelectOption
+        :options="categories"
+        :value="project.category"
+        @input="$event => emitProjectValue($event, 'category')"
+      ></SelectOption>
     </div>
 
     <div class="col-span-6 sm:col-span-3">
@@ -80,14 +78,18 @@
       >
       <div class="mt-1 flex rounded-md shadow-sm">
         <span
-          class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
+          class="inline-flex items-center px-3 rounded-l border shadow border-r-0 border-sols bg-sols text-white text-xs tracking-widest"
         >
           URL
         </span>
-        <input
-          id="git_repository"
-          class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+        <Input
+          @input="$event => emitProjectValue($event, 'productLink')"
+          :value="project.productLink"
+          name="git_repository"
           placeholder="https://www.example.com"
+          type="text"
+          addStyles="rounded-l-none"
+          noLabel
         />
       </div>
     </div>
@@ -95,10 +97,28 @@
 </template>
 
 <script>
-import { Fragment } from "vue-fragment";
+import Input from "~/components/shared/Input";
+import SelectOption from "~/components/SelectOption";
 export default {
+  props: {
+    project: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    categories() {
+      return this.$store.state.category.items;
+    }
+  },
+  methods: {
+    emitProjectValue(payload, field) {
+      this.$emit("projectValueUpdated", { payload, field });
+    }
+  },
   components: {
-    Fragment
+    Input,
+    SelectOption
   }
 };
 </script>

@@ -44,6 +44,7 @@
 
 <script>
 import Button from "~/components/shared/Button";
+import Input from "~/components/shared/Input";
 export default {
   props: {
     label: {
@@ -60,7 +61,8 @@ export default {
     }
   },
   components: {
-    Button
+    Button,
+    Input
   },
   data() {
     return {
