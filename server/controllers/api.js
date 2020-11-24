@@ -1,4 +1,4 @@
-const ProductHero = require('../models/product-hero');
+//const ProductHero = require('../models/product-hero');
 const passport = require('passport');
 
 exports.getPageData = function (req, res, next) {

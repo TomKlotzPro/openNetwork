@@ -7,8 +7,8 @@ const Grid = require('gridfs-stream')
 require("../models/user");
 require("../models/product");
 require("../models/category");
-require("../models/product-hero");
-require("../models/blog");
+//require("../models/product-hero");
+//require("../models/blog");
 
 const options = {
   useNewUrlParser: true,

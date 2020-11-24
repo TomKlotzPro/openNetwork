@@ -6,7 +6,6 @@
 export default {};
 </script>
 
-<
 <style scoped>
 *,
 *:before,
