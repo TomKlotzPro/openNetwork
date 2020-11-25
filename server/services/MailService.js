@@ -18,7 +18,7 @@ exports.sendConfirmationEmail = function (user, token) {
 
     let mailOptions = {
         from: 'openetwork.mail@gmail.com',
-        to: `${user.firstName} ${user.lastName} <${user.mail}>`,
+        to: `${user.email}`,
         subject: 'Confirmation email',
         html: `Click on this <a href="http://localhost:3000/confirm/${token}">link</a> to confirm your email.`
         // FIXME: Set website url from local config file instead of localhost
@@ -26,8 +26,8 @@ exports.sendConfirmationEmail = function (user, token) {
 
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
-            return log('Error occured when sending a mail : ' + err);
+            console.log('Error occured when sending a mail : ' + err);
         }
-        return log('Email sent');
+        else console.log('Email sent');
     });
 }

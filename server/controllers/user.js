@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const passport = require('passport');
 const jwt = require('jsonwebtoken')
-const sendConfirmationEmail = require('../services/MailService')
+const { sendConfirmationEmail } = require('../services/MailService')
 const keys = require('../keys/index')
 
 exports.getCurrentUser = function (req, res, next) {
@@ -52,7 +52,7 @@ exports.register = function(req, res) {
 
     //// Send mail confirmation when user is created
     // Create token
-    const token = await jwt.sign({
+    const token = jwt.sign({
       id: savedUser._id
     }, 
     'JWT_KEY', //FIXME: Extract key from local config file
