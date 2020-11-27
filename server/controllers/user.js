@@ -55,7 +55,7 @@ exports.register = function(req, res) {
     const token = jwt.sign({
       id: savedUser._id
     }, 
-    'JWT_KEY', //FIXME: Extract key from local config file
+    keys.JWT_KEY,
     {
         expiresIn: '1d',
     }) 
