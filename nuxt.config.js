@@ -19,10 +19,11 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    {src: '~/plugins/vuelidate'},
-    {src: '~/plugins/filters'},
-    {src: '~/plugins/toasted', ssr:false},
-    {src: '~/plugins/form_wizard'}
+    { src: '~/plugins/vuelidate' },
+    { src: '~/plugins/filters' },
+    { src: '~/plugins/toasted', ssr: false },
+    { src: '~/plugins/form_wizard' },
+    { src: '~/plugins/socket.io' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -43,7 +44,15 @@ export default {
   },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ["@nuxtjs/axios", "nuxt-webfontloader", "@nuxtjs/svg"],
+  modules: ["@nuxtjs/axios", "nuxt-webfontloader", "@nuxtjs/svg", 'nuxt-socket-io',],
+
+  io: {
+    // module options
+    sockets: [{
+      name: 'main',
+      url: 'http://localhost:3000'
+    }]
+  },
 
   webfontloader: {
     google: {

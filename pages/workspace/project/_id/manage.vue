@@ -4,7 +4,7 @@
       <template #actionMenu>
         <Button
           buttonType="button"
-          @click.native = "updateProject"
+          @click.native="updateProject"
           buttonColor="nebula"
           buttonWidth="40"
         >
@@ -52,9 +52,7 @@
                 class="border-l-4 border-grey-200 py-2 pl-4 pr-2 mb-4"
                 :class="activeComponentStyle(3)"
               >
-                <a @click.prevent="navigateToComponent(3)"
-                  >Tags and Image</a
-                >
+                <a @click.prevent="navigateToComponent(3)">Tags and Image</a>
               </li>
               <li
                 class="border-l-4 border-grey-200 py-2 pl-4 pr-2 mb-4"
@@ -71,8 +69,11 @@
               <div class="px-4 py-5 bg-white sm:p-6">
                 <keep-alive>
                   <component
-                  @projectValueUpdated="handleProjectUpdate"
-                  :is="activeComponent" :project="project"> </component>
+                    @projectValueUpdated="handleProjectUpdate"
+                    :is="activeComponent"
+                    :project="project"
+                  >
+                  </component>
                 </keep-alive>
               </div>
             </div>
@@ -91,8 +92,8 @@ import Navbar from "~/components/shared/Navbar";
 import TagsImage from "~/components/workspace/TagsImage";
 import TargetAudience from "~/components/workspace/TargetAudience";
 import Input from "~/components/shared/Input";
-import ComponentsMixin from '~/mixins/ComponentsMixin';
-import { mapState } from 'vuex'
+import ComponentsMixin from "~/mixins/ComponentsMixin";
+import { mapState } from "vuex";
 export default {
   layout: "workspace",
   components: {
@@ -101,37 +102,46 @@ export default {
     TagsImage,
     TargetAudience,
     LandingPage,
-    Navbar
+    Navbar,
   },
   mixins: [ComponentsMixin],
   data() {
     return {
-      steps: ["TargetAudience", "LandingPage", "TagsImage", "Status"]
+      steps: ["TargetAudience", "LandingPage", "TagsImage", "Status"],
     };
   },
-  async fetch({store, params}) {
-    await store.dispatch('user/project/fetchProjectById', params.id)
-    await store.dispatch('category/fetchCategories')
+  async fetch({ store, params }) {
+    await store.dispatch("user/project/fetchProjectById", params.id);
+    await store.dispatch("category/fetchCategories");
   },
   computed: {
-    ...mapState ({
-      project: ({user}) => user.project.item
-    })
+    ...mapState({
+      project: ({ user }) => user.project.item,
+    }),
   },
   methods: {
     updateProject() {
-      this.$store.dispatch('user/project/updateProject').then(() => this.$toasted.global.on_success({
-        message: 'Your project update was successful!'
-      })).catch(error => {
-        console.log(error);
-        this.$toasted.global.on_error({
-        message: 'Sorry something went wrong!'
-      })})
+      this.$store
+        .dispatch("user/project/updateProject")
+        .then(() =>
+          this.$toasted.global.on_success({
+            message: "Your project update was successful!",
+          })
+        )
+        .catch((error) => {
+          console.log(error);
+          this.$toasted.global.on_error({
+            message: "Sorry something went wrong!",
+          });
+        });
     },
-    handleProjectUpdate({payload, field}) {
-      this.$store.dispatch('user/project/updateProjectValue', {field, payload})
-    }
-  }
+    handleProjectUpdate({ payload, field }) {
+      this.$store.dispatch("user/project/updateProjectValue", {
+        field,
+        payload,
+      });
+    },
+  },
 };
 </script>
 

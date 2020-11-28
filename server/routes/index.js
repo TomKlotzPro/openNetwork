@@ -11,18 +11,20 @@ const passport = require("passport");
 const usersRoutes = require("./user");
 const productRoutes = require("./product");
 const categoryRoutes = require("./category");
+const channelRoutes = require("./channel")
 const apiRoutes = require("./api");
+const conversationRoutes = require('./conversation');
 const formidable = require('express-formidable')
 
 require("../services/passport");
 
 // connect to DB
 db.connect();
-
 const store = db.initSessionStore();
 
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(formidable())
 // var csrf = require('csurf');
 // consider using this
@@ -52,6 +54,8 @@ app.use("", apiRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/channel", channelRoutes);
+app.use("/cha/conversations", conversationRoutes)
 
 module.exports = {
   path: "/api/v1",

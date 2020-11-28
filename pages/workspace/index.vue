@@ -1,8 +1,8 @@
 <template>
   <Fragment>
     <div class="banner bg-white"></div>
-    <Navbar/>
-    <div class="mt-32 grid">
+    <Navbar />
+    <div class="mt-16 grid">
       <div class="w-full text-center">
         <p
           class="mt-0 mb-2 text-grey-400 font-poppins text-sm lg:text-sm font-semibold tracking-widest uppercase"
@@ -17,7 +17,11 @@
       </div>
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mx-auto my-12">
-        <WorkSpaceCard title="Manage your projects" image="project.png" @on-click="() => $router.push('/workspace/projects')">
+        <WorkSpaceCard
+          title="Manage your projects"
+          image="project.png"
+          @on-click="() => $router.push('/workspace/projects')"
+        >
           Within this section, Create, Add, Edit and Publish your amazing
           projects to the entire community!
         </WorkSpaceCard>
@@ -27,7 +31,11 @@
           write and help others with your amazing knowledge!
         </WorkSpaceCard>
 
-        <WorkSpaceCard title="ON Chat App" image="chat.png">
+        <WorkSpaceCard
+          title="ON Chat App"
+          image="chat.png"
+          @on-click="() => $router.push('/workspace/chat')"
+        >
           What else can be more interesting than insant communication? Give a
           try to ON Chat App!
         </WorkSpaceCard>
@@ -39,13 +47,13 @@
 <script>
 import { Fragment } from "vue-fragment";
 import WorkSpaceCard from "@/components/WorkSpaceCard";
-import Navbar from "~/components/shared/Navbar"
+import Navbar from "~/components/shared/Navbar";
 export default {
   layout: "workspace",
   components: {
     Fragment,
     WorkSpaceCard,
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>

@@ -4,7 +4,7 @@
     <div class="flex justify-center items-center min-h-full">
       <div class="w-full lg:w-1/3 xl:w-2/4 py-5 px-4 my-10">
         <form-wizard
-          class="w-full rounded-sm  mx-auto my-0 relative bg-white shadow-lg rounded overflow-hidden"
+          class="w-full rounded-sm mx-auto my-0 relative bg-white shadow-lg rounded overflow-hidden"
           shape="tab"
           back-button-text="Back"
           next-button-text="Next"
@@ -83,26 +83,26 @@ export default {
     Input,
     WizardHeader,
     Navbar,
-    SelectOption
+    SelectOption,
   },
   data() {
     return {
       title: "",
-      category: ""
+      category: "",
     };
   },
   validations: {
     title: {
-      required
+      required,
     },
     category: {
-      required
-    }
+      required,
+    },
   },
   computed: {
     categories() {
       return this.$store.state.category.items;
-    }
+    },
   },
   fetch({ store }) {
     return store.dispatch("category/fetchCategories");
@@ -117,11 +117,11 @@ export default {
       this.$store
         .dispatch("user/project/createProject", {
           title: this.title,
-          category: this.category
+          category: this.category,
         })
-        .then(_ => this.$router.push("/workspace/projects"));
-    }
-  }
+        .then((_) => this.$router.push("/workspace/projects"));
+    },
+  },
 };
 </script>
 
