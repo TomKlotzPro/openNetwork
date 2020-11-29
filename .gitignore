@@ -1,3 +1,4 @@
 local.server.config.js
 node_modules/
 .nuxt
+.env

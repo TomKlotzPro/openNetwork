@@ -1,6 +1,7 @@
 export const state = () => ({
   items: [],
-  item: {}
+  item: {},
+  canUpdateProject: false
 });
 
 export const actions = {
@@ -15,14 +16,6 @@ export const actions = {
         Promise.reject(error);
       });
   },
-  getProjectImage({ state, commit }, imageName) {
-    console.log('IMAGE : ', imageName)
-    return this.$axios.$get(`/api/v1/products/image`, {
-      params: {
-        'image' : `${imageName}`,
-      }
-    });
-  },
   createProject(_, projectData) {
     return this.$axios.$post("/api/v1/products", projectData);
   },
@@ -32,35 +25,39 @@ export const actions = {
       return state.item;
     });
   },
-  updateProject({ state, commit }) {
+  uploadProjectImage({ state, commit }) {
     const file = document.getElementById("file").files;
     const formData = new FormData();
+    formData.append("image", file[0])
     const project = state.item;
-
-    if (file) {
-      formData.append("file", file[0]);
-      formData.append("projectId", project._id);
-      this.$axios
-        .$patch(`/api/v1/products/upload`, formData)
-        .then(result => {
-          console.log(result);
-        })
-        .catch(error => Promise.reject(error));
-    }
-    console.log("Check Product Image : ", project.image);
+    return this.$axios
+      .$post(`/api/v1/products/${project._id}/add-project-image`, formData)
+      .then(data => {
+        return data;
+      })
+      .catch(error => Promise.reject(error));
+  },
+  updateProject({ state, commit }) {
+    const project = state.item;
     return this.$axios
       .$patch(`/api/v1/products/${project._id}`, project)
       .then(project => {
         commit("setProject", project);
+        commit("setCanUpdateProject", false)
         return state.item;
       })
       .catch(error => Promise.reject(error));
   },
+  // TODO: Cache previous value and verify if we can update project
+  // TODO: Set can update only when project values has been updated
   updateInput({ commit }, { index, payload, field }) {
     commit("setInputValue", { index, payload, field });
+    commit("setCanUpdateProject", true)
   },
   updateProjectValue({ commit }, { payload, field }) {
     commit("setProjectValue", { payload, field });
+    commit("setCanUpdateProject", true)
+
   },
   updateTags({ commit }, { payload, field }) {
     commit("setTagValue", { payload, field });
@@ -94,5 +91,8 @@ export const mutations = {
   },
   setRemoveTagValue(state, { field, index }) {
     state.item[field].splice(index, 1);
+  },
+  setCanUpdateProject(state, canUpdate) {
+    state.canUpdateProject = canUpdate;
   }
 };

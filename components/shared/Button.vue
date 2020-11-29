@@ -24,7 +24,7 @@
     ]"
   >
     <div class="text">
-      <p :class="buttonStyles.paragraph">
+      <p :class="[buttonStyles.paragraph, buttonDisabled && 'text-grey-400']">
         <slot></slot>
       </p>
     </div>
@@ -48,6 +48,9 @@ export default {
     },
     buttonWidth: {
       type: String
+    },
+    buttonDisabled: {
+      type: Boolean
     }
   },
   data() {
@@ -65,6 +68,8 @@ export default {
     buttonCheck: function() {
       if (this.buttonColor === "nebula") return "button nebula text-white";
       else if (this.buttonColor === "black") return "button black text-white";
+      else if (this.buttonColor === "disabled")
+        return "button disabled text-white";
       else return "button white text-grey-500";
     }
   }
@@ -90,6 +95,11 @@ export default {
   background: linear-gradient(#aeb7ff, #5468ff) no-repeat;
   box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
     0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
+}
+.button.disabled {
+  background: linear-gradient(#f5f5fa, #e4e4e9) no-repeat;
+  box-shadow: 0 7px 14px -3px rgba(45, 35, 66, 0.3),
+    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
 }
 .button.black {
   text-shadow: 0 1px 0 #23263b;

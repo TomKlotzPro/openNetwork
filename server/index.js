@@ -2,7 +2,6 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
-const keys = require('./keys');
 
 const config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')

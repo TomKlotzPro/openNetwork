@@ -32,7 +32,7 @@
       :key="project._id"
       :title="project.title"
       :description="project.description"
-      :image="getImage(project.image)"
+      :image="project.image"
       :status="project.status"
       :to="`/workspace/project/${project._id}/manage`"
       buttonActionName="Update"
@@ -64,17 +64,6 @@ export default {
    */
   fetch({ store }) {
     return store.dispatch("user/project/fetchUserProjects");
-  },
-  methods: {
-    getImage(imageName) {
-      this.$store
-        .dispatch("user/project/getProjectImage", imageName)
-        .then(res => {
-          console.log(res);
-          return res;
-        })
-        .catch(e => Promise.reject(e));
-    }
   }
 };
 </script>

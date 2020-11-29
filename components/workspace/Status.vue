@@ -23,7 +23,7 @@
         <SelectOption
           :value="project.status"
           status="true"
-          @input="$event => emitProjectValue($event, 'status')"
+          @change="$event => emitProjectValue($event, 'status')"
         ></SelectOption>
       </div>
     </div>

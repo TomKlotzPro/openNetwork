@@ -96,9 +96,9 @@ export default {
         const option = this.options.find(option => {
           return selectedName === option.name;
         });
-        this.$emit("input", option);
+        this.$emit("change", option);
       } else {
-        this.$emit("input", e.target.value);
+        this.$emit("change", e.target.value);
       }
     }
   }

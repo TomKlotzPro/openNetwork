@@ -52,8 +52,16 @@
             />
           </svg>
           <p class="mt-1 text-sm text-gray-600">
-            <input name="file" type="file" id="file" ref="file" accept="image/*" @change="handleFileUpload()" class="hidden"/>
-            <img :src="imagePreview" alt="image" v-show="showPreview">
+            <input
+              name="file"
+              type="file"
+              id="file"
+              ref="file"
+              accept="image/*"
+              @change="handleFileUpload()"
+              class="hidden"
+            />
+            <img :src="imagePreview" alt="image" v-show="showPreview" />
             <button
               class="font-medium text-nebula-500 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
               @click="$refs.file.click()"
@@ -79,12 +87,12 @@ export default {
       required: true
     }
   },
-  data(){
+  data() {
     return {
-      file: '',
+      file: "",
       showPreview: false,
-      imagePreview: ''
-    }
+      imagePreview: ""
+    };
   },
   methods: {
     addTag(payload, field) {
@@ -99,16 +107,34 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
       let reader = new FileReader();
-      reader.addEventListener("load", function() {
-        this.showPreview = true;
-        this.imagePreview = reader.result;
-      }.bind(this), false);
+      reader.addEventListener(
+        "load",
+        function() {
+          this.showPreview = true;
+          this.imagePreview = reader.result;
+        }.bind(this),
+        false
+      );
 
-      if(this.file) {
-        if(/\.(jpe?g|png)$/i.test(this.file.name)) {
+      if (this.file) {
+        if (/\.(jpe?g|png)$/i.test(this.file.name)) {
           reader.readAsDataURL(this.file);
         }
       }
+      this.$store
+        .dispatch("user/project/uploadProjectImage")
+        .then((data) => {
+          console.log(data)
+          this.$toasted.global.on_success({
+            message: "Image upload was successful!"
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          this.$toasted.global.on_error({
+            message: "Sorry something went wrong!"
+          });
+        });
     }
   }
 };
