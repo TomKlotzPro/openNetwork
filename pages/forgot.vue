@@ -12,7 +12,7 @@
           <h2
             class="pt-4 text-3xl font-normal not-italic text-grey-600 text-center leading-tight font-hind"
           >
-            Welcome Back!
+            Reset Password
           </h2>
           <form
             @submit.prevent="onSubmit"
@@ -21,72 +21,31 @@
             <div class="mb-4">
               <Input
                 name="mail"
-                v-model="signInForm.email"
+                v-model="forgot.email"
                 placeholder="johndoe@gmail.com"
                 type="email"
                 autofocus=""
                 autocomplete="email"
-                :error="$v.signInForm.email.$error"
+                :error="$v.forgot.email.$error"
               >
                 Email
                 <template
                   v-slot:error_required
-                  v-if="!$v.signInForm.email.required"
+                  v-if="!$v.forgot.email.required"
                 >
                   Email is required
                 </template>
                 <template
                   v-slot:error_message
-                  v-if="!$v.signInForm.email.emailValidator"
+                  v-if="!$v.forgot.email.emailValidator"
                 >
                   Email address is not valid
                 </template>
               </Input>
             </div>
-            <div class="mb-4">
-              <Input
-                name="password"
-                v-model="signInForm.password"
-                placeholder="**********"
-                type="password"
-                autocomplete="current-password"
-                :error="$v.signInForm.password.$error"
-              >
-                Password
-                <template
-                  v-slot:error_required
-                  v-if="!$v.signInForm.password.required"
-                >
-                  Password is required
-                </template>
-                <template
-                  v-slot:error_message
-                  v-if="!$v.signInForm.password.minLength"
-                >
-                  Password minimum length is 6 characters
-                </template>
-              </Input>
-            </div>
             <Button buttonType="button" buttonColor="nebula" buttonWidth="full">
-              Sign In
+              Reset
             </Button>
-            <hr class="mb-6 border-t mt-8" />
-            <div class="text-center">
-              <nuxt-link
-                class="inline-block text-sm text-grey-600 align-baseline hover:text-nebula-500"
-                to="/signup"
-              >
-                Create an Account!
-              </nuxt-link>
-            </div>
-            <div class="text-center">
-              <nuxt-link
-                class="inline-block text-sm text-grey-600 align-baseline hover:text-nebula-500"
-                to="/forgot"
-              >
-                Forgot Password?
-              </nuxt-link>
-            </div>
           </form>
         </div>
       </div>
@@ -98,7 +57,7 @@
 import Button from "~/components/shared/Button";
 import Message from "~/components/Message";
 import Input from "~/components/shared/Input";
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -107,25 +66,20 @@ export default {
     Button,
     Input
   },
-  name: "SignInPage",
+  name: "ForgotPage",
   data() {
     return {
-      signInForm: {
-        email: "",
-        password: ""
+      forgot: {
+        email: ""
       }
     };
   },
   validations: {
-    signInForm: {
+    forgot: {
       email: {
         required,
         emailValidator: email
       },
-      password: {
-        required,
-        minLength: minLength(6)
-      }
     }
   },
   computed: {
@@ -135,14 +89,14 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$v.signInForm.$touch();
+      this.$v.forgot.$touch();
       if (this.isFormValid) {
         this.$store
-          .dispatch("auth/login", this.signInForm)
-          .then(() => this.$router.push("/"))
-          .catch(() =>
+          .dispatch("auth/forgot", this.forgot)
+          .then(_ => this.$router.push("/signin"))
+          .catch(error =>
             this.$toasted.global.on_error({
-              message: "Wrong Email or Password"
+              message: "Wrong Email"
             })
           );
       }

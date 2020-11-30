@@ -31,3 +31,29 @@ exports.sendConfirmationEmail = function (user, token) {
         else console.log('Email sent');
     });
 }
+
+exports.sendResetPassword = function (user, token) {
+    // TODO: Set here an email account from our mail provider
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: keys.MAILSERVICE_MAIL, 
+            pass: keys.MAILSERVICE_PASS
+        }
+    });
+
+    let mailOptions = {
+        from: 'openetwork.mail@gmail.com',
+        to: `${user.email}`,
+        subject: 'Reset password',
+        html: `Click on this <a href="http://localhost:3000/reset?token=${token}">link</a> to reset your password.`
+        // FIXME: Set website url from local config file instead of localhost
+    };
+
+    transporter.sendMail(mailOptions, (err, data) => {
+        if (err) {
+            console.log('Error occured when sending a mail : ' + err);
+        }
+        else console.log('Email sent');
+    });
+}

@@ -11,4 +11,8 @@ router.post('/login', UsersCtrl.login)
 router.post('/logout', UsersCtrl.logout)
 router.post('/confirm/:token', UsersCtrl.confirmEmail)
 
+router.post('/forgot', UsersCtrl.forgotPassword)
+router.post('/resetPwd/:token', UsersCtrl.resetPassword)
+
+
 module.exports = router;
