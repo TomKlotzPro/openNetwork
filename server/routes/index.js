@@ -7,6 +7,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const keys = require("../keys");
 const passport = require("passport");
+const cors = require("cors")
 
 const usersRoutes = require("./user");
 const productRoutes = require("./product");
@@ -23,9 +24,7 @@ const store = db.initSessionStore();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-//app.use(formidable())
-// var csrf = require('csurf');
-// consider using this
+app.use(cors())
 
 const sess = {
   name: "openetwork-secure-session",

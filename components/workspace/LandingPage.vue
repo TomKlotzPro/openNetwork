@@ -38,24 +38,6 @@
         Project subtitle
       </Input>
     </div>
-    <div class="col-span-6 mb-3">
-      <label
-        for="project_description"
-        class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
-        >Project Description</label
-      >
-      <div class="rounded shadow">
-        <!-- TODO: Refactor Input component to use textarea -->
-        <textarea
-          @input="$event => emitProjectValue($event, 'description')"
-          :value="project.description"
-          id="project_description"
-          rows="3"
-          class="form-textarea mt-1 block w-full transition text-l text-grey-800 border focus:shadow-none focus:border-grey-800 focus:outline-none sm:text-sm sm:leading-5"
-          placeholder="Write something catchy about your awesome project!"
-        ></textarea>
-      </div>
-    </div>
 
     <div class="col-span-6 sm:col-span-3 mb-3">
       <label
@@ -66,10 +48,29 @@
       <SelectOption
         :options="categories"
         :value="project.category"
-        @input="$event => emitProjectValue($event, 'category')"
+        @change="$event => emitProjectValue($event, 'category')"
       ></SelectOption>
     </div>
-
+    <div class="col-span-6 mb-3">
+      <label
+        for="project_description"
+        class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
+        >Project Description</label
+      >
+      <div class="rounded shadow">
+        <!-- TODO: Refactor Input component to use textarea -->
+        <textarea
+          @input="
+            $event => emitProjectValue($event.target.value, 'description')
+          "
+          :value="project.description"
+          id="project_description"
+          rows="3"
+          class="form-textarea mt-1 block w-full transition text-l text-grey-800 border focus:shadow-none focus:border-grey-800 focus:outline-none sm:text-sm sm:leading-5"
+          placeholder="Write something catchy about your awesome project!"
+        ></textarea>
+      </div>
+    </div>
     <div class="col-span-6 sm:col-span-3">
       <label
         for="git_repository"

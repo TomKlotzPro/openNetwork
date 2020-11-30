@@ -88,7 +88,9 @@ export default {
   },
   methods: {
     emitAdd() {
-      this.canAddInput && this.$emit("addInput");
+      if(this.canAddInput || this.inputs.length === 0) {
+        this.$emit("addInput");
+      }
     },
     emitRemove(index) {
       this.canDeleteInput && this.$emit("removeInput", index);
