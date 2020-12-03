@@ -24,7 +24,7 @@ router.post("", AuthCtrl.onlyAuthUser, /* AuthCtrl.onlyAdmin, */ blogCtrl.create
 router.patch(
   "/:id",
   AuthCtrl.onlyAuthUser,
-  AuthCtrl.onlyAdmin,
+  //AuthCtrl.onlyAdmin,
   blogCtrl.updateBlog
 );
 

@@ -53,9 +53,9 @@ export default {
   webfontloader: {
     google: {
       families: [
-        "Hind:4,i4,5,i5,7,i7",
-        "Poppins:4,i4,5,i5,6,i6,7,i7",
-        "Ubuntu:4,5"
+        "Hind:400,400italic,500,500italic,700,700italic",
+        "Poppins:400,400italic,500,500italic,600,600italic,700,700italic",
+        "Ubuntu:400,500"
       ]
     }
   },

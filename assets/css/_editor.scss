@@ -62,13 +62,12 @@
       caret-color: currentColor;
       font-family: "Hind", sans-serif;
       font-style: normal;
-      color: #3a416f;
     }
 
     h1 {
       font-size: 50px;
       font-weight: bold;
-      color: #5468ff
+      color: #5468ff;
     }
 
     h2 {
@@ -85,6 +84,10 @@
 
     hr {
       background-color: black;
+    }
+
+    em {
+      font-style: italic;
     }
 
     pre {
@@ -114,8 +117,8 @@
       min-height: 30px;
       font-size: 21px;
       line-height: 1.58;
-      letter-spacing: -.003em;
-      color: #36395a
+      letter-spacing: -0.003em;
+      color: #36395a;
     }
 
     ul {
@@ -145,6 +148,7 @@
 
       p {
         margin: 0;
+        font-style: italic;
       }
     }
 
@@ -160,7 +164,8 @@
       margin: 0;
       overflow: hidden;
 
-      td, th {
+      td,
+      th {
         min-width: 1em;
         border: 2px solid #36395a;
         padding: 3px 5px;
@@ -181,14 +186,19 @@
         z-index: 2;
         position: absolute;
         content: "";
-        left: 0; right: 0; top: 0; bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         background: rgba(200, 200, 255, 0.4);
         pointer-events: none;
       }
 
       .column-resize-handle {
         position: absolute;
-        right: -2px; top: 0; bottom: 0;
+        right: -2px;
+        top: 0;
+        bottom: 0;
         width: 4px;
         z-index: 20;
         background-color: #adf;

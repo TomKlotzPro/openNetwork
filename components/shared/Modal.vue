@@ -64,9 +64,11 @@
             </div>
             <div class="sm:flex sm:items-start">
               <div
-                class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-nebula-100 sm:mx-0 sm:h-10 sm:w-10"
+                class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 sm:h-10 sm:w-10"
+                :class="!publishError ? 'bg-nebula-100' : 'bg-red-100'"
               >
                 <svg
+                  v-if="!publishError"
                   class="h-5 w-5 text-nebula-500"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -79,29 +81,48 @@
                     clip-rule="evenodd"
                   />
                 </svg>
+                <svg
+                  v-else
+                  class="h-6 w-6 text-red-600"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
               </div>
               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3
-                  class="text-lg leading-6 font-medium text-sols"
+                  class="text-lg leading-6 font-hind tracking-tighter font-semibold text-sols"
                   id="modal-headline"
                 >
-                  Deactivate account
+                  Review Details
                 </h3>
                 <div class="mt-2">
                   <p class="text-sm text-gray-500">
-                    Are you sure you want to deactivate your account? All of
-                    your data will be permanently removed from our servers
+                    Are you sure you want to publish your article? Once published your article's url will be permanent and can't be changed later.
                     forever. This action cannot be undone.
+                  </p>
+                  <p class="text-xs mt-2 text-nebula-500 uppercase tracking-widest">
+                    Your url:
                   </p>
                 </div>
               </div>
             </div>
-            <Alert />
+            <Alert v-if="!publishError" icon="link" :content="slug" />
+            <Alert v-else icon="error" :content="publishError" />
             <div class="mt-5 sm:mt-4 sm:ml-10 sm:pl-4 sm:flex">
               <Button buttonType="button" buttonColor="nebula" buttonWidth="40">
                 Submit
               </Button>
-              <Button buttonType="button" buttonWidth="40" class="sm:ml-4">
+              <Button @click="closeModal" buttonType="button" buttonWidth="40" class="sm:ml-4">
                 Cancel
               </Button>
             </div>
@@ -126,6 +147,16 @@ export default {
       type: Boolean,
       required: true,
       default: false
+    },
+    publishError: {
+      type: String,
+      required: false,
+      default: ""
+    },
+    slug: {
+      type: String,
+      required: false,
+      default: ""
     }
   },
   methods: {

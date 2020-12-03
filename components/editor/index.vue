@@ -7,8 +7,10 @@
             <Button
               @click.native="emitUpdate"
               buttonType="button"
-              buttonColor="nebula"
+              :buttonColor="isSaving ? 'disabled' : 'nebula'"
+              :disabled="isSaving"
               class="inline-block m-0"
+              :buttonDisabled="isSaving"
               >Save</Button
             >
           </template>
@@ -80,6 +82,12 @@ export default {
     BasicMenu,
     Button
   },
+  props: {
+    isSaving: {
+      required: false,
+      default: false
+    }
+  },
   data() {
     return {
       editor: null
@@ -147,6 +155,7 @@ export default {
         })
       ]
     });
+    this.$emit('editorMounted', this.editor)
   },
   beforeDestroy() {
     // To destroy editor instance when it's no longer needed
