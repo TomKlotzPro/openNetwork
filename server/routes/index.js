@@ -12,6 +12,7 @@ const cors = require("cors")
 const usersRoutes = require("./user");
 const productRoutes = require("./product");
 const categoryRoutes = require("./category");
+const blogRoutes = require("./blog");
 const apiRoutes = require("./api");
 const formidable = require('express-formidable')
 
@@ -51,6 +52,7 @@ app.use("", apiRoutes);
 app.use("/users", usersRoutes);
 app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/blogs", blogRoutes);
 
 module.exports = {
   path: "/api/v1",

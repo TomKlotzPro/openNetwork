@@ -11,11 +11,16 @@ export default {
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/6f67b3e9f1.js'
+      }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ["~assets/css/tailwind.css"],
+  css: ["~assets/css/tailwind.css", "@/assets/css/_index.scss"],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
@@ -48,9 +53,9 @@ export default {
   webfontloader: {
     google: {
       families: [
-        "Hind:400,500,700",
-        "Poppins:400,500,600,700",
-        "Ubuntu:400,500"
+        "Hind:4,i4,5,i5,7,i7",
+        "Poppins:4,i4,5,i5,6,i6,7,i7",
+        "Ubuntu:4,5"
       ]
     }
   },

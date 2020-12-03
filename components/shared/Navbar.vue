@@ -34,6 +34,7 @@
               <CustomLink event @on-click="() => $router.push('/workspace')"
                 >Workspace</CustomLink
               >
+              <CustomLink link="/blogs">Blogs</CustomLink>
               <CustomLink event @on-click="logout">Log out</CustomLink>
             </template>
             <template v-else>
@@ -44,7 +45,7 @@
           <template v-else>
             <template v-if="dafaultNav">
               <CustomLink link="/about">About</CustomLink>
-              <CustomLink link="/blog">Blog</CustomLink>
+              <CustomLink link="/blog">Blogs</CustomLink>
               <CustomLink link="/signin">Log in</CustomLink>
               <CustomLink link="/signup">Sign up</CustomLink>
             </template>
