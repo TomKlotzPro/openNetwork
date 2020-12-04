@@ -24,10 +24,8 @@
             name="tabs"
             class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
           >
-            <option>My Account</option>
-            <option>Company</option>
-            <option>Team Members</option>
-            <option>Billing</option>
+            <option>Drafts</option>
+            <option>Published</option>
           </select>
         </div>
         <div class="hidden sm:block">
@@ -50,7 +48,7 @@
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Draft</span>
+                <span>Drafts</span>
               </a>
               <a
                 href="#"
@@ -174,6 +172,9 @@ export default {
     Button,
     Fragment,
     Navbar
+  },
+  async fetch({store}) {
+    await store.dispatch('user/blog/fetchUserBlogs')
   }
 };
 </script>

@@ -1,8 +1,22 @@
 export const state = () => ({
+  items: {
+    drafts: [],
+    published: []
+  },
   item: {},
   isSaving: false
 });
 
+function seperateBlogs(blogs) {
+  const published = []
+  const drafts = []
+
+  blogs.forEach(blog => {
+    blog.status === 'active' ? drafts.push(blog) : published.push(blog)
+  })
+
+  return {published, drafts}
+}
 export const actions = {
   createBlog(_, blogData) {
     return this.$axios
@@ -14,6 +28,17 @@ export const actions = {
     return this.$axios
       .$get(`/api/v1/blogs/${blogId}`)
       .then(blog => commit("setBlog", blog));
+  },
+  fetchUserBlogs({commit, state}) {
+    return this.$axios.get(`/api/v1/blogs/me`)
+    .then(blogs => {
+      debugger
+      const {published, drafts} = seperateBlogs(blogs.data)
+      commit('setBlogs', {resource: 'drafts', items: drafts})
+      commit('setBlogs', {resource: 'published', items: published})
+
+      published, drafts
+    })
   },
   updateBlog({ commit }, { data, id }) {
     commit('setIsSaving', true)
@@ -37,5 +62,8 @@ export const mutations = {
   },
   setIsSaving(state, isSaving) {
     state.isSaving = isSaving;
+  },
+  setBlogs(state, {resource, items}) {
+    state.items[resource] = items
   }
 };

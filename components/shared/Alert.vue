@@ -35,7 +35,7 @@
         </svg>
       </div>
       <div class="ml-3">
-        <p class="text-sm text-sols font-medium">
+        <p class="text-sm text-sols font-medium break-all">
           {{content}}
         </p>
       </div>
