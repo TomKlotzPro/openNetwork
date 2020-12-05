@@ -123,14 +123,14 @@ exports.confirmEmail = function (req, res) {
             return res.status(500).send({message: 'Server error'})
           }
           else {
-            return res.status(200).send({message: 'Confirmed'})
+            return res.status(200).send({message: 'Your email adress is confirmed'})
           }
       });
         
       }
       catch(err) {
         console.log('Error on confirmation : ' + err)
-        return res.status(400).send({message: 'Bad request'})
+        return res.status(400).send({message: 'The token is invalid or expired'})
       }
   }
 }

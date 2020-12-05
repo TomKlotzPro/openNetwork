@@ -9,6 +9,6 @@ router.get('/me', AuthCtrl.onlyAuthUser, UsersCtrl.getCurrentUser);
 router.post('/register', UsersCtrl.register)
 router.post('/login', UsersCtrl.login)
 router.post('/logout', UsersCtrl.logout)
-router.post('/confirm/:token', UsersCtrl.confirmEmail)
+router.get('/confirm/:token*', UsersCtrl.confirmEmail)
 
 module.exports = router;
