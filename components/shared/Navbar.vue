@@ -45,7 +45,7 @@
           <template v-else>
             <template v-if="dafaultNav">
               <CustomLink link="/about">About</CustomLink>
-              <CustomLink link="/blog">Blogs</CustomLink>
+              <CustomLink link="/blogs">Blogs</CustomLink>
               <CustomLink link="/signin">Log in</CustomLink>
               <CustomLink link="/signup">Sign up</CustomLink>
             </template>

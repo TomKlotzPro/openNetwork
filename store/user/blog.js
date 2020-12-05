@@ -32,7 +32,6 @@ export const actions = {
   fetchUserBlogs({commit, state}) {
     return this.$axios.get(`/api/v1/blogs/me`)
     .then(blogs => {
-      debugger
       const {published, drafts} = seperateBlogs(blogs.data)
       commit('setBlogs', {resource: 'drafts', items: drafts})
       commit('setBlogs', {resource: 'published', items: published})
