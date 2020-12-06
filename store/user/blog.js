@@ -39,6 +39,15 @@ export const actions = {
       published, drafts
     })
   },
+  deleteBlog({commit, state}, blog) {
+    const resource = blog.status === 'active' ? 'drafts' : 'published'
+    return this.$axios.$delete(`/api/v1/blogs/${blog._id}`)
+    .then(_ => {
+      const index = state.items[resource].findIndex((b) => b._id === blog._id)
+      commit('deleteBlog', {resource, index})
+      return true
+    })
+  },
   updateBlog({ commit }, { data, id }) {
     commit('setIsSaving', true)
     return this.$axios
@@ -64,5 +73,8 @@ export const mutations = {
   },
   setBlogs(state, {resource, items}) {
     state.items[resource] = items
+  },
+  deleteBlog(state, {resource, index}) {
+    state.items[resource].splice(index, 1)
   }
 };

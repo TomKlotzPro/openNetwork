@@ -5,6 +5,7 @@ const blogSchema = new Schema({
   slug: { type: String, unique: true, sparse: true },
   title: { type: String, maxlength: 96},
   subtitle: { type: String},
+  paragraph: { type: String},
   content: { type: String, required: true},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

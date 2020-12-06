@@ -2,20 +2,6 @@
   <div class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="editor editor-squished">
-        <BasicMenu :editor="editor">
-          <template #saveButton>
-            <Button
-              @click.native="emitUpdate"
-              buttonType="button"
-              :buttonColor="isSaving ? 'disabled' : 'nebula'"
-              :disabled="isSaving"
-              class="inline-block m-0"
-              :buttonDisabled="isSaving"
-              >Save</Button
-            >
-          </template>
-        </BasicMenu>
-        <BubbleMenu :editor="editor" />
         <EditorContent class="editor__content" :editor="editor" />
       </div>
     </div>
@@ -24,9 +10,6 @@
 
 <script>
 import { Editor, EditorContent } from "tiptap";
-import BubbleMenu from "~/components/editor/BubbleMenu";
-import BasicMenu from "~/components/editor/BasicMenu";
-import Button from "~/components/shared/Button";
 import {
   Heading,
   Bold,
@@ -34,14 +17,12 @@ import {
   Italic,
   Strike,
   Underline,
-  History,
   Blockquote,
   HorizontalRule,
   OrderedList,
   BulletList,
   ListItem,
-  CodeBlockHighlight,
-  Placeholder
+  CodeBlockHighlight
 } from "tiptap-extensions";
 import Title from "~/components/editor/components/Title";
 import Subtitle from "~/components/editor/components/Subtitle";
@@ -77,15 +58,12 @@ import yml from "highlight.js/lib/languages/yaml";
 
 export default {
   components: {
-    EditorContent,
-    BubbleMenu,
-    BasicMenu,
-    Button
+    EditorContent
   },
   props: {
-    isSaving: {
-      required: false,
-      default: false
+    initialContent: {
+      required: true,
+      type: String
     }
   },
   data() {
@@ -96,29 +74,17 @@ export default {
   // Called only on client side because tiptap does not support server side
   mounted() {
     this.editor = new Editor({
+      editable: false,
       extensions: [
         new Doc(),
         new Title(),
         new Subtitle(),
-        new Placeholder({
-          showOnlyCurrent: false,
-          emptyNodeText: node => {
-            if (node.type.name === "title") {
-              return "Article title";
-            }
-            if (node.type.name === "subtitle") {
-              return "Give us a catchy subtitle!";
-            }
-            return "Start sharing your knowledge...";
-          }
-        }),
         new Heading({ levels: [1, 2, 3] }),
         new Bold(),
         new Code(),
         new Italic(),
         new Strike(),
         new Underline(),
-        new History(),
         new Blockquote(),
         new HorizontalRule(),
         new OrderedList(),
@@ -155,36 +121,11 @@ export default {
         })
       ]
     });
-    this.$emit('editorMounted', this.editor)
+    this.initialContent && this.editor.setContent(this.initialContent);
   },
   beforeDestroy() {
     // To destroy editor instance when it's no longer needed
     this.editor && this.editor.destroy();
-  },
-  methods: {
-    emitUpdate() {
-      const content = this.getContent()
-      this.$emit('editorSaved', content)
-    },
-    getContent() {
-      const htmlContent = this.editor.getHTML();
-      const paragraph = this.getNodeValueByName("paragraph")
-      const title = this.getNodeValueByName("title");
-      const subtitle = this.getNodeValueByName("subtitle");
-      return {content: htmlContent, title, subtitle, paragraph}
-    },
-    getNodeValueByName(name) {
-      const docContent = this.editor.state.doc.content;
-      const nodes = docContent.content;
-      const node = nodes.find(node => node.type.name === name);
-
-      if (node) {
-        return node.textContent;
-      }
-      return "";
-    }
   }
 };
 </script>
-
-<style scoped></style>

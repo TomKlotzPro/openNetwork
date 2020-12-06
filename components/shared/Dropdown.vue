@@ -36,9 +36,9 @@
       >
         <div class="py-1" role="none">
           <a
-            v-for="(item, index) in items"
+            v-for="(item) in items"
             :key="item.name"
-            @click.prevent="emitOption(index)"
+            @click.prevent="emitOption(item.command)"
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem"
             >{{ item.name }}</a
@@ -63,8 +63,8 @@ export default {
     };
   },
   methods: {
-    emitOption(optionIndex) {
-      this.$emit("optionChanged", this.items[optionIndex]);
+    emitOption(command) {
+      this.$emit("optionChanged", command);
     },
     toggleDropdown(e) {
       this.isActive = !this.isActive;

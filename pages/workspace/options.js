@@ -1,4 +1,4 @@
-const commands = {
+export const commands = {
   DELETE_ARTICLE: "DELETE_ARTICLE",
   EDIT_ARTICLE: "EDIT_ARTICLE"
 };

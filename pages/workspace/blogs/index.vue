@@ -102,7 +102,7 @@
                   class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium uppercase rounded-l-md"
                   :class="`bg-${randomColors()}-600`"
                 >
-                  {{ projectAvatar(draft.title) }}
+                  {{ blogAvatar(draft.title) }}
                 </div>
                 <div
                   class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate"
@@ -111,13 +111,16 @@
                     <a
                       href="#"
                       class="text-gray-900 font-medium hover:text-gray-600"
-                      >{{ draft.title }}</a
+                      >{{ displayBlogTitle(draft) }}</a
                     >
                     <p class="text-gray-500">
-                      Last edited {{ articleLastEdit(draft.updatedAt) }}
+                      Last edited {{ draft.updatedAt | formatDate }}
                     </p>
                   </div>
-                  <Dropdown :items="draftOptions" />
+                  <Dropdown
+                    :items="draftOptions"
+                    @optionChanged="handleOption($event, draft)"
+                  />
                 </div>
               </li>
             </ul>
@@ -137,7 +140,7 @@
                   class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium uppercase rounded-l-md"
                   :class="`bg-${randomColors()}-600`"
                 >
-                  {{ projectAvatar(publish.title) }}
+                  {{ blogAvatar(publish.title) }}
                 </div>
                 <div
                   class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate"
@@ -146,17 +149,20 @@
                     <a
                       href="#"
                       class="text-gray-900 font-medium hover:text-gray-600"
-                      >{{ publish.title }}</a
+                      >{{ displayBlogTitle(publish) }}</a
                     >
                     <p class="text-gray-500">
-                      Last edited {{ articleLastEdit(publish.updatedAt) }}
+                      Last edited {{ publish.updatedAt | formatDate }}
                     </p>
                   </div>
-                  <Dropdown :items="publishedOptions" />
+                  <Dropdown
+                    :items="publishedOptions"
+                    @optionChanged="handleOption($event, publish)"
+                  />
                 </div>
               </li>
             </ul>
-            <Info v-else info="No Published Blog" />
+            <Info v-else info="No Published Article" />
           </template>
         </div>
       </div>
@@ -173,9 +179,9 @@ import Dropdown from "~/components/shared/Dropdown";
 import { mapState } from "vuex";
 import {
   createPublishedOptions,
-  createDraftsOptions
+  createDraftsOptions,
+  commands
 } from "~/pages/workspace/options";
-import moment from "moment";
 export default {
   /**
    * data with having activeTab variable to switch between Drafts and Published
@@ -239,20 +245,49 @@ export default {
     }
   },
   methods: {
-    projectAvatar(projectTitle) {
-      if (projectTitle.split(" ").length >= 2) {
+    blogAvatar(projectTitle) {
+      if (!projectTitle) return '💭'
+      else if (projectTitle.split(" ").length >= 2) {
         return projectTitle
           .split(" ")[0]
           .substring(0, 1)
           .concat(projectTitle.split(" ")[1].substring(0, 1));
       }
-      return projectTitle.substring(0, 1);
-    },
-    articleLastEdit(time) {
-      return moment(time, moment.ISO_8601).fromNow();
+      else return projectTitle.substring(0, 1);
     },
     randomColors() {
       return this.colors[Math.floor(Math.random() * this.colors.length)];
+    },
+    handleOption(command, blog) {
+      if (command === commands.EDIT_ARTICLE) {
+        this.$router.push(`/workspace/blog/${blog._id}/edit`);
+      }
+      if (command === commands.DELETE_ARTICLE) {
+        this.displayDeleteWarning(blog);
+      }
+    },
+    displayDeleteWarning(blog) {
+      const isConfirm = confirm(
+        "Are you sure you want to delete this article ?"
+      );
+      if (isConfirm) {
+        this.$store
+          .dispatch("user/blog/deleteBlog", blog)
+          .then(_ => {
+            this.$toasted.global.on_success({
+              message: "Article was successfully deleted!"
+            });
+            this.isOpen = false;
+          })
+          .catch(error => {
+            this.$toasted.global.on_error({
+              message: "Sorry something went wrong!"
+            });
+          });
+      }
+    },
+    displayBlogTitle(blog) {
+      return blog.title || blog.subtitle || 'Article without title && subtitle 💭'
     }
   },
   async fetch({ store }) {
