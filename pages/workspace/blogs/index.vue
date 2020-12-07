@@ -138,7 +138,7 @@
               >
                 <div
                   class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium uppercase rounded-l-md"
-                  :class="`bg-${randomColors()}-600`"
+                  :class="[`bg-${randomColors()}-600`]"
                 >
                   {{ blogAvatar(publish.title) }}
                 </div>
@@ -156,7 +156,7 @@
                     </p>
                   </div>
                   <Dropdown
-                    :items="publishedOptions"
+                    :items="publishedOptions(publish.featured)"
                     @optionChanged="handleOption($event, publish)"
                   />
                 </div>
@@ -237,23 +237,19 @@ export default {
       published: ({ user }) => user.blog.items.published,
       drafts: ({ user }) => user.blog.items.drafts
     }),
-    publishedOptions() {
-      return createPublishedOptions();
-    },
     draftOptions() {
       return createDraftsOptions();
     }
   },
   methods: {
     blogAvatar(projectTitle) {
-      if (!projectTitle) return '💭'
+      if (!projectTitle) return "💭";
       else if (projectTitle.split(" ").length >= 2) {
         return projectTitle
           .split(" ")[0]
           .substring(0, 1)
           .concat(projectTitle.split(" ")[1].substring(0, 1));
-      }
-      else return projectTitle.substring(0, 1);
+      } else return projectTitle.substring(0, 1);
     },
     randomColors() {
       return this.colors[Math.floor(Math.random() * this.colors.length)];
@@ -265,6 +261,32 @@ export default {
       if (command === commands.DELETE_ARTICLE) {
         this.displayDeleteWarning(blog);
       }
+      if (command === commands.TOGGLE_FEATURE) {
+        this.updateBlog(blog);
+      }
+    },
+    updateBlog(blog) {
+      const featured = !blog.featured;
+      const featureStatus = featured ? 'featured' : 'unfeatured'
+      this.$store
+        .dispatch("user/blog/updatePublishedBlog", {
+          id: blog._id,
+          data: { featured }
+        })
+        .then(_ => {
+          this.$toasted.global.on_success({
+            message: `Your article has been ${featureStatus}!`
+          });
+          this.isOpen = false;
+        })
+        .catch(error => {
+          this.$toasted.global.on_error({
+            message: "Sorry something went wrong!"
+          });
+        });
+    },
+    publishedOptions(isFeatured) {
+      return createPublishedOptions(isFeatured);
     },
     displayDeleteWarning(blog) {
       const isConfirm = confirm(
@@ -287,7 +309,9 @@ export default {
       }
     },
     displayBlogTitle(blog) {
-      return blog.title || blog.subtitle || 'Article without title && subtitle 💭'
+      return (
+        blog.title || blog.subtitle || "Article without title && subtitle 💭"
+      );
     }
   },
   async fetch({ store }) {

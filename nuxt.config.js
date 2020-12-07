@@ -26,6 +26,7 @@ export default {
   plugins: [
     {src: '~/plugins/vuelidate'},
     {src: '~/plugins/filters'},
+    {src: '~/plugins/integrations'},
     {src: '~/plugins/toasted', ssr:false},
     {src: '~/plugins/form_wizard'}
   ],

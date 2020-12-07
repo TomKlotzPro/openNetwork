@@ -1,3 +1,4 @@
+import Vue from 'vue';
 export const state = () => ({
   items: {
     drafts: [],
@@ -48,6 +49,14 @@ export const actions = {
       return true
     })
   },
+  updatePublishedBlog({commit, state}, {id, data}) {
+    return this.$axios.$patch(`/api/v1/blogs/${id}`, data)
+    .then(blog => {
+      const index = state.items['published'].findIndex(b => b._id === id)
+      commit('setPublisedBlog', {index,blog})
+      return blog
+    }).catch(error => Promise.reject(error))
+  },
   updateBlog({ commit }, { data, id }) {
     commit('setIsSaving', true)
     return this.$axios
@@ -67,6 +76,9 @@ export const actions = {
 export const mutations = {
   setBlog(state, blog) {
     state.item = blog;
+  },
+  setPublisedBlog(state, {index, blog}) {
+    Vue.set(state.items.published, index, blog)
   },
   setIsSaving(state, isSaving) {
     state.isSaving = isSaving;
