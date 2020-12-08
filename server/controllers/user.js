@@ -111,6 +111,11 @@ exports.logout = function (req, res) {
   return res.json({status: 'Session destroyed!'})
 }
 
+/**
+ * Check if the token given in the request params is valid and corresponds to a User
+ * @param {Request} req 
+ * @param {Response} res 
+ */
 exports.confirmEmail = function (req, res) {
   if (req.params.token === '')
       return res.status(400).send({ message: 'Missing parameter' })
@@ -131,6 +136,41 @@ exports.confirmEmail = function (req, res) {
       catch(err) {
         console.log('Error on confirmation : ' + err)
         return res.status(400).send({message: 'The token is invalid or expired'})
+      }
+  }
+}
+
+/**
+ * Send a mail to confirm the mail adress of a registered User
+ * @param {Request} req 
+ * @param {Response} res 
+ */
+exports.sendConfirmationEmail = function (req, res) {
+  const { email } = req.body
+  if (!email)
+      return res.status(400).send({ message: 'Missing email in body' })
+  else {
+      try {
+        User.findOne({email : email}, function (err, savedUser) {
+          if (err) {
+            return res.status(400).send({message: 'Confirmation email has not been sent'})
+          }
+          // Create token
+          const token = jwt.sign({
+            id: savedUser._id
+          }, 
+          keys.JWT_KEY,
+          {
+              expiresIn: '1d',
+          }) 
+          sendConfirmationEmail(savedUser, token)
+          return res.status(200).send({message: 'Confirmation email has been sent'})
+            
+          
+        });
+      }
+      catch(err) {
+        return res.status(400).send({message: 'Confirmation email has not been sent'})
       }
   }
 }

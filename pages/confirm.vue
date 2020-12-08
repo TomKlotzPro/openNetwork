@@ -2,13 +2,14 @@
 <div>
     <div class="hero bg-gray-100 py-16 mb-6">
       <div class="container px-6 sm:px-16 lg:px-20 xl:px-24 mx-auto">
-      <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-if="success">Your email has been confirmed ! Please log in.</p>
-      <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-else>The token is either invalid or expired 😢</p>
+      <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-if="success">Your email has been confirmed ! Please sign in.</p>
+      <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-else-if="success === false">The token is either invalid or expired 😢</p>
       <Button
         v-if="success"
         buttonType="button"
         buttonColor="nebula"
-        buttonWidth="full"
+        buttonWidth="44"
+        class="mx-auto my-4"
         to="/signin"
       >
         Sign In
@@ -16,10 +17,11 @@
 
       <form
             @submit.prevent="onSubmit"
-            class="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+            class="px-8 pt-6 pb-8 mb-4 bg-white rounded content-center"
+            v-if="success === false && success !== null"
           >
         <Input
-          v-if="success === false"
+          v-if="success === false && success !== null"
           name="mail"
           v-model="emailForm.email"
           placeholder="johndoe@gmail.com"
@@ -42,9 +44,9 @@
             Email address is not valid
           </template>
         </Input>
-        <Button buttonType="button" buttonColor="nebula" buttonWidth="full" v-if="success === false">
-          Resend confirmation email
-        </Button>
+          <Button buttonType="button" buttonColor="nebula" buttonWidth="70" class="my-4 mx-auto" v-if="success === false">
+            Resend confirmation email
+          </Button>
       </form>
     </div>
   </div>
@@ -107,7 +109,7 @@ export default {
       this.$v.emailForm.$touch();
       if (this.isFormValid) {
         this.$store
-          .dispatch("auth/sendConfirmationEmail", this.emailForm.email)
+          .dispatch("auth/sendConfirmationEmail", this.emailForm)
           .then(() => console.log("email resent"))
           .catch(() =>
             this.$toasted.global.on_error({

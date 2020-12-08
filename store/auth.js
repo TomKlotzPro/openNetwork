@@ -29,6 +29,11 @@ export const actions = {
       .$post("/api/v1/users/register", registerData)
       .catch(error => Promise.reject(error));
   },
+  sendConfirmationEmail(_, email) {
+    return this.$axios
+      .$post("/api/v1/users/send-confirmation-email", email)
+      .catch(error => Promise.reject(error));
+  },
   confirmEmail(_, token) {
     console.log("confirm email is reached")
     return this.$axios
