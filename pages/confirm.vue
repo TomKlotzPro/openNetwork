@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="hero bg-gray-100 py-16 mb-6">
+    <div class="hero py-16 sm:px-20 lg:px-24 xl:px-32 mb-6">
       <div class="container px-6 sm:px-16 lg:px-20 xl:px-24 mx-auto">
       <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-if="success">Your email has been confirmed ! Please sign in.</p>
       <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-else-if="success === false">The token is either invalid or expired 😢</p>
@@ -86,17 +86,14 @@ export default {
   mounted() {
     console.log(this.$route)
     const { token } = this.$route.query;
-    console.log("mon token", token)
     this.$store
       .dispatch("auth/confirmEmail", token)
       .then(data => {
-        console.log(data)
         this.success = true
         return data
       })
       .catch((err) => {
         this.success = false
-        console.log('test', err)
       });
   },
   computed: {

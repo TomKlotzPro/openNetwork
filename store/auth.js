@@ -35,7 +35,6 @@ export const actions = {
       .catch(error => Promise.reject(error));
   },
   confirmEmail(_, token) {
-    console.log("confirm email is reached")
     return this.$axios
       .$get(`/api/v1/users/confirm/${token}`)
       .then(message => {
