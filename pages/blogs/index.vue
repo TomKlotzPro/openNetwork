@@ -13,7 +13,7 @@
           Knowledge Starts With Reading.
         </p>
         <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500">
-          Start reading awsome articles, then write your and publish straight
+          Start reading awesome articles, then write your own and publish it straight
           from your workspace. Share your ideas and knowledge with the
           community.
         </p>
