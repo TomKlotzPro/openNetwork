@@ -11,16 +11,22 @@ export default {
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/6f67b3e9f1.js'
+      }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ["~assets/css/tailwind.css"],
+  css: ["~assets/css/tailwind.css", "@/assets/css/_index.scss"],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     {src: '~/plugins/vuelidate'},
     {src: '~/plugins/filters'},
+    {src: '~/plugins/integrations'},
     {src: '~/plugins/toasted', ssr:false},
     {src: '~/plugins/form_wizard'}
   ],
@@ -48,8 +54,8 @@ export default {
   webfontloader: {
     google: {
       families: [
-        "Hind:400,500,700",
-        "Poppins:400,500,600,700",
+        "Hind:400,400italic,500,500italic,700,700italic",
+        "Poppins:400,400italic,500,500italic,600,600italic,700,700italic",
         "Ubuntu:400,500"
       ]
     }

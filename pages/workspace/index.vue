@@ -22,7 +22,7 @@
           projects to the entire community!
         </WorkSpaceCard>
 
-        <WorkSpaceCard title="Blog Writers" image="blog.png">
+        <WorkSpaceCard title="Blog Writers" image="blog.png" @on-click="() => $router.push('/workspace/blogs')">
           Open source is all about sharing and giving out to others. Enter,
           write and help others with your amazing knowledge!
         </WorkSpaceCard>

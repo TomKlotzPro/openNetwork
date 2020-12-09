@@ -8,7 +8,7 @@ require("../models/user");
 require("../models/product");
 require("../models/category");
 //require("../models/product-hero");
-//require("../models/blog");
+require("../models/blog");
 
 const options = {
   useNewUrlParser: true,
