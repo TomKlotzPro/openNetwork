@@ -152,7 +152,7 @@ exports.sendConfirmationEmail = function (req, res) {
   else {
       try {
         User.findOne({email : email}, function (err, savedUser) {
-          if (err) {
+          if (err || !savedUser) {
             return res.status(400).send({message: 'Confirmation email has not been sent'})
           }
           // Create token

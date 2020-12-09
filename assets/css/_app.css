@@ -7,6 +7,9 @@
 .toast_error_styles {
   background-image: radial-gradient(circle at 50% 0,#ed5a6a,#ed5868) !important;
 }
+.toast_warning_styles {
+  background-image: radial-gradient(circle at 50% 0,#ff9431,#ff9431) !important;
+}
 .toast_success_styles {
   background-image: radial-gradient(circle at 50% 0,#5aed6e,#58ed7d) !important;
 }

@@ -15,7 +15,6 @@ exports.sendConfirmationEmail = function (user, token) {
             pass: keys.MAILSERVICE_PASS
         }
     });
-
     let mailOptions = {
         from: 'openetwork.mail@gmail.com',
         to: `${user.email}`,
