@@ -155,7 +155,7 @@
                     <p class="text-sm text-gray-500">
                       Are you sure you want to unpublish your article? Once you
                       unpublish your article, it is no longer displayed within
-                      th community.
+                      the community.
                     </p>
                   </div>
                 </div>
