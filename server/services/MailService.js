@@ -46,7 +46,23 @@ exports.sendResetPassword = function (user, token) {
         from: 'openetwork.mail@gmail.com',
         to: `${user.email}`,
         subject: 'Reset password',
-        html: `Click on this <a href="http://localhost:3000/reset?token=${token}">link</a> to reset your password.`
+        html: `<img src="assets/images/opentwk.svg" alt="Openetwork">
+        <p>Hi ${user.name},</p>
+
+        <p>You have requested a reset of the password for your Openetwork account.</p>
+ 
+        <p>To create your new password, please click <a href="http://localhost:3000/reset?token=${token}">here</a>.</p>
+         
+        <p>If you havn't tried to reset your password, just ignore this mail</p>
+        
+        <p>Have fun on our website ! </p>
+
+        <p>Openetwork's dev team</p>`,
+        // attachments: [{
+        //     filename: 'opentwk.svg',
+        //     path: 'assets/images/opentwk.svg',
+        //     cid: 'logo' //same cid value as in the html img src
+        // }]
         // FIXME: Set website url from local config file instead of localhost
     };
 
