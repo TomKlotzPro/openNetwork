@@ -1,0 +1,42 @@
+
+.menubar {
+
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  //background-color: #23263b;
+  background-image: linear-gradient(rgb(11, 15, 32) 0%, rgb(33, 36, 61) 100%);
+  padding: 10px;
+  transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
+
+  &.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &.is-focused {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+
+  &__button {
+    font-weight: bold;
+    display: inline-flex;
+    background: transparent;
+    border: 0;
+    color: #ffffff;
+    padding: 0.2rem 0.5rem;
+    margin-right: 0.2rem;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(#23263b, 0.05);
+    }
+
+    &.is-active {
+      background-color: rgba(#23263b, 0.1);
+    }
+  }
+
+}
