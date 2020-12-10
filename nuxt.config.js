@@ -28,6 +28,7 @@ export default {
     {src: '~/plugins/filters'},
     {src: '~/plugins/integrations'},
     {src: '~/plugins/toasted', ssr:false},
+    {src: '~/plugins/paginate', ssr:false},
     {src: '~/plugins/form_wizard'}
   ],
 

@@ -57,9 +57,9 @@
         class="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
         >Project Description</label
       >
-      <div class="rounded shadow">
+      <div class="rounded shadow text-base">
         <!-- TODO: Refactor Input component to use textarea -->
-        <textarea
+        <!-- <textarea
           @input="
             $event => emitProjectValue($event.target.value, 'description')
           "
@@ -68,7 +68,10 @@
           rows="3"
           class="form-textarea mt-1 block w-full transition text-l text-grey-800 border focus:shadow-none focus:border-grey-800 focus:outline-none sm:text-sm sm:leading-5"
           placeholder="Write something catchy about your awesome project!"
-        ></textarea>
+        ></textarea> -->
+        <ProjectEditor 
+         @editorUpdated="(content) => emitProjectValue(content, 'description')"
+        :initialContent="project.description" />
       </div>
     </div>
     <div class="col-span-6 sm:col-span-3">
@@ -99,6 +102,7 @@
 
 <script>
 import Input from "~/components/shared/Input";
+import ProjectEditor from "~/components/editor/ProjectEditor";
 import SelectOption from "~/components/SelectOption";
 export default {
   props: {
@@ -119,7 +123,8 @@ export default {
   },
   components: {
     Input,
-    SelectOption
+    SelectOption,
+    ProjectEditor
   }
 };
 </script>

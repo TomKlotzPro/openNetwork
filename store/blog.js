@@ -1,18 +1,28 @@
+import Vue from 'vue'
+
 export const state = () => ({
   item: {},
   items: {
     all: [],
     featured: []
+  },
+  pagination: {
+    count: 0, //Count all of our published articles/blogs
+    pageCount: 0, // Number of pages to display
+    pageSize: 6, // Number of items to display per page
+    pageNum: 1 // Current page
   }
 });
 
 export const actions = {
-  fetchBlogs({ commit, state }) {
+  fetchBlogs({ commit, state }, filter) {
+    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
     return this.$axios
-      .$get("/api/v1/blogs")
+      .$get(url)
       .then(data => {
-        const blogs = data.blogs;
+        const {blogs, count, pageCount} = data;
         commit("setBlogs", { resource: "all", blogs });
+        commit("setPagination", {count, pageCount});
         return state.items.all;
       })
       .catch(error => Promise.reject(error));
@@ -44,5 +54,12 @@ export const mutations = {
   },
   setBlog(state, blog) {
     state.item = blog;
+  },
+  setPage(state, currentPaage) {
+    Vue.set(state.pagination, 'pageNum', currentPaage)
+  },
+  setPagination(state, {count, pageCount}) {
+    Vue.set(state.pagination, 'count', count)
+    Vue.set(state.pagination, 'pageCount', pageCount)
   }
 };

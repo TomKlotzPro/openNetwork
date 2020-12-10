@@ -206,7 +206,6 @@ export default {
         "https://www.gravatar.com/avatar/" +
         md5(this.signUpForm.email.toLowerCase().trim()) +
         "?d=identicon";
-      console.log(this.signUpForm);
       if (this.isFormValid) {
         this.$store
           .dispatch("auth/register", this.signUpForm)

@@ -1,38 +1,95 @@
 <template>
-  <div
-    class="md:flex shadow-lg  mx-6 md:mx-auto my-8 max-w-lg md:max-w-2xl h-64"
-  >
-    <img
-      class="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none"
-      :src="project.image"
-      alt="bag"
-    />
-    <div class="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
-      <div class="flex items-center">
-        <h3 class="mt-0 mb-2 truncate font-hind text-lg w-56 md:text-2xl text-grey-700 font-normal leading-snug mr-auto">{{project.title}}</h3>
-        <p class="text-nebula-500 font-poppins text-xs md:text-xs font-semibold tracking-widest uppercase">
-          By {{project.author.name}}
-        </p>
+  <div class="relative pt-12 pb-20 px-4 sm:px-6 lg:pt-12 lg:pb-20 lg:px-8">
+    <div class="absolute inset-0">
+      <div class="bg-white h-1/3 sm:h-2/3"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto">
+      <Header>
+        <template v-slot:title>
+          Published Projects
+        </template>
+        <template v-slot:description>
+          Have a look at these projects published by some of our community
+          members!
+        </template>
+      </Header>
+      <div
+        class="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
+      >
+        <div
+          v-for="project in projects"
+          :key="project._id"
+          class="flex flex-col rounded-lg shadow-lg overflow-hidden"
+        >
+          <div class="flex-shrink-0">
+            <img class="h-48 w-full object-cover" :src="project.image" alt="" />
+          </div>
+          <div class="flex-1 bg-white p-6 flex flex-col justify-between">
+            <div class="flex-1">
+              <template v-if="project.tags">
+                <span
+                  v-for="tag in project.tags"
+                  :key="tag"
+                  class="inline-flex ml-1 items-center px-3 py-0.5 rounded text-sm font-medium bg-nebula-100 text-nebula-800"
+                >
+                  #{{ tag }}
+                </span>
+              </template>
+              <template v-else>
+                <span
+                  class="inline-flex items-center px-3 py-0.5 rounded text-sm font-medium bg-nebula-100 text-nebula-800"
+                >
+                  #ON
+                </span>
+              </template>
+              <a href="#" class="block mt-2">
+                <p class="text-xl font-semibold text-gray-900">
+                  {{ project.title }}
+                </p>
+                <p class="mt-3 text-base text-gray-500">
+                  {{ project.description | shortenText(200) }}
+                </p>
+              </a>
+            </div>
+            <div class="mt-6 flex items-center">
+              <div class="flex-shrink-0">
+                <a href="#">
+                  <span class="sr-only">Roel Aufderehar</span>
+                  <img
+                    class="h-10 w-10 rounded-full"
+                    :src="project.author.avatar"
+                    alt=""
+                  />
+                </a>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-gray-900">
+                  <a href="#" class="hover:underline">
+                    {{ project.author.name }}
+                  </a>
+                </p>
+                <div class="flex space-x-1 text-sm text-gray-500">
+                  <time datetime="2020-03-16">
+                    {{ project.createdAt | formatDate }}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-       <p class="font-hind text-base md:text-lg leading-7 text-grey-500 truncate white-space">
-        {{project.description}}
-      </p>
-      <div class="flex items-center justify-center mt-4 top-auto">
-        <span class="mr-auto">
-          <Button buttonType="a" buttonWidth="40">Learn More</Button>
-        </span>
-        <Button buttonType="a" buttonColor="black" buttonWidth="40">Git Repo</Button>
-      </div>
+      <Button to="/projects" buttonColor="nebula" class="mx-auto mt-12">Go to Projects</Button>
     </div>
   </div>
 </template>
 
 <script>
 import Button from "~/components/shared/Button";
+import Header from "~/components/shared/Header";
 export default {
   props: {
-    project: {
-      type: Object,
+    projects: {
+      type: Array,
       required: true
     }
   },

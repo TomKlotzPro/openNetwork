@@ -36,7 +36,7 @@ exports.getBlogs = (req, res) => {
         return res.status(422).send(errors);
       }
 
-      Blog.count({}).then(count => {
+      Blog.count({status: 'published'}).then(count => {
         return res.json({
           blogs: publishedBlogs,
           count,

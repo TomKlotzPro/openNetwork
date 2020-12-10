@@ -15,7 +15,7 @@ const defaultOptions = {
 const error_options = {
   ...defaultOptions,
   icon: 'error_outline',
-  className: ' toast toast_error_styles',
+  className: 'toast toast_error_styles',
 }
 
 const success_options = {

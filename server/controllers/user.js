@@ -44,6 +44,7 @@ exports.register = function(req, res) {
 
   return user.save((errors, savedUser) => {
     if (errors) {
+      console.log("Error 422")
       return res.status(422).json({errors})
     }
 

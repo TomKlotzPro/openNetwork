@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar dafaultNav />
+    <Navbar defaultNav />
     <nuxt />
     <Footer/>
   </div>
@@ -8,6 +8,7 @@
 
 <script>
 import Navbar from "~/components/shared/Navbar"
+//import CustomNav from "~/components/shared/CustomNav"
 import Footer from "~/components/shared/Footer"
 export default {
   components: {
