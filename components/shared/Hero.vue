@@ -5,7 +5,7 @@
     <!-- hero text -->
     <div class="hero-text col-span-6">
       <h1
-        class=" font-poppins text-4xl md:text-5xl max-w-xl text-grey-700 font-bold tracking-tighter leading-tight leading-none"
+        class=" font-poppins text-4xl md:text-6xl max-w-xl text-grey-700 font-bold tracking-tighter leading-tight"
       >
         Making Open Source Look Different
       </h1>

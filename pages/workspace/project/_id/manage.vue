@@ -5,8 +5,10 @@
         <Button
           buttonType="button"
           @click.native = "updateProject"
-          buttonColor="nebula"
+          :buttonColor="!canUpdateProject ? 'disabled' : 'nebula'"
+          :disabled="!canUpdateProject"
           buttonWidth="40"
+          :buttonDisabled="!canUpdateProject"
         >
           Save
         </Button>
@@ -115,7 +117,8 @@ export default {
   },
   computed: {
     ...mapState ({
-      project: ({user}) => user.project.item
+      project: ({user}) => user.project.item,
+      canUpdateProject: ({user}) => user.project.canUpdateProject
     })
   },
   methods: {
