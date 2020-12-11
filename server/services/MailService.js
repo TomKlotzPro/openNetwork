@@ -15,7 +15,6 @@ exports.sendConfirmationEmail = function (user, token) {
             pass: keys.MAILSERVICE_PASS
         }
     });
-
     let mailOptions = {
         from: 'openetwork.mail@gmail.com',
         to: `${user.email}`,
@@ -63,6 +62,7 @@ exports.sendResetPassword = function (user, token) {
         //     path: 'assets/images/opentwk.svg',
         //     cid: 'logo' //same cid value as in the html img src
         // }]
+
         // FIXME: Set website url from local config file instead of localhost
     };
 
@@ -72,4 +72,3 @@ exports.sendResetPassword = function (user, token) {
         }
         else console.log('Email sent');
     });
-}
