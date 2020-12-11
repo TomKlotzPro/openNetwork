@@ -42,31 +42,31 @@
                   #ON
                 </span>
               </template>
-              <a href="#" class="block mt-2">
+              <nuxt-link :to="`/projects/${project.slug}`" class="block mt-2">
                 <p class="text-xl font-semibold text-gray-900">
                   {{ project.title }}
                 </p>
                 <p class="mt-3 text-base text-gray-500">
-                  {{ project.description | shortenText(200) }}
+                  {{ project.subtitle | shortenText(200) }}
                 </p>
-              </a>
+              </nuxt-link>
             </div>
             <div class="mt-6 flex items-center">
               <div class="flex-shrink-0">
-                <a href="#">
-                  <span class="sr-only">Roel Aufderehar</span>
+                <span>
+                  <span class="sr-only">{{project.author.name}}</span>
                   <img
                     class="h-10 w-10 rounded-full"
                     :src="project.author.avatar"
                     alt=""
                   />
-                </a>
+                </span>
               </div>
               <div class="ml-3">
                 <p class="text-sm font-medium text-gray-900">
-                  <a href="#" class="hover:underline">
+                  <span class="hover:underline">
                     {{ project.author.name }}
-                  </a>
+                  </span>
                 </p>
                 <div class="flex space-x-1 text-sm text-gray-500">
                   <time datetime="2020-03-16">

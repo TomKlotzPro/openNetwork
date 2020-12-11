@@ -70,7 +70,7 @@ export default {
         const option = this.options.find(option => {
           return selectedName === option.name;
         });
-        this.$emit("change", option);
+        this.$emit("input", option);
       } else {
         this.$emit("change", e.target.value);
       }

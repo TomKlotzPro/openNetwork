@@ -88,7 +88,7 @@
                 </CustomLink>
               </div>
               <div class="flex-shrink-0">
-                <CustomLink customNuxtLink="/signin" class="border-none">
+                <CustomLink customNuxtLink="/signup" class="border-none">
                   Sign up
                 </CustomLink>
               </div>
