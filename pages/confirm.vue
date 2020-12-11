@@ -84,9 +84,6 @@ export default {
     }
   },
   mounted() {
-    // this.$toasted.global.on_warning({
-    //   message: "We recommend you to confirm your email adress for more security"
-    // });
     const { token } = this.$route.query;
     this.$store
       .dispatch("auth/confirmEmail", token)

@@ -19,7 +19,7 @@ exports.sendConfirmationEmail = function (user, token) {
         from: 'openetwork.mail@gmail.com',
         to: `${user.email}`,
         subject: 'Confirmation email',
-        html: `Click on this <a href="http://localhost:3000/confirm/${token}">link</a> to confirm your email.`
+        html: `Click on this <a href="http://localhost:3000/confirm?token=${token}">link</a> to confirm your email.`
         // FIXME: Set website url from local config file instead of localhost
     };
 
@@ -72,3 +72,4 @@ exports.sendResetPassword = function (user, token) {
         }
         else console.log('Email sent');
     });
+}
