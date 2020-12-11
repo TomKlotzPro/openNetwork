@@ -69,7 +69,17 @@ export const actions = {
         commit("setAuthUser", null);
         return Promise.reject(error);
       });
-  }
+  },
+  forgot(_, data) {
+    return this.$axios
+      .$post("/api/v1/users/forgot", data)
+      .catch(error => Promise.reject(error));
+  },
+  reset(_, data) {
+    return this.$axios
+      .$post("/api/v1/users/resetPwd/" + data.token, data)
+      .catch(error => Promise.reject(error));
+  },
 };
 
 export const mutations = {
