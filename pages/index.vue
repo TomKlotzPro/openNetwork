@@ -93,7 +93,7 @@
     <div
       class="max-w-xl mx-auto px-4 py-24 font-hind sm:px-6 lg:max-w-7xl lg:px-8"
     >
-      <ProjectCard :projects="projects" />
+        <ProjectCard :projects="projects" />
     </div>
     <div class="container px-4 sm:px-8 lg:px-16 font-hind xl:px-20 mx-auto">
       <div class="relative max-w-7xl mx-auto">
@@ -107,7 +107,9 @@
           </template>
         </Header>
         <BlogPost :blogs="featuredBlogs" />
-        <Button to="/blogs" buttonColor="nebula" class="mx-auto mt-12">Go to Blog</Button>
+        <Button to="/blogs" buttonColor="nebula" class="mx-auto mt-12"
+          >Go to Blog</Button
+        >
       </div>
     </div>
   </div>

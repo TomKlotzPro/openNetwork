@@ -1,7 +1,7 @@
 <template>
   <Fragment>
     <div class="banner bg-white"></div>
-    <Navbar/>
+    <Navbar exitLink="/" />
     <div class="mt-12 grid">
       <div class="w-full text-center">
         <p

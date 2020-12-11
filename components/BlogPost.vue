@@ -70,7 +70,7 @@
 export default {
   props: {
     blogs: Array
-  }
+  },
 };
 </script>
 

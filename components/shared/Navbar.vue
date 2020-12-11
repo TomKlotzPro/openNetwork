@@ -19,17 +19,20 @@
           </div>
           <template v-if="defaultNav">
             <div class="hidden lg:ml-6 lg:flex lg:space-x-8 font-hind">
-              <CustomLink customNuxtLink="/about">
+              <CustomLink customLink url="/about">
                 About
               </CustomLink>
-              <CustomLink customNuxtLink="/blogs">
+              <CustomLink customLink url="/blogs">
                 Blogs
               </CustomLink>
-              <CustomLink customNuxtLink="/projects">
+              <CustomLink customLink url="/projects">
                 Projects
               </CustomLink>
-              <CustomLink customNuxtLink="/join">
+              <CustomLink customLink url="/join">
                 Join us
+              </CustomLink>
+              <CustomLink customLink url="/cv">
+                CV
               </CustomLink>
             </div>
           </template>
@@ -83,12 +86,12 @@
           <div class=" space-x-3 lg:ml-4 lg:flex lg:items-center">
             <template v-if="!isAuth">
               <div class="flex-shrink-0">
-                <CustomLink customNuxtLink="/signin" class="border-none">
+                <CustomLink customLink url="/signin" class="border-none">
                   Sign in
                 </CustomLink>
               </div>
               <div class="flex-shrink-0">
-                <CustomLink customNuxtLink="/signup" class="border-none">
+                <CustomLink customLink url="/signup" class="border-none">
                   Sign up
                 </CustomLink>
               </div>
@@ -169,8 +172,8 @@
     </div>
     <template v-if="defaultNav">
       <div class="lg:hidden" :class="isMenu ? 'block' : 'hidden'">
-        <div class="pt-4 pb-3 border-t border-gray-200">
-          <template v-if="isAuth">
+        <template v-if="isAuth">
+          <div class="pt-4 pb-3 border-t border-gray-200">
             <div class="flex items-center px-4">
               <div class="flex-shrink-0">
                 <img
@@ -189,23 +192,28 @@
               </div>
             </div>
             <div class="mt-3 space-y-1">
-              <CustomLink
-                provide="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-                role="menuitem"
-                @on-click="logout"
-                >Log out</CustomLink
-              >
+              <CustomLink defaultLink url="/about">About</CustomLink>
+              <CustomLink defaultLink url="/blogs">Blogs</CustomLink>
+              <CustomLink defaultLink url="/projects">Projects</CustomLink>
+              <CustomLink defaultLink url="/join">Join Us</CustomLink>
+              <CustomLink defaultLink url="/cv">Cv</CustomLink>
+              <CustomLink defaultLink event @on-click="logout">Log out</CustomLink>
             </div>
-          </template>
-          <template v-else>
-            <CustomLink
-              customNuxtLink="/signin"
-              class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-            >
-              Sign in
-            </CustomLink>
-          </template>
-        </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="pt-2 pb-3 space-y-1">
+            <CustomLink defaultLink url="/about">About</CustomLink>
+            <CustomLink defaultLink url="/blogs">Blogs</CustomLink>
+            <CustomLink defaultLink url="/projects">Projects</CustomLink>
+            <CustomLink defaultLink url="/join">Join Us</CustomLink>
+            <CustomLink defaultLink url="/cv">Cv</CustomLink>
+          </div>
+          <div class="pt-2 pb-3 border-t border-grey-200">
+            <CustomLink defaultLink url="/signin">Sign in</CustomLink>
+            <CustomLink defaultLink url="/signup">Sign up</CustomLink>
+          </div>
+        </template>
       </div>
     </template>
   </nav>

@@ -27,6 +27,7 @@ export default {
     {src: '~/plugins/vuelidate'},
     {src: '~/plugins/filters'},
     {src: '~/plugins/integrations'},
+    {src: '~/plugins/tooltip'},
     {src: '~/plugins/toasted', ssr:false},
     {src: '~/plugins/paginate', ssr:false},
     {src: '~/plugins/form_wizard'}

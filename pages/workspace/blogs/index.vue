@@ -1,6 +1,6 @@
 <template>
   <Fragment>
-    <Navbar exitLink="/"></Navbar>
+    <Navbar exitLink="/workspace"></Navbar>
     <div class="py-12 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="md:flex md:items-center md:justify-between">
