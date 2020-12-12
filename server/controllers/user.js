@@ -95,4 +95,3 @@ exports.logout = function (req, res) {
   req.logout()
   return res.json({status: 'Session destroyed!'})
 }
-

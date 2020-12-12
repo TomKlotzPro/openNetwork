@@ -5,7 +5,7 @@
     </span>
     <input
       :id="name"
-      class="w-full px-3 py-2 h-12 text-l leading-tight text-grey-800 rounded shadow appearance-none border focus:border-grey-800 focus:outline-none"
+      class="w-full px-3 py-2 h-12 text-base leading-tight text-grey-800 rounded shadow appearance-none border focus:border-grey-800 focus:outline-none"
       :class="[error ? 'border-red-600 focus:border-red-600' : '', addStyles]"
       v-bind="$attrs"
       :maxlength="maxLength"
@@ -22,14 +22,14 @@
   <Fragment v-else-if="tagInput">
     <label
       :class="
-        stylesLabel ? stylesLabel : 'block mb-2 text-l font-bold text-grey-800'
+        stylesLabel ? stylesLabel : 'block mb-2 text-base font-bold text-grey-800'
       "
       :for="name"
     >
       <slot></slot>
     </label>
     <div
-      class="w-full h-12 border border-solid border-input text-l py-0 px-2.5 rounded shadow"
+      class="w-full h-12 border border-solid border-input text-base py-0 px-2.5 rounded shadow"
     >
       <div
         v-for="(tag, index) in tags"
@@ -44,7 +44,7 @@
       <input
         type="text"
         placeholder="Enter a tag..."
-        class="border-none border-0 outline-none text-sm leading-10 bg-none bg-transparent styles"
+        class="border-none border-0 outline-none text-sm leading-10 bg-none bg-transparent styles focus:outline-none focus:ring-0 p-0"
         @keydown.enter="emitAddTag"
         @keydown.188="emitAddTag"
         @keydown.delete="emitRemoveLastTag"
@@ -54,7 +54,7 @@
   <Fragment v-else>
     <label
       :class="
-        stylesLabel ? stylesLabel : 'block mb-2 text-l font-bold text-grey-800'
+        stylesLabel ? stylesLabel : 'block mb-2 text-base font-bold text-grey-800'
       "
       :for="name"
     >
@@ -62,7 +62,7 @@
     </label>
     <input
       :id="name"
-      class="w-full px-3 py-2 h-12 text-l leading-tight text-grey-800 rounded shadow appearance-none border focus:border-grey-800 focus:outline-none"
+      class="w-full px-3 py-2 h-12 text-base leading-tight text-grey-800 rounded shadow appearance-none border focus:border-grey-800 focus:outline-none"
       :class="error ? 'border-red-600 focus:border-red-600' : ''"
       v-bind="$attrs"
       :value="value"

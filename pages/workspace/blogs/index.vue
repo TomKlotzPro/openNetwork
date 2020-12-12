@@ -1,6 +1,6 @@
 <template>
   <Fragment>
-    <Navbar exitLink="/"></Navbar>
+    <Navbar exitLink="/workspace"></Navbar>
     <div class="py-12 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="md:flex md:items-center md:justify-between">
@@ -124,7 +124,7 @@
                 </div>
               </li>
             </ul>
-            <Info v-else info="No Drafts" />
+            <Information v-else info="No Drafts" />
           </template>
           <template v-if="activeTab === 1">
             <ul
@@ -162,7 +162,7 @@
                 </div>
               </li>
             </ul>
-            <Info v-else info="No Published Article" />
+            <Information v-else info="No Published Article" />
           </template>
         </div>
       </div>
@@ -174,7 +174,7 @@
 import Button from "~/components/shared/Button";
 import { Fragment } from "vue-fragment";
 import Navbar from "~/components/shared/Navbar";
-import Info from "~/components/shared/Info";
+import Information from "~/components/shared/Information";
 import Dropdown from "~/components/shared/Dropdown";
 import { mapState } from "vuex";
 import {
@@ -193,7 +193,7 @@ export default {
     Button,
     Fragment,
     Navbar,
-    Info,
+    Information,
     Dropdown
   },
   data() {

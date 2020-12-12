@@ -20,15 +20,15 @@
           </h3>
           <p
             class="text-white font-hind text-base lg:text-lg font-normal leading-normal my-4"
-            v-if="description"
+            v-if="subtitle"
           >
-            {{ description | shortenText(150) }}
+            {{ subtitle | shortenText(150) }}
           </p>
           <p
             class="text-white font-hind text-base lg:text-lg font-normal leading-normal my-4"
             v-else
           >
-            No description yet!
+            No subtitle yet!
           </p>
           <div class="flex">
             <div
@@ -68,7 +68,7 @@ export default {
       type: String,
       required: true
     },
-    description: {
+    subtitle: {
       type: String,
       required: false
     },

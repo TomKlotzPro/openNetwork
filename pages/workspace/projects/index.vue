@@ -31,7 +31,7 @@
       v-for="project in projects"
       :key="project._id"
       :title="project.title"
-      :description="project.description"
+      :subtitle="project.subtitle"
       :image="project.image"
       :status="project.status"
       :to="`/workspace/project/${project._id}/manage`"

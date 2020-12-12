@@ -1,6 +1,9 @@
 <template>
-  <div class="p-2 sm:p-10 cursor-pointer" @click="$emit('on-click')">
-    <div class="py-16 max-w-sm rounded overflow-hidden shadow-lg">
+  <div class="p-2 sm:p-4 cursor-pointer" @click="$emit('on-click')">
+    <div
+      class="py-16 max-w-lg rounded overflow-hidden shadow-lg"
+      :class="styles"
+    >
       <div class="space-y-10">
         <span class="items-center justify-center grid">
           <span :style="imageStyles"></span>
@@ -8,9 +11,18 @@
         <div class="px-6 py-4">
           <div class="space-y-5">
             <div
-              class="text-grey-800 font-poppins text-lg lg:text-2xl font-semibold text-xl mb-2 leading-tight"
+              class="text-sols flex font-hind text-lg lg:text-2xl font-semibold mb-2 leading-tight"
             >
               {{ title }}
+              <p
+                v-if="info"
+                class="inline-flex items-center px-3 py-0.5 rounded text-xs font-semibold uppercase tracking-widest"
+                :class="'bg-nebula-100 border ml-2 border-nebula-500 text-nebula-500'"
+              >
+                <span>
+                  🔥 Coming soon
+                </span>
+              </p>
             </div>
             <p
               class="text-grey-500 font-hind text-lg lg:text-2xl font-normal leading-normal"
@@ -34,6 +46,15 @@ export default {
     image: {
       type: String,
       required: true
+    },
+    styles: {
+      type: String,
+      required: false
+    }
+    ,
+    info: {
+      type: Boolean,
+      required: false
     }
   },
   computed: {
@@ -50,5 +71,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

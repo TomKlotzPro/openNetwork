@@ -15,6 +15,14 @@
 import EditorView from "~/components/editor/EditorView";
 import UserTile from "~/components/shared/UserTile";
 export default {
+  head() {
+    return {
+      title: this.blog.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.blog.subtitle}
+      ]
+    }
+  },
   components: {
     EditorView
   },

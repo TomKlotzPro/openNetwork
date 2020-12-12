@@ -4,7 +4,7 @@
     <div class="mb-4">
       <div class="relative">
         <select
-          class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          class="block appearance-none w-full cursor-pointer bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           :class="[error ? 'border-red-600 focus:border-red-600' : '']"
           :value="value"
           @change="change"
@@ -13,19 +13,6 @@
           <option value="active">Active</option>
           <option value="published"> Published</option>
         </select>
-        <div
-          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-        >
-          <svg
-            class="fill-current h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-            />
-          </svg>
-        </div>
       </div>
       <span v-if="error">
         <p class="text-xs italic text-red-600">
@@ -52,19 +39,6 @@
             {{ option.name }}
           </option>
         </select>
-        <div
-          class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-        >
-          <svg
-            class="fill-current h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-            />
-          </svg>
-        </div>
       </div>
       <span v-if="error">
         <p class="text-xs italic text-red-600">
@@ -96,7 +70,7 @@ export default {
         const option = this.options.find(option => {
           return selectedName === option.name;
         });
-        this.$emit("change", option);
+        this.$emit("input", option);
       } else {
         this.$emit("change", e.target.value);
       }

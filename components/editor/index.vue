@@ -155,7 +155,7 @@ export default {
         })
       ]
     });
-    this.$emit('editorMounted', this.editor)
+    this.$emit("editorMounted", this.editor);
   },
   beforeDestroy() {
     // To destroy editor instance when it's no longer needed
@@ -163,15 +163,15 @@ export default {
   },
   methods: {
     emitUpdate() {
-      const content = this.getContent()
-      this.$emit('editorSaved', content)
+      const content = this.getContent();
+      this.$emit("editorSaved", content);
     },
     getContent() {
       const htmlContent = this.editor.getHTML();
-      const paragraph = this.getNodeValueByName("paragraph")
+      const paragraph = this.getNodeValueByName("paragraph");
       const title = this.getNodeValueByName("title");
       const subtitle = this.getNodeValueByName("subtitle");
-      return {content: htmlContent, title, subtitle, paragraph}
+      return { content: htmlContent, title, subtitle, paragraph };
     },
     getNodeValueByName(name) {
       const docContent = this.editor.state.doc.content;
