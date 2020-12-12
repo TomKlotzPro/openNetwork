@@ -29,6 +29,20 @@ export const actions = {
       .$post("/api/v1/users/register", registerData)
       .catch(error => Promise.reject(error));
   },
+  sendConfirmationEmail(_, email) {
+    return this.$axios
+      .$post("/api/v1/users/send-confirmation-email", email)
+      .catch(error => Promise.reject(error));
+  },
+  confirmEmail(_, token) {
+    return this.$axios
+      .$get(`/api/v1/users/confirm/${token}`)
+      .then(message => {
+        console.log(message)
+        return message
+      })
+      .catch(error => Promise.reject(error));
+  },
   logout({ commit }) {
     return this.$axios
       .$post("/api/v1/users/logout")
@@ -55,7 +69,17 @@ export const actions = {
         commit("setAuthUser", null);
         return Promise.reject(error);
       });
-  }
+  },
+  forgot(_, data) {
+    return this.$axios
+      .$post("/api/v1/users/forgot", data)
+      .catch(error => Promise.reject(error));
+  },
+  reset(_, data) {
+    return this.$axios
+      .$post("/api/v1/users/resetPwd/" + data.token, data)
+      .catch(error => Promise.reject(error));
+  },
 };
 
 export const mutations = {

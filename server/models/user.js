@@ -23,6 +23,10 @@ const userSchema = new Schema({
     required: 'Password is required'
   },
   info: String,
+  confirmed: {
+     type: Boolean,
+     default: false
+  },
   products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }

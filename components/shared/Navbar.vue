@@ -246,6 +246,15 @@ export default {
     CustomLink,
     Button
   },
+  mounted() {
+    if(this.isAuth) {
+      if(!this.user.confirmed) {
+        this.$toasted.global.on_warning({
+          message: "We recommend you to confirm your email !"
+        })
+      }
+    }
+  },
   computed: {
     ...mapGetters({
       user: "auth/authUser",

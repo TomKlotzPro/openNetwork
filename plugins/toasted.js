@@ -18,6 +18,12 @@ const error_options = {
   className: 'toast toast_error_styles',
 }
 
+const warning_options = {
+  ...defaultOptions,
+  icon: 'warning',
+  className: 'toast toast_warning_styles',
+}
+
 const success_options = {
   ...defaultOptions,
   icon: 'done',
@@ -32,6 +38,16 @@ Vue.toasted.register('on_error',
     return "Oops.. " + payload.message
   },
   error_options
+)
+
+Vue.toasted.register('on_warning',
+  (payload) => {
+    if (!payload.message) {
+      return "Hello ! Something is not quite right ! Check your user parameters !"
+    }
+    return "Hello ! " + payload.message
+  },
+  warning_options
 )
 
 Vue.toasted.register('on_success',
