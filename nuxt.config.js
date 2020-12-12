@@ -65,6 +65,12 @@ export default {
       ]
     }
   },
+  /**
+   * Axios module configuration
+   */
+  axios: {
+    baseURL: process.env.BASE_URL || 'http://localhost:3000'
+  },
 
   // Server Middleware
   serverMiddleware: ["~/server/routes/index.js"],
