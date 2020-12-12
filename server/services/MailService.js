@@ -19,7 +19,7 @@ exports.sendConfirmationEmail = function (user, token) {
         from: 'openetwork.mail@gmail.com',
         to: `${user.email}`,
         subject: 'Confirmation email',
-        html: `Click on this <a href="http://localhost:3000/confirm?token=${token}">link</a> to confirm your email.`
+        html: `Click on this <a href="${process.env.BASE_URL || 'http://localhost:3000'}/confirm?token=${token}">link</a> to confirm your email.`
         // FIXME: Set website url from local config file instead of localhost
     };
 
@@ -50,7 +50,7 @@ exports.sendResetPassword = function (user, token) {
 
         <p>You have requested a reset of the password for your Openetwork account.</p>
  
-        <p>To create your new password, please click <a href="http://localhost:3000/reset?token=${token}">here</a>.</p>
+        <p>To create your new password, please click <a href="${process.env.BASE_URL || 'http://localhost:3000'}/reset?token=${token}">here</a>.</p>
          
         <p>If you havn't tried to reset your password, just ignore this mail</p>
         
