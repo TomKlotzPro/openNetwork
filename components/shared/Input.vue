@@ -44,7 +44,7 @@
       <input
         type="text"
         placeholder="Enter a tag..."
-        class="border-none border-0 outline-none text-sm leading-10 bg-none bg-transparent styles"
+        class="border-none border-0 outline-none text-sm leading-10 bg-none bg-transparent styles focus:outline-none focus:ring-0 p-0"
         @keydown.enter="emitAddTag"
         @keydown.188="emitAddTag"
         @keydown.delete="emitRemoveLastTag"

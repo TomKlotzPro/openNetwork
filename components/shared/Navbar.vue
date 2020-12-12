@@ -31,9 +31,6 @@
               <CustomLink customLink url="/join">
                 Join us
               </CustomLink>
-              <CustomLink customLink url="/cv">
-                CV
-              </CustomLink>
             </div>
           </template>
         </div>
@@ -196,7 +193,6 @@
               <CustomLink defaultLink url="/blogs">Blogs</CustomLink>
               <CustomLink defaultLink url="/projects">Projects</CustomLink>
               <CustomLink defaultLink url="/join">Join Us</CustomLink>
-              <CustomLink defaultLink url="/cv">Cv</CustomLink>
               <CustomLink defaultLink event @on-click="logout">Log out</CustomLink>
             </div>
           </div>
@@ -207,7 +203,6 @@
             <CustomLink defaultLink url="/blogs">Blogs</CustomLink>
             <CustomLink defaultLink url="/projects">Projects</CustomLink>
             <CustomLink defaultLink url="/join">Join Us</CustomLink>
-            <CustomLink defaultLink url="/cv">Cv</CustomLink>
           </div>
           <div class="pt-2 pb-3 border-t border-grey-200">
             <CustomLink defaultLink url="/signin">Sign in</CustomLink>
