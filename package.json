@@ -1,6 +1,7 @@
 {
-  "name": "nuxt-example2",
+  "name": "open-network",
   "version": "1.0.0",
+  "description": "Open Network is a free and open source platform where each and everyone can create and contribute on open source projects and where knowledge sharing has no boundries. ",
   "private": true,
   "scripts": {
     "dev": "nuxt",

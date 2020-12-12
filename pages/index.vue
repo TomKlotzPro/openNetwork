@@ -57,8 +57,8 @@
               Project Contribution
             </template>
             <template v-slot:description>
-              Our aim is to proviside visibility to all kinds of projects
-              whatever they may be to potential contributors or investors
+              Visbility is important, but what about making people access you
+              project with a single click rathe than searching the whole web!
             </template>
           </Feature>
           <Feature styles="bg-grey-200">
@@ -83,8 +83,8 @@
               Instant Communication
             </template>
             <template v-slot:description>
-              Our aim is to proviside visibility to all kinds of projects
-              whatever they may be to potential contributors or investors
+              Our goal is to be a knowledge endpoint reason while with provide
+              communication through articles and through ou chat app.
             </template>
           </Feature>
         </dl>
@@ -93,7 +93,47 @@
     <div
       class="max-w-xl mx-auto px-4 py-24 font-hind sm:px-6 lg:max-w-7xl lg:px-8"
     >
-        <ProjectCard :projects="projects" />
+      <div class="relative pt-12 pb-20 px-4 sm:px-6 lg:pt-12 lg:pb-20 lg:px-8">
+        <div class="absolute inset-0">
+          <div class="bg-white h-1/3 sm:h-2/3"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto">
+          <Header>
+            <template v-slot:title>
+              Published Projects
+            </template>
+            <template v-slot:description>
+              Have a look at these projects published by some of our community
+              members!
+            </template>
+          </Header>
+          <div
+            class="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
+          >
+            <div
+              v-for="project in projects"
+              :key="project._id"
+              class="flex flex-col rounded-lg shadow-lg overflow-hidden"
+            >
+              <v-popover offset="16" trigger="hover" placement="right-start">
+                <ProjectCard :project="project" />
+                <template slot="popover">
+                  <ProjectCardTooltip
+                    :title="project.title"
+                    :subtitle="project.subtitle"
+                    :description="project.description"
+                    :category="project.category.name"
+                    :author="project.author"
+                  />
+                </template>
+              </v-popover>
+            </div>
+          </div>
+          <Button to="/projects" buttonColor="nebula" class="mx-auto mt-12"
+            >Go to Projects</Button
+          >
+        </div>
+      </div>
     </div>
     <div class="container px-4 sm:px-8 lg:px-16 font-hind xl:px-20 mx-auto">
       <div class="relative max-w-7xl mx-auto">
@@ -120,12 +160,21 @@ import Hero from "~/components/shared/Hero";
 import Feature from "~/components/shared/Feature";
 import ProjectCard from "~/components/ProjectCard";
 import BlogPost from "~/components/BlogPost";
+import Button from "~/components/shared/Button";
+import Header from "~/components/shared/Header";
+import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
+  head: {
+    title: "Open Network - Where knowledge has no boundries"
+  },
   components: {
     Hero,
     ProjectCard,
-    BlogPost
+    BlogPost,
+    Button,
+    Header,
+    ProjectCardTooltip
   },
   computed: {
     ...mapState({

@@ -1,15 +1,18 @@
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
-  mode: "universal",
+  //mode: "universal",
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: "Open Network",
-    title: "Open Network",
+    title: 'Open Network | Knowledge Endpoint',
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" }
+      { hid: "description", name: "description", content: process.env.npm_package_description },
+      { hid: "og:title", name: "og:title", content:'Open Network | Knowledge Endpoint' },
+      { hid: "og:url", name: "og:url", content: process.env.BASE_URL || 'http://localhost:300' },
+      { hid: "og:description", name: "og:description", content: process.env.npm_package_description },
+      { hid: "og:image", name: "og:image", content: 'https://opntwk-project-images.s3-eu-west-1.amazonaws.com/meta_image.png' },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     script: [

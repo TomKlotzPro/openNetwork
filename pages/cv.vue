@@ -4,10 +4,10 @@
 
 <script>
 export default {
-
-}
+  head: {
+    title: "ON | The Team"
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

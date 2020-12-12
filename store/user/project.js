@@ -61,9 +61,11 @@ export const actions = {
   },
   updateTags({ commit }, { payload, field }) {
     commit("setTagValue", { payload, field });
+    commit("setCanUpdateProject", true)
   },
   removeTag({ commit }, { field, index }) {
     commit("setRemoveTagValue", { field, index });
+    commit("setCanUpdateProject", true)
   }
 };
 

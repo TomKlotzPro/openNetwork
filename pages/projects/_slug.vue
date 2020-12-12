@@ -73,6 +73,14 @@
 import Button from "~/components/shared/Button";
 import ProductHero from "~/components/ProductHero";
 export default {
+  head() {
+    return {
+      title: this.project.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.project.subtitle}
+      ]
+    }
+  },
   components: {
     Button
   },
