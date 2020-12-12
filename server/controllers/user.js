@@ -116,29 +116,6 @@ exports.logout = function (req, res) {
   return res.json({ status: 'Session destroyed!' })
 }
 
-exports.confirmEmail = function (req, res) {
-  if (req.params.token === '')
-    return res.status(400).send({ message: 'Missing parameter' })
-  else {
-    try {
-      const { id } = jwt.verify(req.params.token, keys.JWT_KEY)
-      User.updateOne({ _id: id }, { confirmed: true }, function (err, docs) {
-        if (err) {
-          console.log('Error on updating user confirmation : ' + err)
-          return res.status(500).send({ message: 'Server error' })
-        }
-        else {
-          return res.status(200).send({ message: 'Confirmed' })
-        }
-      });
-
-    }
-    catch (err) {
-      console.log('Error on confirmation : ' + err)
-      return res.status(400).send({ message: 'Bad request' })
-    }
-  }
-}
 exports.forgotPassword = function (req, res) {
   const email = req.body.email
   if (!email) {
