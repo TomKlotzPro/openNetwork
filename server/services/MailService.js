@@ -177,8 +177,8 @@ exports.sendResetPassword = function(user, token) {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: keys.MAILSERVICE_MAIL,
-      pass: keys.MAILSERVICE_PASS
+      user: process.env.MAILSERVICE_MAIL,
+      pass: process.env.MAILSERVICE_PASS
     }
   });
 
