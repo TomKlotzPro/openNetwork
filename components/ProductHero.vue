@@ -33,24 +33,50 @@
                       <span class="sr-only">Online</span>
                     </span>
                   </div>
-                  <p class="text-sm text-gray-500">
-                    @{{ name | slugifyName }}
-                  </p>
+                  <p class="text-sm text-gray-500">@{{ name | slugifyName }}</p>
                 </div>
                 <div
-                  class="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3"
+                  class="mt-5 max-w-md sm:flex space-y-3 sm:space-y-0 sm:space-x-3"
                 >
                   <Button
                     buttonType="a"
                     :href="productLink"
                     target="_blank"
                     buttonColor="nebula"
-                    class="w-full sm:flex-1"
+                    class="w-full sm:flex"
                     >Git Repo</Button
                   >
-                  <Button buttonType="button" class="w-full sm:flex-1"
+                  <!-- <Button buttonType="button" class="w-full sm:flex-1"
                     >Donate</Button
+                  > -->
+                  <div ref="paypal" class="flex w-full"></div>
+                  <!-- TODO: Enable feature for user to choose if he/she wanhts to accept donations and a doc that explains how to proceed -->
+                  <!-- <form
+                    action="https://www.paypal.com/donate"
+                    method="post"
+                    target="_top"
                   >
+                    <input
+                      type="hidden"
+                      name="hosted_button_id"
+                      value="PJY2DJLSWRUM8"
+                    />
+                    <input
+                      type="image"
+                      src="https://www.paypalobjects.com/en_US/FR/i/btn/btn_donateCC_LG.gif"
+                      border="0"
+                      name="submit"
+                      title="PayPal - The safer, easier way to pay online!"
+                      alt="Donate with PayPal button"
+                    />
+                    <img
+                      alt=""
+                      border="0"
+                      src="https://www.paypal.com/en_FR/i/scr/pixel.gif"
+                      width="1"
+                      height="1"
+                    />
+                  </form> -->
                 </div>
               </div>
             </div>
@@ -159,7 +185,66 @@ export default {
     createdAt: {
       type: String,
       required: true
-    },
+    }
+  },
+  data() {
+    return {
+      loaded: false,
+      donated: false,
+      project: {
+        priceDonation: "5",
+        description: this.title,
+        img: this.image
+      }
+    };
+  },
+  mounted: function() {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = `https://www.paypal.com/sdk/js?client-id=ASyMhxdr56n7JknacW2JZYGn4cmPHYF0PPv9ZG5ORZr1jrTfohd_6LJv2p7mmovei8eMCTg_ZeGW4DFN&components=buttons,funding-eligibility`;
+    script.async = true;
+    script.addEventListener("load", this.setLoaded);
+    document.body.appendChild(script);
+  },
+  methods: {
+    setLoaded: function() {
+      this.loaded = true;
+      var FUNDING_SOURCES = [window.paypal.FUNDING.PAYPAL];
+      FUNDING_SOURCES.forEach(
+        function(fundingSource) {
+          const payPalButton = window.paypal.Buttons({
+            style: {
+              height: 47
+            },
+            fundingSource: fundingSource,
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    description: this.project.description,
+                    amount: {
+                      currency_code: "USD",
+                      value: this.project.priceDonation
+                    }
+                  }
+                ]
+              });
+            },
+            onApprove: function(data, actions) {
+              return actions.order.capture().then(function(details) {
+                alert(
+                  "Transaction completed by " + details.payer.name.given_name
+                );
+              });
+            }
+          });
+          if (payPalButton.isEligible()) {
+            console.log(this.$refs);
+            payPalButton.render(this.$refs.paypal);
+          }
+        }.bind(this)
+      );
+    }
   }
 };
 </script>

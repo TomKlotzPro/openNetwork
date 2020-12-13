@@ -3,6 +3,7 @@
     <Navbar exitLink="/">
       <template #actionMenu>
         <Button
+          class="w-full sm:w-auto"
           to="/workspace/project/create"
           buttonColor="nebula"
           buttonWidth="40"
@@ -12,7 +13,7 @@
       </template>
     </Navbar>
     <!-- HEADER COMPONENT -->
-    <header class="bg-white py-8 lg:py:12 px-6 relative text-center">
+    <header class="bg-white py-8 lg:py:12 px-6 text-center">
       <div class="m-auto relative max-w-lg md:max-w-6xl">
         <h1
           class="m-0 mx-auto text-grey-800 h1_ch font-poppins text-4xl lg:text-5xl tracking-tight font-bold leading-none txt_shadow"

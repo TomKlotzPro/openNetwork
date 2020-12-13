@@ -1,10 +1,10 @@
 <template>
-  <div class="container mx-auto">
+  <div class="py-24 container mx-auto">
     <div class="flex justify-center px-6 my-16">
       <div class="w-full m-auto xl:w-3/4 lg:w-11/12 flex">
         <!-- first column -->
         <div
-          class="w-full h-auto bg-grey-900 hidden lg:block lg:w-5/12 bg-cover rounded-lg image"
+          class="w-full h-80 bg-grey-900 hidden lg:block lg:w-5/12 bg-cover rounded-lg image"
         />
 
         <!-- second column -->
@@ -107,6 +107,6 @@ export default {
 
 <style scoped>
 .image {
-  background-image: url("~assets/images/signup.jpg");
+  background-image: url("~assets/images/forgot.jpg");
 }
 </style>

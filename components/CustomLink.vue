@@ -17,7 +17,12 @@
   <component
     v-else-if="provide"
     :is="setlinkType"
-    :class="provide"
+    :class="[
+      defaultLink ? defaultStyles : provide,
+      isActive
+        ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
+        : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'
+    ]"
     @click="$emit('on-click')"
   >
     <span>

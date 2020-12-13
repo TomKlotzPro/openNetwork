@@ -67,6 +67,9 @@ export default {
       type: Object,
       required: true
     }
+  },
+  components: {
+    Fragment
   }
 };
 </script>
