@@ -3,5 +3,5 @@ module.exports = {
   SESSION_SECRET: 'opennetwork!@?ulrich96',
   JWT_KEY: 'myjwtkey',
   MAILSERVICE_MAIL: 'openetwork.mail@gmail.com',
-  MAILSERVICE_PASS: 'Azer123!'
+  MAILSERVICE_PASS: 'Azer123!',
 }
