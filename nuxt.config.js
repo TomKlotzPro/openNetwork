@@ -9,7 +9,7 @@ export default {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: process.env.npm_package_description },
-      { hid: "og:title", name: "og:title", content:'Open Network | Knowledge Endpoint' },
+      { hid: "og:title", name: "og:title", content: 'Open Network | Knowledge Endpoint' },
       { hid: "og:url", name: "og:url", content: process.env.BASE_URL || 'http://localhost:300' },
       { hid: "og:description", name: "og:description", content: process.env.npm_package_description },
       { hid: "og:image", name: "og:image", content: 'https://opntwk-project-images.s3-eu-west-1.amazonaws.com/meta_image.png' },
@@ -27,13 +27,13 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    {src: '~/plugins/vuelidate'},
-    {src: '~/plugins/filters'},
-    {src: '~/plugins/integrations'},
-    {src: '~/plugins/tooltip'},
-    {src: '~/plugins/toasted', ssr:false},
-    {src: '~/plugins/paginate', ssr:false},
-    {src: '~/plugins/form_wizard'}
+    { src: '~/plugins/vuelidate' },
+    { src: '~/plugins/filters' },
+    { src: '~/plugins/integrations' },
+    { src: '~/plugins/tooltip' },
+    { src: '~/plugins/toasted', ssr: false },
+    { src: '~/plugins/paginate', ssr: false },
+    { src: '~/plugins/form_wizard' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -73,7 +73,7 @@ export default {
   },
 
   // Server Middleware
-  serverMiddleware: ["~/server/routes/index.js"],
+  serverMiddleware: ["~/server/routes/index.js", "redirect-ssl"],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {}
