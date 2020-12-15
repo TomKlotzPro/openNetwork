@@ -179,7 +179,7 @@ export default {
     signUpForm: {
       username: {
         required,
-        minLength: minLength(2),
+        minLength: minLength(3),
       },
       name: {
         required,
