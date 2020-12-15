@@ -3,14 +3,14 @@
     <ProductHero
       :image="project.image"
       :name="project.author.name"
-      :productLink="project.productLink"
+      :gitLink="project.gitLink"
       :title="project.title"
       :subtitle="project.subtitle"
       :tags="project.tags"
       :createdAt="project.createdAt"
     />
     <div
-      class="lg:mt-0 relative  pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-12 lg:px-8"
+      class="lg:mt-0 relative pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-12 lg:px-8"
     >
       <div class="relative max-w-7xl mx-auto">
         <div class="text-left">
@@ -28,7 +28,7 @@
             :key="wsl.value"
             class="group flex flex-col border border-gray-300 bg-white rounded shadow"
           >
-            <div class="rounded  px-6 py-6 hover:border-gray-400 sm:flex">
+            <div class="rounded px-6 py-6 hover:border-gray-400 sm:flex">
               <div class="flex items-center">
                 <div class="text-sm">
                   <p class="font-medium text-gray-900">
@@ -77,21 +77,25 @@ export default {
     return {
       title: this.project.title,
       meta: [
-        {hid: 'description', name: 'description', content: this.project.subtitle}
-      ]
-    }
+        {
+          hid: "description",
+          name: "description",
+          content: this.project.subtitle,
+        },
+      ],
+    };
   },
   components: {
-    Button
+    Button,
   },
   computed: {
     project() {
       return this.$store.state.project.item;
-    }
+    },
   },
   async fetch({ store, params }) {
     await store.dispatch("project/fetchProjectBySlug", params.slug);
-  }
+  },
 };
 </script>
 
