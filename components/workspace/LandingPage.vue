@@ -69,7 +69,7 @@
           class="form-textarea mt-1 block w-full transition text-l text-grey-800 border focus:shadow-none focus:border-grey-800 focus:outline-none sm:text-sm sm:leading-5"
           placeholder="Write something catchy about your awesome project!"
         ></textarea> -->
-        <ProjectEditor 
+        <ProjectEditor
          @editorUpdated="(content) => emitProjectValue(content, 'description')"
         :initialContent="project.description" />
       </div>
@@ -87,8 +87,8 @@
           URL
         </span>
         <Input
-          @input="$event => emitProjectValue($event, 'productLink')"
-          :value="project.productLink"
+          @input="$event => emitProjectValue($event, 'gitLink')"
+          :value="project.gitLink"
           name="git_repository"
           placeholder="https://www.example.com"
           type="text"
