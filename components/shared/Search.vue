@@ -137,7 +137,11 @@ export default {
   margin: 6px 0 0;
   text-align: left;
 }
-
+@media (min-width: 200px) {
+  .dropdown_menu {
+    min-width: 274px;
+  }
+}
 @media (min-width: 568px) {
   .dropdown_menu {
     min-width: 400px;
