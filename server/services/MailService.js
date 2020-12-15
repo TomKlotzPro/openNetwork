@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer");
-const keys = require("../keys/index");
 
 /**
  * Send a confirmation email to a user using nodemailer

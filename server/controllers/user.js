@@ -2,7 +2,6 @@ const User = require('../models/user');
 const passport = require('passport');
 const jwt = require('jsonwebtoken')
 const { sendConfirmationEmail, sendResetPassword } = require('../services/MailService')
-const keys = require('../keys/index')
 const bcrypt = require('bcrypt')
 
 exports.getCurrentUser = function (req, res, next) {

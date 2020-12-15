@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('../models/user');
-const keys = require('../keys');
 
 // Only For Session Authentication !
 passport.serializeUser(function(user, done) {
