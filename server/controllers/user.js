@@ -2,7 +2,6 @@ const User = require('../models/user');
 const passport = require('passport');
 const jwt = require('jsonwebtoken')
 const { sendConfirmationEmail, sendResetPassword } = require('../services/MailService')
-const keys = require('../keys/index')
 const bcrypt = require('bcrypt')
 
 exports.getCurrentUser = function (req, res, next) {
@@ -58,7 +57,7 @@ exports.register = function (req, res) {
     const token = jwt.sign({
       id: savedUser._id
     },
-      keys.JWT_KEY,
+    process.env.JWT_KEY,
     {
         expiresIn: '1d',
     })
@@ -134,7 +133,7 @@ exports.forgotPassword = function (req, res) {
     const token = jwt.sign({
       id: user._id
     },
-      keys.JWT_KEY,
+    process.env.JWT_KEY,
       {
         expiresIn: '1h',
       })
@@ -162,7 +161,7 @@ exports.resetPassword = function (req, res) {
   }
 
   try {
-    const { id } = jwt.verify(req.params.token, keys.JWT_KEY)
+    const { id } = jwt.verify(req.params.token, process.env.JWT_KEY)
 
 
     bcrypt.hash(data.password, 10)
@@ -200,7 +199,7 @@ exports.confirmEmail = function (req, res) {
       return res.status(400).send({ message: 'Missing parameter' })
   else {
       try {
-        const { id } = jwt.verify(req.params.token, keys.JWT_KEY)
+        const { id } = jwt.verify(req.params.token, process.env.JWT_KEY)
         User.updateOne({_id: id}, {confirmed: true}, function (err, docs) {
           if (err) {
             console.log('Error on updating user confirmation : ' + err)
@@ -238,7 +237,7 @@ exports.sendConfirmationEmail = function (req, res) {
           const token = jwt.sign({
             id: savedUser._id
           },
-          keys.JWT_KEY,
+          process.env.JWT_KEY,
           {
               expiresIn: '1d',
           })
