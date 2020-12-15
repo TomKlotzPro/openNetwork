@@ -100,7 +100,7 @@
               >
                 <div
                   class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium uppercase rounded-l-md"
-                  :class="`bg-${randomColors()}-600`"
+                  :class="`bg-sols`"
                 >
                   {{ blogAvatar(draft.title) }}
                 </div>
@@ -138,7 +138,7 @@
               >
                 <div
                   class="flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium uppercase rounded-l-md"
-                  :class="[`bg-${randomColors()}-600`]"
+                  :class="`bg-nebula-600`"
                 >
                   {{ blogAvatar(publish.title) }}
                 </div>
@@ -222,7 +222,6 @@ export default {
         "cyan",
         "lightBlue",
         "blue",
-        "indigo",
         "violet",
         "purple",
         "fuchsia",
@@ -239,7 +238,7 @@ export default {
     }),
     draftOptions() {
       return createDraftsOptions();
-    }
+    },
   },
   methods: {
     blogAvatar(projectTitle) {
@@ -250,9 +249,6 @@ export default {
           .substring(0, 1)
           .concat(projectTitle.split(" ")[1].substring(0, 1));
       } else return projectTitle.substring(0, 1);
-    },
-    randomColors() {
-      return this.colors[Math.floor(Math.random() * this.colors.length)];
     },
     handleOption(command, blog) {
       if (command === commands.EDIT_ARTICLE) {
@@ -267,7 +263,7 @@ export default {
     },
     updateBlog(blog) {
       const featured = !blog.featured;
-      const featureStatus = featured ? 'featured' : 'unfeatured'
+      const featureStatus = featured ? "featured" : "unfeatured";
       this.$store
         .dispatch("user/blog/updatePublishedBlog", {
           id: blog._id,
