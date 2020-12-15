@@ -40,7 +40,7 @@
                 >
                   <Button
                     buttonType="a"
-                    :href="productLink"
+                    :href="gitLink"
                     target="_blank"
                     buttonColor="nebula"
                     class="w-full sm:flex"
@@ -155,37 +155,37 @@
 import Button from "~/components/shared/Button";
 export default {
   components: {
-    Button
+    Button,
   },
   props: {
     image: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
-    productLink: {
+    gitLink: {
       type: String,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     subtitle: {
       type: String,
-      required: true
+      required: true,
     },
     tags: {
       type: Array,
-      required: true
+      required: true,
     },
     createdAt: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -194,11 +194,11 @@ export default {
       project: {
         priceDonation: "5",
         description: this.title,
-        img: this.image
-      }
+        img: this.image,
+      },
     };
   },
-  mounted: function() {
+  mounted: function () {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = `https://www.paypal.com/sdk/js?client-id=ASyMhxdr56n7JknacW2JZYGn4cmPHYF0PPv9ZG5ORZr1jrTfohd_6LJv2p7mmovei8eMCTg_ZeGW4DFN&components=buttons,funding-eligibility`;
@@ -207,14 +207,14 @@ export default {
     document.body.appendChild(script);
   },
   methods: {
-    setLoaded: function() {
+    setLoaded: function () {
       this.loaded = true;
       var FUNDING_SOURCES = [window.paypal.FUNDING.PAYPAL];
       FUNDING_SOURCES.forEach(
-        function(fundingSource) {
+        function (fundingSource) {
           const payPalButton = window.paypal.Buttons({
             style: {
-              height: 47
+              height: 47,
             },
             fundingSource: fundingSource,
             createOrder: (data, actions) => {
@@ -224,19 +224,19 @@ export default {
                     description: this.project.description,
                     amount: {
                       currency_code: "USD",
-                      value: this.project.priceDonation
-                    }
-                  }
-                ]
+                      value: this.project.priceDonation,
+                    },
+                  },
+                ],
               });
             },
-            onApprove: function(data, actions) {
-              return actions.order.capture().then(function(details) {
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (details) {
                 alert(
                   "Transaction completed by " + details.payer.name.given_name
                 );
               });
-            }
+            },
           });
           if (payPalButton.isEligible()) {
             console.log(this.$refs);
@@ -244,8 +244,8 @@ export default {
           }
         }.bind(this)
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
