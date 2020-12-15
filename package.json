@@ -61,6 +61,7 @@
     "portal-vue": "^2.1.7",
     "postcss": "^8.1.10",
     "postcss-scss": "^3.0.4",
+    "redirect-ssl": "^2.0.0",
     "request": "^2.88.2",
     "sass": "^1.30.0",
     "slugify": "^1.4.6",

@@ -74,7 +74,9 @@ export default {
   },
 
   // Server Middleware
-  serverMiddleware: ["~/server/routes/index.js"],
+  serverMiddleware: ["~/server/routes/index.js", redirectSSL.create({
+    enabled: process.env.NODE_ENV === 'production'
+  }),],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
