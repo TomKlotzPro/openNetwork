@@ -39,7 +39,7 @@
 import Member from "~/components/Member";
 export default {
   head: {
-    title: "What is Open Network"
+    title: "What is Open Network",
   },
   data() {
     return {
@@ -50,7 +50,7 @@ export default {
           name: "Tom Klotz",
           role: "Software Engineer",
           twitter_link: "https://twitter.com/klotz_tom?s=20",
-          linkedIn_link: "https://www.linkedin.com/in/tom-klotz-11a617134"
+          linkedIn_link: "https://www.linkedin.com/in/tom-klotz-11a617134",
         },
         {
           profileImage:
@@ -58,15 +58,15 @@ export default {
           name: "Pierre Couderc",
           role: "Software Engineer",
           twitter_link: "https://twitter.com/",
-          linkedIn_link: "https://www.linkedin.com/in/pierre-couderc-784288153"
+          linkedIn_link: "https://www.linkedin.com/in/pierre-couderc-784288153",
         },
         {
           profileImage:
-            "https://opntwk-project-images.s3-eu-west-1.amazonaws.com/members/sofiane.jfif",
+            "https://opntwk-project-images.s3-eu-west-1.amazonaws.com/members/sofiane.jpg",
           name: "Sofiane Mektane",
           role: "Software Engineer",
           twitter_link: "https://twitter.com",
-          linkedIn_link: "https://www.linkedin.com/in/sofiane-mektane"
+          linkedIn_link: "https://www.linkedin.com/in/sofiane-mektane",
         },
         {
           profileImage:
@@ -74,7 +74,7 @@ export default {
           name: "Ulrich Ekeu",
           role: "Software Engineer",
           twitter_link: "https://twitter.com/Monkam1703",
-          linkedIn_link: "www.linkedin.com/in/ekeu-ulrich"
+          linkedIn_link: "www.linkedin.com/in/ekeu-ulrich",
         },
         {
           profileImage:
@@ -82,14 +82,14 @@ export default {
           name: "Mouloud Daoud",
           role: "Software Engineer",
           twitter_link: "https://twitter.com",
-          linkedIn_link: "www.linkedin.com"
-        }
-      ]
+          linkedIn_link: "www.linkedin.com",
+        },
+      ],
     };
   },
   components: {
-    Member
-  }
+    Member,
+  },
 };
 </script>
 
