@@ -55,6 +55,7 @@
 
                           <div
                             v-for="hit in index.hits"
+                            v-if="hit.status === 'published'"
                             :key="hit.objectID"
                             class="docsearch_suggestion_wrapper"
                           >
