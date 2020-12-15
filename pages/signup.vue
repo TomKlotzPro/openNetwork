@@ -155,7 +155,7 @@ import { mapState, mapActions } from "vuex";
 const md5 = require("md5");
 
 export default {
-  middleware: 'user',
+  middleware: "user",
   components: { Button },
   name: "SignUpPage",
   data() {
@@ -166,38 +166,38 @@ export default {
         email: "",
         password: "",
         avatar: "",
-        passwordConfirmation: ""
-      }
+        passwordConfirmation: "",
+      },
     };
   },
   computed: {
     isFormValid() {
       return !this.$v.signUpForm.$nvalidi;
-    }
+    },
   },
   validations: {
     signUpForm: {
       username: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(2),
       },
       name: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(3),
       },
       email: {
         required,
-        emailValidator: email
+        emailValidator: email,
       },
       password: {
         required,
-        minLength: minLength(6)
+        minLength: minLength(6),
       },
       passwordConfirmation: {
         required,
-        sameAs: sameAs("password")
-      }
-    }
+        sameAs: sameAs("password"),
+      },
+    },
   },
   methods: {
     onSubmit() {
@@ -209,15 +209,15 @@ export default {
       if (this.isFormValid) {
         this.$store
           .dispatch("auth/register", this.signUpForm)
-          .then(_ => this.$router.push("/signin"))
-          .catch(error =>
+          .then((_) => this.$router.push("/signin"))
+          .catch((error) =>
             this.$toasted.global.on_error({
-              message: "an unexpected error occured, please try again!"
+              message: "an unexpected error occured, please try again!",
             })
           );
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
