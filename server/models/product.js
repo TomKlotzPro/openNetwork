@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongooseAlgolia = require('mongoose-algolia');
+
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
@@ -7,8 +9,8 @@ const productSchema = new Schema({
   subtitle: String,
   image: String,
   description: String,
-  wsl: [{type: Schema.Types.Mixed, value: String}],
-  requirements: [{type: Schema.Types.Mixed, value: String}],
+  wsl: [{ type: Schema.Types.Mixed, value: String }],
+  requirements: [{ type: Schema.Types.Mixed, value: String }],
   gitLink: String,
   tags: Array,
   status: {
@@ -22,4 +24,10 @@ const productSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-module.exports = mongoose.model('Product', productSchema );
+productSchema.plugin(mongooseAlgolia, {
+  appId: process.env.APPID,
+  apiKey: process.env.APPKEY,
+  indexName: 'projects' + process.env.INDEX_NAME
+})
+
+module.exports = mongoose.model('Product', productSchema);

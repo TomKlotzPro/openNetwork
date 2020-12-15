@@ -33,7 +33,8 @@ export default {
     { src: '~/plugins/tooltip' },
     { src: '~/plugins/toasted', ssr: false },
     { src: '~/plugins/paginate', ssr: false },
-    { src: '~/plugins/form_wizard' }
+    { src: '~/plugins/form_wizard' },
+    { src: '~/plugins/vue-instantsearch' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -76,5 +77,7 @@ export default {
   serverMiddleware: ["~/server/routes/index.js", "redirect-ssl"],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {
+    transpile: ['vue-instantsearch', 'instantsearch.js/es'],
+  }
 };

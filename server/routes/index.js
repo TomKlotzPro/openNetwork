@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const db = require("../db");
+const algolia = require("../algolia");
 const path = require("path");
 
 const bodyParser = require("body-parser");
@@ -23,8 +24,10 @@ db.connect();
 
 const store = db.initSessionStore();
 
+algolia.initSyncWithAlgolia();
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
 const sess = {
