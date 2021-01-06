@@ -1,15 +1,17 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const databaseHelper = require('../server/db');
+const databaseHelper = require("../server/db");
 
 beforeAll(() => {
+  databaseHelper.truncate();
   return databaseHelper.connect();
 });
 
-beforeEach(() => {
+/* beforeEach(() => {
   return databaseHelper.truncate();
-});
+}); */
 
-afterAll(() => {
+/* afterAll(() => {
   return databaseHelper.disconnect();
 });
+ */

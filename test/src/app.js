@@ -6,13 +6,13 @@ const productRoutes = require("../../server/routes/product");
 const categoryRoutes = require("../../server/routes/category");
 const blogRoutes = require("../../server/routes/blog");
 const apiRoutes = require("../../server/routes/api");
-
+const passport = require("passport");
 const databaseHelper = require('../../server/db');
 
+require('../../server/services/passport')
 class App {
   constructor() {
     this.express = express();
-
     this.database();
     this.middlewares();
     this.routes();
@@ -24,6 +24,8 @@ class App {
 
   middlewares() {
     this.express.use(express.json());
+    this.express.use(passport.initialize());
+    this.express.use(passport.session());
   }
 
   routes() {

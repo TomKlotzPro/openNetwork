@@ -107,7 +107,7 @@ exports.login = function(req, res, next) {
           next(err);
         }
 
-        return res.json(passportUser);
+        return res.status(200).json(passportUser);
       });
     } else {
       return res.status(422).send({
