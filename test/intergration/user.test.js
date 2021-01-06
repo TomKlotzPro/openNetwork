@@ -18,6 +18,6 @@ describe("UserController.register", () => {
     expect(obj.name).toBe(user.name);
     expect(obj.username).toBe(user.username);
     expect(obj.email).toBe(user.email);
-    expect(obj.status).toBe(200);
+    expect(response.status).toBe(201);
   });
 });
