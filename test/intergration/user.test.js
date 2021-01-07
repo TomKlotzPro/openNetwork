@@ -22,6 +22,14 @@ const loginUser = {
   password: "testpassword",
 };
 
+const emailUser = {
+  email: "testuser@test.com"
+};
+
+const wrongEmailUser = {
+  email: "wrongtestuser@test.com"
+};
+
 const loginUserWrongPassword = {
   email: "testuser@test.com",
   password: "testpasswordwrong",
@@ -51,4 +59,35 @@ describe("UserController.register", () => {
     //console.log(obj)
     expect(response.status).toBe(200);
   });
+  it("should logout successfully", async () => {
+    const response = await request.post("/users/logout").send();
+    expect(response).toBeDefined()
+    expect(response.body.status).toBe("Session destroyed!")
+  })
+  it("should be able to say forgotten password", async () => {
+    const response = await request.post("/users/forgot").send(emailUser)
+    expect(response.status).toBe(200)
+    expect(response.body.message).toBe("Check mailbox")
+  })
+  it("should not be able to say forgotten password when providing wrong email", async () => {
+    const response = await request.post("/users/forgot").send(wrongEmailUser)
+    expect(response.status).toBe(422)
+  })
+  it("should not allow to reset password without JWT token", async () => {
+    const response = await request.post("/users/resetPwd/wrongToken").send()
+    expect(response.status).toBe(400)
+  })
+  it("should not confirm email when JWT incorrect", async () => {
+    const response = await request.get("/users/confirm/wrongToken").send()
+    expect(response.status).toBe(400)
+  })
+  it("should send a confirmation email", async () => {
+    const response = await request.post("/users/send-confirmation-email").send(emailUser)
+    expect(response.status).toBe(200)
+    expect(response.body.message).toBe("Confirmation email has been sent")
+  })
+  it("should not send a confirmation email when email not registered", async () => {
+    const response = await request.post("/users/send-confirmation-email").send(wrongEmailUser)
+    expect(response.status).toBe(400)
+  })
 });
