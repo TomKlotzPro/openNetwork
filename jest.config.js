@@ -13,9 +13,14 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '.*\\.(vue)$': 'vue-jest'
   },
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue'
-  ]
+  ],
+  globalSetup: '<rootDir>/test/setup.js',
+  globalTeardown: '<rootDir>/test/teardown.js',
+  setupFilesAfterEnv: ['<rootDir>/test/setupAfterEnv.js'],
+  testEnvironment: '<rootDir>/test/environment.js',
+  testMatch: ['**/test/**/*.test.js']
 }

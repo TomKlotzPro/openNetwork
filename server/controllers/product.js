@@ -1,6 +1,5 @@
 const Product = require("../models/product");
 const slugify = require("slugify");
-import { gfs } from '../db/index'
 
 exports.getProducts = function(req, res) {
   Product.find({ status: "published" })

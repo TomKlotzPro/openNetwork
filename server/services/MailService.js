@@ -167,8 +167,8 @@ exports.sendConfirmationEmail = function(user, token) {
 
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
-      console.log("Error occured when sending a mail : " + err);
-    } else console.log("Email sent");
+      throw new Error(err);
+    }
   });
 };
 
@@ -386,7 +386,7 @@ exports.sendResetPassword = function(user, token) {
 
   transporter.sendMail(mailOptions, (err, data) => {
     if (err) {
-      console.log("Error occured when sending a mail : " + err);
-    } else console.log("Email sent");
+      throw new Error(err);
+    }
   });
 };
