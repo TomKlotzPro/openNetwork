@@ -1,4 +1,5 @@
 local.server.config.js
 node_modules/
+coverage/
 .nuxt
 .env

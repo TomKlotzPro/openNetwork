@@ -17,6 +17,12 @@ const userNoMail = {
   passwordConfirmation: "testpassword"
 };
 
+const userNoPassword = {
+  username: "test-user-no-pw",
+  name: "testusernopw",
+  email: "testuser@test.com",
+};
+
 const loginUser = {
   email: "testuser@test.com",
   password: "testpassword",
@@ -45,8 +51,12 @@ describe("UserController.register", () => {
     expect(obj.email).toBe(user.email);
     expect(response.status).toBe(201);
   });
-  it("should not create user when data missing", async () => {
+  it("should not create user when email missing", async () => {
     const response = await request.post("/users/register").send(userNoMail);
+    expect(response.status).toBe(422);
+  })
+  it("should not create user when password missing", async () => {
+    const response = await request.post("/users/register").send(userNoPassword);
     expect(response.status).toBe(422);
   })
   it("should not be able to login user when wrong password", async () => {
