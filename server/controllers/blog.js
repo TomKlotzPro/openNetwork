@@ -119,7 +119,7 @@ exports.updateBlog = (req, res) => {
         return res.status(422).send(errors);
       }
 
-      return res.json(foundBlog);
+      return res.status(200).json(foundBlog);
     });
   });
 };
@@ -142,7 +142,7 @@ exports.createBlog = (req, res) => {
             return res.status(422).send(errors);
           }
 
-          return res.json(createdBlog);
+          return res.status(201).json(createdBlog);
         });
       },
       function(errors, ret) {

@@ -12,14 +12,6 @@ const passport = require("passport");
 const databaseHelper = require('../../server/db');
 
 require('../../server/services/passport')
-
-const sess = {
-  name: "openetwork-secure-session",
-  secret: keys.SESSION_SECRET,
-  cookie: { maxAge: 2 * 60 * 60 * 1000 },
-  resave: false,
-  saveUninitialized: false,
-};
 class App {
   constructor() {
     this.express = express();
@@ -30,10 +22,17 @@ class App {
 
   database() {
     databaseHelper.connect();
-    sess.store = databaseHelper.initSessionStore()
   }
 
   middlewares() {
+    const sess = {
+      name: "openetwork-secure-session",
+      secret: keys.SESSION_SECRET,
+      cookie: { maxAge: 2 * 60 * 60 * 1000 },
+      resave: false,
+      saveUninitialized: false,
+      store: databaseHelper.initSessionStore()
+    };
     this.express.use(express.json());
     this.express.use(session(sess));
     this.express.use(passport.initialize());

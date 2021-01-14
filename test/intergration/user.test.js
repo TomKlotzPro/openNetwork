@@ -23,6 +23,14 @@ const userNoPassword = {
   email: "testuser@test.com",
 };
 
+const userDiffConf = {
+  username: "test-user",
+  name: "testuser",
+  email: "testuser@test.com",
+  password: "testpassword",
+  passwordConfirmation: "badconfirmation"
+};
+
 const loginUser = {
   email: "testuser@test.com",
   password: "testpassword",
@@ -57,6 +65,10 @@ describe("UserController.register", () => {
   })
   it("should not create user when password missing", async () => {
     const response = await request.post("/users/register").send(userNoPassword);
+    expect(response.status).toBe(422);
+  })
+  it("should not create user when password confirmation is wrong", async () => {
+    const response = await request.post("/users/register").send(userDiffConf);
     expect(response.status).toBe(422);
   })
   it("should not be able to login user when wrong password", async () => {
