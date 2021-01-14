@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
+const session = require("express-session");
+const keys = require("../../server/keys");
 const usersRoutes = require("../../server/routes/user");
 const productRoutes = require("../../server/routes/product");
 const categoryRoutes = require("../../server/routes/category");
@@ -10,6 +12,14 @@ const passport = require("passport");
 const databaseHelper = require('../../server/db');
 
 require('../../server/services/passport')
+
+const sess = {
+  name: "openetwork-secure-session",
+  secret: keys.SESSION_SECRET,
+  cookie: { maxAge: 2 * 60 * 60 * 1000 },
+  resave: false,
+  saveUninitialized: false,
+};
 class App {
   constructor() {
     this.express = express();
@@ -20,10 +30,12 @@ class App {
 
   database() {
     databaseHelper.connect();
+    sess.store = databaseHelper.initSessionStore()
   }
 
   middlewares() {
     this.express.use(express.json());
+    this.express.use(session(sess));
     this.express.use(passport.initialize());
     this.express.use(passport.session());
   }

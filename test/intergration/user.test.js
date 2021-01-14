@@ -55,8 +55,6 @@ describe("UserController.register", () => {
   });
   it("should be able to login user", async () => {
     const response = await request.post("/users/login").send(loginUser);
-    //const obj = response.body
-    //console.log(obj)
     expect(response.status).toBe(200);
   });
   it("should logout successfully", async () => {
