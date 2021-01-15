@@ -141,7 +141,6 @@ exports.createBlog = (req, res) => {
           if (errors) {
             return res.status(422).send(errors);
           }
-
           return res.status(201).json(createdBlog);
         });
       },

@@ -100,7 +100,6 @@ describe("Blog", () => {
   });
   it("should not get blog of an unexisting slug", async () => {
     const response = await request.get("/blogs/s/randomstringthatisnotanid");
-    console.log(response)
     expect(response.status).toBe(422);
   });
   it("should not delete blog of an unexisting id", async () => {
