@@ -22,6 +22,7 @@ const partialBlog = {
   title: "differentTitle",
   subtitle: "subtitle",
   paragraph: "differentParagraph",
+  status: "published"
 }
 
 describe("Blog", () => {
@@ -33,7 +34,10 @@ describe("Blog", () => {
     const response = await request.post("/users/login")
       .send({email: userForBlog.email, password: userForBlog.password})
   });
-
+  it("should return empty array if no blogs", async () => {
+    const response = await request.get("/blogs");
+    expect(response.body.blogs).toHaveLength(0)
+  });
   it("should be able to create blog", async () => {
     const response = await request.post("/blogs")
       .send(blog)
@@ -47,6 +51,10 @@ describe("Blog", () => {
     expect(createdBlog.content).toBe(blog.content);
     expect(response.status).toBe(201);
 
+  });
+  it("should return empty array if no blog has been published", async () => {
+    const response = await request.get("/blogs");
+    expect(response.body.blogs).toHaveLength(0)
   });
   it("should not create blog if no body", async () => {
     const response = await request.post("/blogs")
@@ -66,5 +74,42 @@ describe("Blog", () => {
       .send(partialBlog)
     expect(response.status).toBe(422);
   });
-
+  it("should return a non empty array of published blogs", async () => {
+    const response = await request.get("/blogs");
+    expect(response.body.blogs).not.toHaveLength(0)
+  });
+  it("should return a non empty array of users blogs", async () => {
+    const response = await request.get("/blogs/me");
+    expect(response.body).not.toHaveLength(0)
+  });
+  it("should get blog by id", async () => {
+    const response = await request.get(`/blogs/${createdBlog._id}`)
+    const obj = response.body
+    expect(obj.paragraph).toBe(partialBlog.paragraph);
+    expect(obj.title).toBe(partialBlog.title);
+  });
+  it("should not get blog of an unexisting id", async () => {
+    const response = await request.get("/blogs/randomstringthatisnotanid")
+    expect(response.status).toBe(422);
+  });
+  it("should get blog by slug", async () => {
+    const response = await request.get(`/blogs/s/${createdBlog.slug}`)
+    const obj = response.body
+    expect(obj.slug).toBe(createdBlog.slug);
+    expect(obj.paragraph).toBe(partialBlog.paragraph);
+    expect(obj.title).toBe(partialBlog.title);
+  });
+  it("should not get blog of an unexisting slug", async () => {
+    const response = await request.get("/blogs/s/randomstringthatisnotanid")
+    expect(response.status).toBe(422);
+  });
+  it("should delete blog by id", async () => {
+    const response = await request.delete(`/blogs/${createdBlog._id}`)
+    const obj = response.body
+    expect(obj.status).toBe("deleted");
+  });
+  it("should not delete blog of an unexisting id", async () => {
+    const response = await request.delete("/blogs/randomstringthatisnotanid")
+    expect(response.status).toBe(422);
+  });
 });
