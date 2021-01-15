@@ -49,7 +49,7 @@ const loginUserWrongPassword = {
   password: "testpasswordwrong",
 };
 
-describe("UserController.register", () => {
+describe("UserController", () => {
   it("should be able to create user", async () => {
     const response = await request.post("/users/register").send(user);
     const obj = response.body
@@ -70,6 +70,10 @@ describe("UserController.register", () => {
   it("should not create user when password confirmation is wrong", async () => {
     const response = await request.post("/users/register").send(userDiffConf);
     expect(response.status).toBe(422);
+  })
+  it("should not return user when not connected", async () => {
+    const response = await request.get("/users/me");
+    expect(response.status).toBe(401);
   })
   it("should not be able to login user when wrong password", async () => {
     const response = await request.post("/users/login").send(loginUserWrongPassword);
