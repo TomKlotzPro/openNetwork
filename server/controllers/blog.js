@@ -60,10 +60,10 @@ exports.getMediumBlogs = (req, res) => {
 exports.getBlogBySlug = (req, res) => {
   const slug = req.params.slug;
 
-  Blog.findOne({ slug })
+  Blog.findOne({ slug: slug })
     .populate("author -_id -password -products -email -role")
     .exec(function(errors, foundBlog) {
-      if (errors) {
+      if (errors || foundBlog === null) {
         return res.status(422).send(errors);
       }
 
