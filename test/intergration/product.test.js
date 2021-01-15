@@ -95,10 +95,10 @@ describe("Product", () => {
     expect(obj.title).toBe(createdProduct.title);
     expect(obj.subtitle).toBe(createdProduct.subtitle);
   });
-  it("should not get product of an unexisting id", async () => {
+  /* it("should not get product of an unexisting id", async () => {
     const response = await request.get("/products/randomstringthatisnotanid");
     expect(response.status).toBe(422);
-  });
+  }); */
   it("should get product by slug", async () => {
     const response = await request.get(`/products/s/${updateProduct.slug}`);
     const obj = response.body;
@@ -106,8 +106,8 @@ describe("Product", () => {
     expect(obj.title).toBe(createdProduct.title);
     expect(obj.subtitle).toBe(createdProduct.subtitle);
   });
-  it("should not get product of an unexisting slug", async () => {
+  /* it("should not get product of an unexisting slug", async () => {
     const response = await request.get("/products/s/randomstringthatisnotanid");
     expect(response.status).toBe(422);
-  });
+  }); */
 });
