@@ -92,7 +92,7 @@ describe("Blog", () => {
     expect(response.status).toBe(422);
   });
   it("should get blog by slug", async () => {
-    const response = await request.get(`/blogs/s/${createdBlog.slug}`);
+    const response = await request.get(`/blogs/s/${partialBlog.slug}`);
     const obj = response.body;
     expect(obj.slug).toBe(partialBlog.slug);
     expect(obj.paragraph).toBe(partialBlog.paragraph);
@@ -100,6 +100,7 @@ describe("Blog", () => {
   });
   it("should not get blog of an unexisting slug", async () => {
     const response = await request.get("/blogs/s/randomstringthatisnotanid");
+    console.log(response)
     expect(response.status).toBe(422);
   });
   it("should not delete blog of an unexisting id", async () => {
