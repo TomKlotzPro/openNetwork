@@ -24,7 +24,7 @@ db.connect();
 
 const store = db.initSessionStore();
 
-algolia.initSyncWithAlgolia();
+//algolia.initSyncWithAlgolia();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

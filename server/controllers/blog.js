@@ -6,19 +6,19 @@ const lock = new AsyncLock();
 
 const MEDIUM_URL = "https://medium.com/@any/latest?format=json&limit=20";
 
-function parseFilters(queries) {
-  const parsedQueries = {};
-  if (queries.filter) {
-    Object.keys(queries).forEach(qKey => {
-      if (qKey.includes("filter")) {
-        const pKey = qKey.match(/\[([^)]+)\]/)[1];
-        parsedQueries[pKey] = queries[qKey];
-      }
-    });
-  }
+// function parseFilters(queries) {
+//   const parsedQueries = {};
+//   if (queries.filter) {
+//     Object.keys(queries).forEach(qKey => {
+//       if (qKey.includes("filter")) {
+//         const pKey = qKey.match(/\[([^)]+)\]/)[1];
+//         parsedQueries[pKey] = queries[qKey];
+//       }
+//     });
+//   }
 
-  return parsedQueries;
-}
+//   return parsedQueries;
+// }
 
 exports.getBlogs = (req, res) => {
   const pageSize = parseInt(req.query.pageSize) || 0;
@@ -45,25 +45,25 @@ exports.getBlogs = (req, res) => {
     });
 };
 
-exports.getMediumBlogs = (req, res) => {
-  request.get(MEDIUM_URL, (err, apiRes, body) => {
-    if (!err && apiRes.statusCode === 200) {
-      let i = body.indexOf("{");
-      const data = body.substr(i);
-      res.send(data);
-    } else {
-      res.sendStatus(500).json(err);
-    }
-  });
-};
+// exports.getMediumBlogs = (req, res) => {
+//   request.get(MEDIUM_URL, (err, apiRes, body) => {
+//     if (!err && apiRes.statusCode === 200) {
+//       let i = body.indexOf("{");
+//       const data = body.substr(i);
+//       res.send(data);
+//     } else {
+//       res.sendStatus(500).json(err);
+//     }
+//   });
+// };
 
 exports.getBlogBySlug = (req, res) => {
   const slug = req.params.slug;
 
-  Blog.findOne({ slug })
+  Blog.findOne({ slug: slug })
     .populate("author -_id -password -products -email -role")
     .exec(function(errors, foundBlog) {
-      if (errors) {
+      if (errors || foundBlog === null) {
         return res.status(422).send(errors);
       }
 
@@ -119,7 +119,7 @@ exports.updateBlog = (req, res) => {
         return res.status(422).send(errors);
       }
 
-      return res.json(foundBlog);
+      return res.status(200).json(foundBlog);
     });
   });
 };
@@ -141,8 +141,7 @@ exports.createBlog = (req, res) => {
           if (errors) {
             return res.status(422).send(errors);
           }
-
-          return res.json(createdBlog);
+          return res.status(201).json(createdBlog);
         });
       },
       function(errors, ret) {

@@ -17,6 +17,20 @@ const userNoMail = {
   passwordConfirmation: "testpassword"
 };
 
+const userNoPassword = {
+  username: "test-user-no-pw",
+  name: "testusernopw",
+  email: "testuser@test.com",
+};
+
+const userDiffConf = {
+  username: "test-user",
+  name: "testuser",
+  email: "testuser@test.com",
+  password: "testpassword",
+  passwordConfirmation: "badconfirmation"
+};
+
 const loginUser = {
   email: "testuser@test.com",
   password: "testpassword",
@@ -35,7 +49,7 @@ const loginUserWrongPassword = {
   password: "testpasswordwrong",
 };
 
-describe("UserController.register", () => {
+describe("UserController", () => {
   it("should be able to create user", async () => {
     const response = await request.post("/users/register").send(user);
     const obj = response.body
@@ -45,9 +59,21 @@ describe("UserController.register", () => {
     expect(obj.email).toBe(user.email);
     expect(response.status).toBe(201);
   });
-  it("should not create user when data missing", async () => {
+  it("should not create user when email missing", async () => {
     const response = await request.post("/users/register").send(userNoMail);
     expect(response.status).toBe(422);
+  })
+  it("should not create user when password missing", async () => {
+    const response = await request.post("/users/register").send(userNoPassword);
+    expect(response.status).toBe(422);
+  })
+  it("should not create user when password confirmation is wrong", async () => {
+    const response = await request.post("/users/register").send(userDiffConf);
+    expect(response.status).toBe(422);
+  })
+  it("should not return user when not connected", async () => {
+    const response = await request.get("/users/me");
+    expect(response.status).toBe(401);
   })
   it("should not be able to login user when wrong password", async () => {
     const response = await request.post("/users/login").send(loginUserWrongPassword);
@@ -55,8 +81,6 @@ describe("UserController.register", () => {
   });
   it("should be able to login user", async () => {
     const response = await request.post("/users/login").send(loginUser);
-    //const obj = response.body
-    //console.log(obj)
     expect(response.status).toBe(200);
   });
   it("should logout successfully", async () => {
