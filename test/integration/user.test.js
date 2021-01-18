@@ -1,6 +1,6 @@
 const supertest = require("supertest");
 const app = require("../src/app");
-const request = supertest(app);
+var request = supertest.agent(app);
 
 const user = {
   username: "test-user",
@@ -36,6 +36,14 @@ const loginUser = {
   password: "testpassword",
 };
 
+const loginUserNoMail = {
+  password: "testpassword",
+};
+
+const loginUserNoPassword = {
+  email: "testuser@test.com",
+};
+
 const emailUser = {
   email: "testuser@test.com"
 };
@@ -47,6 +55,11 @@ const wrongEmailUser = {
 const loginUserWrongPassword = {
   email: "testuser@test.com",
   password: "testpasswordwrong",
+};
+
+const resetWrongConfirmation = {
+  password: "testpassword",
+  passwordConfirmation: "testpasswordwrong",
 };
 
 describe("UserController", () => {
@@ -79,10 +92,29 @@ describe("UserController", () => {
     const response = await request.post("/users/login").send(loginUserWrongPassword);
     expect(response.status).toBe(422);
   });
+  it("should not be able to login user when entering no email", async () => {
+    const response = await request.post("/users/login").send(loginUserNoMail);
+    expect(response.status).toBe(422);
+    expect(response.body.errors.message).toBe("Email is required");
+  });
+  it("should not be able to login user when entering no password", async () => {
+    const response = await request.post("/users/login").send(loginUserNoPassword);
+    expect(response.status).toBe(422);
+    expect(response.body.errors.message).toBe("Password is required");
+  });
   it("should be able to login user", async () => {
     const response = await request.post("/users/login").send(loginUser);
     expect(response.status).toBe(200);
   });
+  it("should be able to get current user when connected", async () => {
+    const response = await request.get("/users/me").send();
+    const obj = response.body
+    expect(obj._id).toBeDefined();
+    expect(obj.name).toBe(user.name);
+    expect(obj.username).toBe(user.username);
+    expect(obj.email).toBe(user.email);
+    expect(response.status).toBe(200);
+  })
   it("should logout successfully", async () => {
     const response = await request.post("/users/logout").send();
     expect(response).toBeDefined()
@@ -97,8 +129,20 @@ describe("UserController", () => {
     const response = await request.post("/users/forgot").send(wrongEmailUser)
     expect(response.status).toBe(422)
   })
-  it("should not allow to reset password without JWT token", async () => {
+  it("should not be able to say forgotten password when providing no email", async () => {
+    const response = await request.post("/users/forgot").send()
+    expect(response.status).toBe(422)
+  })
+  it("should not allow to reset password with wrong JWT token", async () => {
     const response = await request.post("/users/resetPwd/wrongToken").send()
+    expect(response.status).toBe(400)
+  })
+  it("should not allow to reset password with wrong password confirmation", async () => {
+    const response = await request.post("/users/resetPwd/wrongToken").send(resetWrongConfirmation)
+    expect(response.status).toBe(422)
+  })
+  it("should not confirm email when provided with a wrong token", async () => {
+    const response = await request.get("/users/confirm/wrongToken").send()
     expect(response.status).toBe(400)
   })
   it("should not confirm email when JWT incorrect", async () => {
