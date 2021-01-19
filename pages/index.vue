@@ -122,7 +122,9 @@
                     :title="project.title"
                     :subtitle="project.subtitle"
                     :description="project.description"
-                    :category="project.category.name"
+                    :category="
+                      project.category ? project.category.name : 'None'
+                    "
                     :author="project.author"
                   />
                 </template>
