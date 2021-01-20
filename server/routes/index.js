@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const db = require("../db");
+const algolia = require("../algolia");
 
 const bodyParser = require("body-parser");
 const keys = require("../keys");
@@ -16,10 +17,10 @@ const apiRoutes = require("./api");
 
 require("../services/passport");
 
-// connect to DB
 db.connect();
 
 const store = db.initSessionStore();
+algolia.initSyncWithAlgolia();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
