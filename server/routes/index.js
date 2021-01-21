@@ -3,7 +3,6 @@ const app = express();
 const session = require("express-session");
 const db = require("../db");
 const algolia = require("../algolia");
-const path = require("path");
 
 const bodyParser = require("body-parser");
 const keys = require("../keys");
@@ -15,16 +14,13 @@ const productRoutes = require("./product");
 const categoryRoutes = require("./category");
 const blogRoutes = require("./blog");
 const apiRoutes = require("./api");
-const formidable = require('express-formidable')
 
 require("../services/passport");
 
-// connect to DB
 db.connect();
 
 const store = db.initSessionStore();
-
-//algolia.initSyncWithAlgolia();
+algolia.initSyncWithAlgolia();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,6 +52,7 @@ app.use("/users", usersRoutes);
 app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/blogs", blogRoutes);
+
 
 module.exports = {
   path: "/api/v1",
