@@ -1,4 +1,4 @@
-const tcolors = require('tailwindcss/colors')
+const tcolors = require("tailwindcss/colors");
 module.exports = {
   purge: [],
   theme: {
@@ -117,5 +117,9 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [require('@tailwindcss/forms'), require("@tailwindcss/ui")]
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/ui"),
+    require("@tailwindcss/aspect-ratio")
+  ]
 };

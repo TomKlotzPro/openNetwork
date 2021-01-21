@@ -1,49 +1,102 @@
 <template>
-  <footer class="pt-48 bg-white">
-    <div class="pt-12 bg-white px-5 relative">
-      <div
-        class="md:flex m-auto p-4 md:items-center md:justify-between max-w-7xl"
+  <footer class="bg-white">
+    <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+      <nav
+        class="-mx-5 -my-2 flex flex-wrap justify-center"
+        aria-label="Footer"
       >
-        <div class="flex text-grey-500 items-center justify-center">
-          <LogoNode class="mr-4 h-6 w-6" />
-          <span
-            class="text-grey-500 font-hind text-xs md:text-xs font-semibold tracking-widest uppercase"
+        <div v-for="menu in menuItems" :key="menu.name" class="px-5 py-2">
+          <nuxt-link
+            :to="menu.link"
+            class="text-base text-gray-500 hover:text-gray-900"
           >
-            <span class="font-light">
-              2020 Openetwork - All rights reserved.
-            </span>
-          </span>
+            {{ menu.name }}
+          </nuxt-link>
         </div>
-        <ul
-          class="align-center flex justify-center space-x-3 md:flex m-0 p-0 pt-4 md:pt-0 md:align-center sm:justify-end list-none align-center"
-        >
-          <li
-            class="text-grey-500 font-hind text-xs lg:text-xs font-semibold tracking-widest uppercase"
+      </nav>
+      <div class="mt-8 flex justify-center space-x-6">
+        <a href="#" class="text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Facebook</span>
+          <svg
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
           >
-            <span class="text-grey-500 font-light no-underline">MADE</span>
-          </li>
-          <li
-            class="text-grey-500 font-hind text-xs lg:text-xs font-semibold tracking-widest uppercase md:ml-6 lg:ml-12"
+            <path
+              d="m224.113281 303.960938 83.273438-47.960938-83.273438-47.960938zm0 0"
+            />
+            <path
+              d="m475.074219 0h-438.148438c-20.394531 0-36.925781 16.53125-36.925781 36.925781v438.148438c0 20.394531 16.53125 36.925781 36.925781 36.925781h438.148438c20.394531 0 36.925781-16.53125 36.925781-36.925781v-438.148438c0-20.394531-16.53125-36.925781-36.925781-36.925781zm-59.113281 256.261719s0 51.917969-6.585938 76.953125c-3.691406 13.703125-14.496094 24.507812-28.199219 28.195312-25.035156 6.589844-125.175781 6.589844-125.175781 6.589844s-99.878906 0-125.175781-6.851562c-13.703125-3.6875-24.507813-14.496094-28.199219-28.199219-6.589844-24.769531-6.589844-76.949219-6.589844-76.949219s0-51.914062 6.589844-76.949219c3.6875-13.703125 14.757812-24.773437 28.199219-28.460937 25.035156-6.589844 125.175781-6.589844 125.175781-6.589844s100.140625 0 125.175781 6.851562c13.703125 3.6875 24.507813 14.496094 28.199219 28.199219 6.851562 25.035157 6.585938 77.210938 6.585938 77.210938zm0 0"
+            />
+          </svg>
+        </a>
+
+        <a href="#" class="text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Instagram</span>
+          <svg
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
           >
-            <span class="text-grey-500 font-light no-underline">WITH</span>
-          </li>
-          <li
-            class="text-grey-500 font-hind text-xs lg:text-xs font-semibold tracking-widest uppercase md:ml-6 lg:ml-12"
+            <path
+              d="m475.074219 0h-438.148438c-20.394531 0-36.925781 16.53125-36.925781 36.925781v438.148438c0 20.394531 16.53125 36.925781 36.925781 36.925781h438.148438c20.394531 0 36.925781-16.53125 36.925781-36.925781v-438.148438c0-20.394531-16.53125-36.925781-36.925781-36.925781zm-293.464844 387h-62.347656v-187.574219h62.347656zm-31.171875-213.1875h-.40625c-20.921875 0-34.453125-14.402344-34.453125-32.402344 0-18.40625 13.945313-32.410156 35.273437-32.410156 21.328126 0 34.453126 14.003906 34.859376 32.410156 0 18-13.53125 32.402344-35.273438 32.402344zm255.984375 213.1875h-62.339844v-100.347656c0-25.21875-9.027343-42.417969-31.585937-42.417969-17.222656 0-27.480469 11.601563-31.988282 22.800781-1.648437 4.007813-2.050781 9.609375-2.050781 15.214844v104.75h-62.34375s.816407-169.976562 0-187.574219h62.34375v26.558594c8.285157-12.78125 23.109375-30.960937 56.1875-30.960937 41.019531 0 71.777344 26.808593 71.777344 84.421874zm0 0"
+            />
+          </svg>
+        </a>
+
+        <a href="#" class="text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Twitter</span>
+          <svg
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
           >
-            <span class="text-grey-500 font-light no-underline">❤</span>
-          </li>
-          <li
-            class="text-grey-500 font-hind text-xs lg:text-xs font-semibold tracking-widest uppercase md:ml-6 lg:ml-12"
+            <path
+              d="m437 0h-362c-41.351562 0-75 33.648438-75 75v362c0 41.351562 33.648438 75 75 75h362c41.351562 0 75-33.648438 75-75v-362c0-41.351562-33.648438-75-75-75zm-180 390c-74.441406 0-135-60.558594-135-135s60.558594-135 135-135 135 60.558594 135 135-60.558594 135-135 135zm150-240c-24.8125 0-45-20.1875-45-45s20.1875-45 45-45 45 20.1875 45 45-20.1875 45-45 45zm0 0"
+            />
+            <path
+              d="m407 90c-8.277344 0-15 6.722656-15 15s6.722656 15 15 15 15-6.722656 15-15-6.722656-15-15-15zm0 0"
+            />
+            <path
+              d="m257 150c-57.890625 0-105 47.109375-105 105s47.109375 105 105 105 105-47.109375 105-105-47.109375-105-105-105zm0 0"
+            />
+          </svg>
+        </a>
+
+        <a href="#" class="text-gray-400 hover:text-gray-500">
+          <span class="sr-only">GitHub</span>
+          <svg
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
           >
-            <span class="text-grey-500 font-light no-underline">in</span>
-          </li>
-          <li
-            class="text-grey-500 font-hind text-xs lg:text-xs font-semibold tracking-widest uppercase md:ml-6 lg:ml-12"
+            <path
+              d="m475.074219 0h-438.148438c-20.394531 0-36.925781 16.53125-36.925781 36.925781v438.148438c0 20.394531 16.53125 36.925781 36.925781 36.925781h438.148438c20.394531 0 36.925781-16.53125 36.925781-36.925781v-438.148438c0-20.394531-16.53125-36.925781-36.925781-36.925781zm-102.1875 199.601562c.113281 2.519532.167969 5.050782.167969 7.59375 0 77.644532-59.101563 167.179688-167.183594 167.183594h.003906-.003906c-33.183594 0-64.0625-9.726562-90.066406-26.394531 4.597656.542969 9.277343.8125 14.015624.8125 27.53125 0 52.867188-9.390625 72.980469-25.152344-25.722656-.476562-47.410156-17.464843-54.894531-40.8125 3.582031.6875 7.265625 1.0625 11.042969 1.0625 5.363281 0 10.558593-.722656 15.496093-2.070312-26.886718-5.382813-47.140624-29.144531-47.140624-57.597657 0-.265624 0-.503906.007812-.75 7.917969 4.402344 16.972656 7.050782 26.613281 7.347657-15.777343-10.527344-26.148437-28.523438-26.148437-48.910157 0-10.765624 2.910156-20.851562 7.957031-29.535156 28.976563 35.554688 72.28125 58.9375 121.117187 61.394532-1.007812-4.304688-1.527343-8.789063-1.527343-13.398438 0-32.4375 26.316406-58.753906 58.765625-58.753906 16.902344 0 32.167968 7.144531 42.890625 18.566406 13.386719-2.640625 25.957031-7.53125 37.3125-14.261719-4.394531 13.714844-13.707031 25.222657-25.839844 32.5 11.886719-1.421875 23.214844-4.574219 33.742187-9.253906-7.863281 11.785156-17.835937 22.136719-29.308593 30.429687zm0 0"
+            />
+          </svg>
+        </a>
+
+        <a href="#" class="text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Dribbble</span>
+          <svg
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 512 512"
+            aria-hidden="true"
           >
-            <span class="text-grey-500 font-light no-underline">France</span>
-          </li>
-        </ul>
+            <path
+              d="m437 0h-362c-41.351562 0-75 33.648438-75 75v362c0 41.351562 33.648438 75 75 75h151v-181h-60v-90h60v-61c0-49.628906 40.371094-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.351562 0 75-33.648438 75-75v-362c0-41.351562-33.648438-75-75-75zm0 0"
+            />
+          </svg>
+        </a>
       </div>
+      <p class="mt-8 text-center text-base text-gray-400">
+        &copy; 2020 OpenNetwork, Inc. All rights reserved.
+      </p>
     </div>
   </footer>
 </template>
@@ -52,6 +105,17 @@
 import LogoNode from "../../assets/images/opentwk.svg?inline";
 
 export default {
+  data() {
+    return {
+      menuItems: [
+        { link: "/signin", name: "Sign in" },
+        { link: "/signup", name: "Sign up" },
+        { link: "/projects", name: "Projects" },
+        { link: "/blogs", name: "Blogs" },
+        { link: "/join", name: "Join us" }
+      ]
+    };
+  },
   components: {
     LogoNode
   }
