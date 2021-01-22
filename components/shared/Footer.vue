@@ -102,8 +102,6 @@
 </template>
 
 <script>
-import LogoNode from "../../assets/images/opentwk.svg?inline";
-
 export default {
   data() {
     return {
@@ -115,9 +113,6 @@ export default {
         { link: "/join", name: "Join us" }
       ]
     };
-  },
-  components: {
-    LogoNode
   }
 };
 </script>

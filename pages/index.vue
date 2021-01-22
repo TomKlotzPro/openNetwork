@@ -140,6 +140,7 @@
         </div>
       </div>
     </div>
+    <Newsletter />
   </div>
 </template>
 
@@ -151,6 +152,7 @@ import BlogPost from "~/components/BlogPost";
 import Button from "~/components/shared/Button";
 import Header from "~/components/shared/Header";
 import Cta from "~/components/shared/Cta";
+import Newsletter from "~/components/shared/Newsletter";
 import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
@@ -164,6 +166,7 @@ export default {
     Button,
     Header,
     Cta,
+    Newsletter,
     ProjectCardTooltip
   },
   computed: {
