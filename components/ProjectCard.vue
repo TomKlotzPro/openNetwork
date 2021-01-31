@@ -68,7 +68,6 @@
                 clip-rule="evenodd"
               />
             </svg>
-
             <span class="group-hover:text-white">33</span>
           </button>
         </div>
