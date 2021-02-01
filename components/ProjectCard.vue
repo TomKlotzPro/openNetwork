@@ -55,20 +55,26 @@
         </div>
         <div class="ml-auto">
           <button
+            @click="createUpvote"
             class="group font-bold flex flex-col py-4 px-6 bg-gray-100 border border-gray-300 rounded hover:bg-blue-800"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <span class="group-hover:text-white">33</span>
+            <div class="content-center">
+              <svg
+                class="h-3 mb-1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span class="group-hover:text-white">{{
+                project.upvotes.length
+              }}</span>
+            </div>
           </button>
         </div>
       </div>
@@ -88,6 +94,17 @@ export default {
   },
   components: {
     Fragment
-  }
+  },
+  methods: {
+    createUpvote() {
+      this.$store
+        .dispatch("project/upvoteProject", this.project._id)
+        .catch(() =>
+          this.$toasted.global.on_warning({
+            message: "You need to be connected, please log in before upvoting!"
+          })
+        );
+    }
+  },
 };
 </script>

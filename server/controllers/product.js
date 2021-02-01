@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Upvote = require("../models/upvote");
 const slugify = require("slugify");
 
 exports.getProducts = function(req, res) {
@@ -97,6 +98,39 @@ exports.updateProduct = async function(req, res) {
       }
 
       product.set(productData);
+      product.save((errors, savedProduct) => {
+        if (errors) {
+          return res.status(422).send(errors);
+        }
+
+        return res.json(savedProduct);
+      });
+    });
+};
+
+exports.updateProductUpvotes = async function(req, res) {
+  const productId = req.params.id;
+  const upvote = req.body;
+
+  Product.findById(productId)
+    .populate("category")
+    .exec((errors, product) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      let foundUpvoteIndex = product.upvotes.findIndex(productUpvote =>
+        Upvote.findById(productUpvote)
+          .then(data => data.author === upvote.author)
+          .catch(err => console.log(err))
+      );
+
+      if (foundUpvoteIndex !== -1) {
+        product.upvotes.splice(foundUpvoteIndex, 1);
+      } else {
+        product.upvotes.push(upvote);
+      }
+
       product.save((errors, savedProduct) => {
         if (errors) {
           return res.status(422).send(errors);

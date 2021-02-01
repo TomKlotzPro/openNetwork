@@ -48,5 +48,11 @@ router.patch(
   //AuthCtrl.onlyAdmin,
   ProductCtrl.updateProduct
 );
+router.patch(
+  "/:id/upvote",
+  AuthCtrl.onlyAuthUser,
+  //AuthCtrl.onlyAdmin,
+  ProductCtrl.updateProductUpvotes
+);
 
 module.exports = router;
