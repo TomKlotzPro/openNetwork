@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 export const state = () => ({
   item: {},
@@ -16,26 +16,27 @@ export const state = () => ({
 
 export const actions = {
   fetchBlogs({ commit, state }, filter) {
-    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
+    const url = this.$applyParamsToUrl("/api/v1/blogs", filter);
     return this.$axios
       .$get(url)
       .then(data => {
-        const {blogs, count, pageCount} = data;
+        const { blogs, count, pageCount } = data;
         commit("setBlogs", { resource: "all", blogs });
-        commit("setPagination", {count, pageCount});
+        commit("setPagination", { count, pageCount });
         return state.items.all;
       })
       .catch(error => Promise.reject(error));
   },
-  fetchFeaturedBlogs({commit, state}, filter) {
-    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
-    return this.$axios.$get(url)
-    .then(data => {
-      const blogs = data.blogs;
-      commit("setBlogs", { resource: "featured", blogs });
-      return state.items.featured;
-    })
-    .catch(error => Promise.reject(error));
+  fetchFeaturedBlogs({ commit, state }, filter) {
+    const url = this.$applyParamsToUrl("/api/v1/blogs", filter);
+    return this.$axios
+      .$get(url)
+      .then(data => {
+        const blogs = data.blogs;
+        commit("setBlogs", { resource: "featured", blogs });
+        return state.items.featured;
+      })
+      .catch(error => Promise.reject(error));
   },
   fetchBlogBySlug({ commit, state }, slug) {
     return this.$axios
@@ -45,6 +46,19 @@ export const actions = {
         return state.item;
       })
       .catch(error => Promise.reject(error));
+  },
+  upvoteBlog({ state, commit }, blogId) {
+    return this.$axios
+      .$post("/api/v1/upvotes")
+      .then(upvoteCreated =>
+        this.$axios.$patch(`/api/v1/blogs/${blogId}/upvote`, upvoteCreated)
+      )
+      .catch(err => {
+        Promise.reject(err);
+      })
+      .then(blog => {
+        commit("updateBlogUpvotes", blog);
+      });
   }
 };
 
@@ -56,10 +70,16 @@ export const mutations = {
     state.item = blog;
   },
   setPage(state, currentPaage) {
-    Vue.set(state.pagination, 'pageNum', currentPaage)
+    Vue.set(state.pagination, "pageNum", currentPaage);
   },
-  setPagination(state, {count, pageCount}) {
-    Vue.set(state.pagination, 'count', count)
-    Vue.set(state.pagination, 'pageCount', pageCount)
+  setPagination(state, { count, pageCount }) {
+    Vue.set(state.pagination, "count", count);
+    Vue.set(state.pagination, "pageCount", pageCount);
+  },
+  updateBlogUpvotes(state, blog) {
+    const indexOfBlog = state.items.all.findIndex(
+      item => item._id === blog._id
+    );
+    state.items.all[indexOfBlog].upvotes = blog.upvotes;
   }
 };

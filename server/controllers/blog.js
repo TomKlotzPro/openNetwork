@@ -1,4 +1,5 @@
 const Blog = require("../models/blog");
+const Upvote = require("../models/upvote");
 const slugify = require("slugify");
 const request = require("request");
 const AsyncLock = require("async-lock");
@@ -35,7 +36,7 @@ exports.getBlogs = (req, res) => {
       if (errors) {
         return res.status(422).send(errors);
       }
-      Blog.countDocuments({status: 'published'}).then(count => {
+      Blog.countDocuments({ status: "published" }).then(count => {
         return res.json({
           blogs: publishedBlogs,
           count,
@@ -163,4 +164,53 @@ exports.deleteBlog = (req, res) => {
 
     res.json({ status: "deleted" });
   });
+};
+
+exports.updateBlogUpvotes = async function(req, res) {
+  const blogId = req.params.id;
+  const upvote = req.body;
+
+  Blog.findById(blogId)
+    .populate("category")
+    .exec((errors, blog) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      let foundUpvoteIndex = blog.upvotes.findIndex(blogUpvote =>
+        Upvote.findById(blogUpvote)
+          .then(data => {
+            console.log(data);
+            return data;
+          })
+          .then(data => data.author === upvote.author)
+          .catch(err => console.log(err))
+      );
+
+      if (foundUpvoteIndex !== -1) {
+        Upvote.deleteOne({ _id: blog.upvotes[foundUpvoteIndex]._id }, function(
+          errors
+        ) {
+          if (errors) {
+            throw errors;
+          }
+        });
+        Upvote.deleteOne({ _id: upvote._id }, function(errors) {
+          if (errors) {
+            throw errors;
+          }
+        });
+        blog.upvotes.splice(foundUpvoteIndex, 1);
+      } else {
+        blog.upvotes.push(upvote);
+      }
+
+      blog.save((errors, savedBlog) => {
+        if (errors) {
+          return res.status(422).send(errors);
+        }
+
+        return res.json(savedBlog);
+      });
+    });
 };

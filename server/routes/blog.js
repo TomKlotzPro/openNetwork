@@ -28,6 +28,13 @@ router.patch(
   blogCtrl.updateBlog
 );
 
+router.patch(
+  "/:id/upvote",
+  AuthCtrl.onlyAuthUser,
+  //AuthCtrl.onlyAdmin,
+  blogCtrl.updateBlogUpvotes
+);
+
 router.delete(
   "/:id",
   AuthCtrl.onlyAuthUser,

@@ -126,6 +126,19 @@ exports.updateProductUpvotes = async function(req, res) {
       );
 
       if (foundUpvoteIndex !== -1) {
+        Upvote.deleteOne(
+          { _id: product.upvotes[foundUpvoteIndex]._id },
+          function(errors) {
+            if (errors) {
+              throw errors;
+            }
+          }
+        );
+        Upvote.deleteOne({ _id: upvote._id }, function(errors) {
+          if (errors) {
+            throw errors;
+          }
+        });
         product.upvotes.splice(foundUpvoteIndex, 1);
       } else {
         product.upvotes.push(upvote);

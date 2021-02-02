@@ -70,12 +70,6 @@ export const actions = {
         commit("setIsSaving", false);
         return Promise.reject(error);
       });
-  },
-  upvoteBlog(user, entityId) {
-    // 1 Create upvote
-    let upvoteCreated = this.$axios.$post("/api/v1/upvote", user);
-    // 2 Update entity
-    this.$axios.$put("/api/v1/blog/upvote", upvoteCreated);
   }
 };
 
