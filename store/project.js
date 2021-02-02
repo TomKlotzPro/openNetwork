@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 export const state = () => {
   return {
     items: [],
@@ -36,11 +34,11 @@ export const actions = {
           upvoteCreated
         )
       )
-      .then(project => {
-        commit("updateProjectUpvotes", project);
-      })
       .catch(err => {
         Promise.reject(err);
+      })
+      .then(project => {
+        commit("updateProjectUpvotes", project);
       });
   }
 };
@@ -53,6 +51,6 @@ export const mutations = {
     const indexOfProject = state.items.findIndex(
       item => item._id === project._id
     );
-    state.items.splice(indexOfProject, 1, project);
+    state.items[indexOfProject].upvotes = project.upvotes;
   }
 };
