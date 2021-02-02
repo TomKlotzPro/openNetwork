@@ -56,6 +56,21 @@ router.post("", AuthCtrl.onlyAuthUser, blogCtrl.createBlog);
 router.patch("/:id", AuthCtrl.onlyAuthUser, blogCtrl.updateBlog);
 
 /**
+ * Tries to add an upvote to the blog post, if the author already upvoted, it removes it, else it add it
+ * @route PATCH /blogs/:id/upvote
+ * @param {object} upvote - The blog to update
+ * @group blogs - Operations about blogs
+ * @returns {object} 200 - Return the blog updated
+ * @returns {Error} 422 - Error found
+ */
+router.patch(
+  "/:id/upvote",
+  AuthCtrl.onlyAuthUser,
+  //AuthCtrl.onlyAdmin,
+  blogCtrl.updateBlogUpvotes
+);
+
+/**
  * Allow to delete a blog
  * @route DELETE /blogs
  * @param {object} blog - The blog to update

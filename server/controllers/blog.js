@@ -151,7 +151,6 @@ exports.updateBlogUpvotes = async function(req, res) {
       let foundUpvoteIndex = blog.upvotes.findIndex(blogUpvote =>
         Upvote.findById(blogUpvote)
           .then(data => {
-            console.log(data);
             return data;
           })
           .then(data => data.author === upvote.author)

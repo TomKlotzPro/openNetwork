@@ -106,10 +106,18 @@ router.patch(
   AuthCtrl.onlyAuthUser,
   ProductCtrl.updateProduct
 );
+
+/**
+ * Tries to add an upvote to the blog post, if the author already upvoted, it removes it, else it add it
+ * @route PATCH /products/:id/upvote
+ * @param {object} upvote - The blog to update
+ * @group products - Operations about products
+ * @returns {object} 200 - Return the product updated
+ * @returns {Error} 422 - Error found
+ */
 router.patch(
   "/:id/upvote",
   AuthCtrl.onlyAuthUser,
-  //AuthCtrl.onlyAdmin,
   ProductCtrl.updateProductUpvotes
 );
 
