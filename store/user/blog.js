@@ -36,7 +36,7 @@ export const actions = {
       commit("setBlogs", { resource: "drafts", items: drafts });
       commit("setBlogs", { resource: "published", items: published });
 
-      published, drafts;
+      return { published, drafts };
     });
   },
   deleteBlog({ commit, state }, blog) {
