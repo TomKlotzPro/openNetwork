@@ -1,25 +1,8 @@
 const Blog = require("../models/blog");
 const Upvote = require("../models/upvote");
 const slugify = require("slugify");
-const request = require("request");
 const AsyncLock = require("async-lock");
 const lock = new AsyncLock();
-
-const MEDIUM_URL = "https://medium.com/@any/latest?format=json&limit=20";
-
-// function parseFilters(queries) {
-//   const parsedQueries = {};
-//   if (queries.filter) {
-//     Object.keys(queries).forEach(qKey => {
-//       if (qKey.includes("filter")) {
-//         const pKey = qKey.match(/\[([^)]+)\]/)[1];
-//         parsedQueries[pKey] = queries[qKey];
-//       }
-//     });
-//   }
-
-//   return parsedQueries;
-// }
 
 exports.getBlogs = (req, res) => {
   const pageSize = parseInt(req.query.pageSize) || 0;
@@ -45,18 +28,6 @@ exports.getBlogs = (req, res) => {
       });
     });
 };
-
-// exports.getMediumBlogs = (req, res) => {
-//   request.get(MEDIUM_URL, (err, apiRes, body) => {
-//     if (!err && apiRes.statusCode === 200) {
-//       let i = body.indexOf("{");
-//       const data = body.substr(i);
-//       res.send(data);
-//     } else {
-//       res.sendStatus(500).json(err);
-//     }
-//   });
-// };
 
 exports.getBlogBySlug = (req, res) => {
   const slug = req.params.slug;

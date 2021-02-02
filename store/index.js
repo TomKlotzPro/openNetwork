@@ -8,7 +8,7 @@ export const actions = {
   async nuxtServerInit({ commit, dispatch }) {
     // Called on server before page is rendered
     await dispatch("auth/getAuthUser").catch(_ =>
-      console.log("Not Authenticatd!")
+      console.log("Not Authenticated!")
     );
   }
 };
