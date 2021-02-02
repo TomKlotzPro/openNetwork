@@ -25,7 +25,7 @@ export const actions = {
       })
       .catch(error => Promise.reject(error));
   },
-  upvoteProject({ state, commit }, projectId) {
+  upvoteProject({ commit }, projectId) {
     return this.$axios
       .$post("/api/v1/upvotes")
       .then(upvoteCreated =>

@@ -128,15 +128,15 @@ exports.updateProductUpvotes = async function(req, res) {
       if (foundUpvoteIndex !== -1) {
         Upvote.deleteOne(
           { _id: product.upvotes[foundUpvoteIndex]._id },
-          function(errors) {
-            if (errors) {
-              throw errors;
+          function(errorsDeletingUpvote) {
+            if (errorsDeletingUpvote) {
+              throw errorsDeletingUpvote;
             }
           }
         );
-        Upvote.deleteOne({ _id: upvote._id }, function(errors) {
-          if (errors) {
-            throw errors;
+        Upvote.deleteOne({ _id: upvote._id }, function(errorsDeletingSecondUpvote) {
+          if (errorsDeletingSecondUpvote) {
+            throw errorsDeletingSecondUpvote;
           }
         });
         product.upvotes.splice(foundUpvoteIndex, 1);
@@ -144,9 +144,9 @@ exports.updateProductUpvotes = async function(req, res) {
         product.upvotes.push(upvote);
       }
 
-      product.save((errors, savedProduct) => {
-        if (errors) {
-          return res.status(422).send(errors);
+      product.save((errorsSavingProduct, savedProduct) => {
+        if (errorsSavingProduct) {
+          return res.status(422).send(errorsSavingProduct);
         }
 
         return res.json(savedProduct);

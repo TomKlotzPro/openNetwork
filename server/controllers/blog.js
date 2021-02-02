@@ -189,15 +189,15 @@ exports.updateBlogUpvotes = async function(req, res) {
 
       if (foundUpvoteIndex !== -1) {
         Upvote.deleteOne({ _id: blog.upvotes[foundUpvoteIndex]._id }, function(
-          errors
+          errorsDeleteUpvote
         ) {
-          if (errors) {
-            throw errors;
+          if (errorsDeleteUpvote) {
+            throw errorsDeleteUpvote;
           }
         });
-        Upvote.deleteOne({ _id: upvote._id }, function(errors) {
-          if (errors) {
-            throw errors;
+        Upvote.deleteOne({ _id: upvote._id }, function(errorsDeleteSecondUpvote) {
+          if (errorsDeleteSecondUpvote) {
+            throw errorsDeleteSecondUpvote;
           }
         });
         blog.upvotes.splice(foundUpvoteIndex, 1);
@@ -205,9 +205,9 @@ exports.updateBlogUpvotes = async function(req, res) {
         blog.upvotes.push(upvote);
       }
 
-      blog.save((errors, savedBlog) => {
-        if (errors) {
-          return res.status(422).send(errors);
+      blog.save((errorsSavingBlog, savedBlog) => {
+        if (errorsSavingBlog) {
+          return res.status(422).send(errorsSavingBlog);
         }
 
         return res.json(savedBlog);
