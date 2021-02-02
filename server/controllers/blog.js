@@ -28,7 +28,7 @@ exports.getBlogs = (req, res) => {
   const filters = req.query.filter || {};
 
   Blog.find({ status: "published", ...filters })
-    .sort({ createdAt: -1 })
+    .sort({ "upvotes": -1 })
     .populate("author -_id -password -products -email -role")
     .skip(skips)
     .limit(pageSize)

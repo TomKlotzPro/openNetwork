@@ -6,7 +6,7 @@ exports.getProducts = function(req, res) {
   Product.find({ status: "published" })
     .populate("author -_id -password -project -email -role")
     .populate("category")
-    .sort({ updatedAt: -1 })
+    .sort({ "upvotes": -1 })
     .exec((errors, products) => {
       if (errors) {
         return res.status(422).send(errors);
