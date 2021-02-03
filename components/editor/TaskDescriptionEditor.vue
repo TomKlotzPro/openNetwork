@@ -1,10 +1,20 @@
 <template>
   <div class="py-4 bg-white">
+    <div :class="[error ? 'border-red-600 focus:border-red-600' : '']">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="editor editor-squished textEditor">
+      <div class="editor textEditor">
         <ProjectMenu :editor="editor" />
         <EditorContent class="editor__content" :editor="editor"/>
+        <span v-if="error">
+          <p class="text-xs italic text-red-600">
+            <slot name="error_required"></slot>
+          </p>
+          <p class="text-xs italic text-red-600">
+            <slot name="error_message"></slot>
+          </p>
+        </span>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -24,6 +34,16 @@ export default {
   components: {
     EditorContent,
     ProjectMenu
+  },
+  props: {
+    initialContent: {
+      required: true,
+      type: String
+    },
+    error: {
+      default: false,
+      type: Boolean
+    }
   },
   data() {
     return {
@@ -45,6 +65,7 @@ export default {
         this.emitUpdate()
       }
     });
+    this.initialContent && this.editor.setContent(this.initialContent);
   },
   beforeDestroy() {
     // To destroy editor instance when it's no longer needed
@@ -55,6 +76,11 @@ export default {
       const content = this.editor.getHTML()
       this.$emit('input', content)
     }
+  },
+  watch: {
+    initialContent: function (val) {
+      this.editor.setContent(val);
+    },
   }
 };
 </script>

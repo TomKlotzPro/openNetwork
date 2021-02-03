@@ -13,6 +13,41 @@
         <div class="border-t border-gray-200"></div>
       </div>
     </div>
+
+    <div v-for="(task, index) in project.tasks" 
+    :key="task._id"
+    @mouseover="hover = index"
+    @mouseleave="hover = null">
+      <div class="w-full">
+        <h3
+          class="mt-0 text-sols font-hind text-lg xl:text-2xl font-normal leading-snug"
+        >
+          Task : {{task.title}}
+        </h3>
+      </div>
+      <div class="col-span-6 mb-3">
+        <BadgeDifficulty :difficulty="task.difficulty" />
+      </div>
+      <div class="col-span-6 mb-3">
+        <p>Description : <span v-html="task.description"></span></p>
+      </div>
+
+      <Button
+        buttonType="button"
+        @click.native="removeTask(index)"
+        buttonColor="black"
+        buttonWidth="32"
+        :class="['ml-3', hover === index ? '' : 'hidden']"
+        >Delete</Button
+      >
+
+      <div class="hidden sm:block">
+        <div class="py-5">
+          <div class="border-t border-gray-200"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="col-span-6 mb-3">
       <Input
         v-model="taskForm.title"
@@ -20,6 +55,7 @@
         placeholder="Implement integration tests"
         type="text"
         stylesLabel="block leading-5 pt-1 text-grey-700 font-poppins tracking-wider uppercase font-bold text-xs"
+        :error="$v.taskForm.title.$error"
       >
         Task Title
         <template
@@ -46,8 +82,15 @@
       <SelectDifficulty
         v-model="taskForm.difficulty"
         :options="difficulties"
-        :selected="taskForm.difficulty"
-      ></SelectDifficulty>
+        :error="$v.taskForm.difficulty.$error"
+      >
+        <template
+          v-slot:error_required
+          v-if="!$v.taskForm.difficulty.required"
+        >
+          Task difficulty must be selected
+        </template>
+      </SelectDifficulty>
     </div>
     <div class="col-span-6 mb-3">
       <label
@@ -57,17 +100,22 @@
       >
       <div class="rounded shadow text-base">
         <TaskDescriptionEditor
-          v-model="taskForm.description" />
-        <!-- <div
-          v-if="!$v.taskForm.description.required"
-        >
-          Task description is required
-        </div>
-        <div
-          v-if="!$v.taskForm.description.minLength"
-        >
-          Task description minimum length is 3 characters
-        </div> -->
+          :initialContent="taskForm.description"
+          v-model="taskForm.description"
+          :error="$v.taskForm.description.$error">
+          <template
+            v-if="!$v.taskForm.description.required"
+            v-slot:error_required
+          >
+            Task description is required
+          </template>
+          <template
+            v-if="!$v.taskForm.description.minLength"
+            v-slot:error_message
+          >
+            Task description minimum length is 3 characters
+          </template>
+        </TaskDescriptionEditor>
       </div>
     </div>
     <div>
@@ -84,6 +132,7 @@
 
 <script>
 import Input from "~/components/shared/Input";
+import BadgeDifficulty from "~/components/shared/BadgeDifficulty";
 import TaskDescriptionEditor from "~/components/editor/TaskDescriptionEditor";
 import SelectDifficulty from "~/components/SelectDifficulty";
 import { required, minLength } from "vuelidate/lib/validators";
@@ -95,7 +144,8 @@ export default {
         description: "",
         difficulty: "",
       },
-      difficulties : ['very easy', 'easy', 'medium', 'hard', 'very hard']
+      difficulties : ['very easy', 'easy', 'medium', 'hard', 'very hard'],
+      hover: null
     };
   },
   validations: {
@@ -125,16 +175,19 @@ export default {
     },
   },
   methods: {
-    emitProjectValue(payload, field) {
-      this.$emit("projectValueUpdated", { payload, field });
-    },
+    
     addTask() {
       this.$v.taskForm.$touch();
-      console.log(this.taskForm)
       if(this.isFormValid) {
-        this.$store.dispatch('user/project/addProjectTask', this.taskForm);
-        //add new task to for
+        const {title, difficulty, description} = this.taskForm;
+        this.$store.dispatch('user/project/addProjectTask', {title, difficulty, description});
+        this.taskForm.title = "";
+        this.taskForm.difficulty = "";
+        this.taskForm.description = "";
       }
+    },
+    removeTask(index) {
+      this.$store.dispatch('user/project/removeProjectTask', index);
     }
   },
   components: {

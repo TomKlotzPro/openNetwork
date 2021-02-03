@@ -39,7 +39,6 @@ export const actions = {
   },
   updateProject({ state, commit }) {
     const project = state.item;
-    console.log("state on update", state.item);
     return this.$axios
       .$patch(`/api/v1/products/${project._id}`, project)
       .then(project => {
@@ -72,6 +71,10 @@ export const actions = {
     commit("addTask", task);
     commit("setCanUpdateProject", true)
   },
+  removeProjectTask({ commit }, index) {
+    commit("removeTask", index);
+    commit("setCanUpdateProject", true)
+  },
 };
 
 export const mutations = {
@@ -95,7 +98,9 @@ export const mutations = {
   },
   addTask(state, task) {
     state.item['tasks'].push(task);
-    console.log(state.item)
+  },
+  removeTask(state, index) {
+    state.item['tasks'].splice(index, 1);
   },
   setTagValue(state, { payload, field }) {
     state.item[field].push(payload);

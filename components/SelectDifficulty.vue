@@ -3,9 +3,10 @@
     <div class="relative">
       <select
         class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-        :class="[error ? 'border-red-600 focus:border-red-600' : '']" v-model="selected" @change="change"
+        :class="[error ? 'border-red-600 focus:border-red-600' : '']" 
+        @change="change"
       >
-        <option value="default">Select Difficulty</option>
+        <option value="default" selected>Select Difficulty</option>
         <option v-for="(option, index) in options" :key="index" :value="option">
           {{ option }}
         </option>
@@ -13,7 +14,7 @@
     </div>
     <span v-if="error">
       <p class="text-xs italic text-red-600">
-        <slot></slot>
+        <slot name="error_required"></slot>
       </p>
     </span>
   </div>
