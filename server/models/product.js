@@ -11,6 +11,14 @@ const productSchema = new Schema({
   description: String,
   wsl: [{ type: Schema.Types.Mixed, value: String }],
   requirements: [{ type: Schema.Types.Mixed, value: String }],
+  tasks: [{
+    description: String,
+    difficulty: {
+      type: String,
+      enum: ['very easy', 'easy', 'medium', 'hard', 'very hard']
+    },
+    title: String
+  }],
   gitLink: String,
   tags: Array,
   status: {
