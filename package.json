@@ -37,6 +37,7 @@
     "express-async-handler": "^1.1.4",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.1",
+    "express-swagger-generator": "^1.1.17",
     "formidable": "^1.2.2",
     "gridfs-stream": "^1.1.1",
     "highlight.js": "^10.5.0",
