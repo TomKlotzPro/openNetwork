@@ -22,6 +22,16 @@ router.post(
   //AuthCtrl.onlyAdmin,
   ProductCtrl.createProduct
 );
+router.patch(
+  "/reviews",
+  AuthCtrl.onlyAuthUser,
+  ProductCtrl.createProductComment
+);
+router.patch(
+  "/replies",
+  AuthCtrl.onlyAuthUser,
+  ProductCtrl.createProductCommentReply
+);
 router.post("/:id/add-project-image", function(req, res) {
   const uid = req.params.id;
 
