@@ -9,6 +9,11 @@ module.exports = {
     'vue',
     'json'
   ],
+  globals: {
+    'ts-jest': {
+      babelConfig: true,
+    }
+  },
   transform: {
     '^.+\\.js$': 'babel-jest',
     '.*\\.(vue)$': 'vue-jest'
