@@ -60,6 +60,12 @@
               <span> {{ blog.content | readTime }} min read </span>
             </div>
           </div>
+          <div class="ml-auto">
+            <Upvote
+              :upvoteNumber="blog.upvotes.length"
+              @click.native="createUpvote(blog._id)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -71,6 +77,15 @@ export default {
   props: {
     blogs: Array
   },
+  methods: {
+    createUpvote(blogId) {
+      this.$store.dispatch("blog/upvoteBlog", blogId).catch(() =>
+        this.$toasted.global.on_warning({
+          message: "You need to be connected, please log in before upvoting!"
+        })
+      );
+    }
+  }
 };
 </script>
 
