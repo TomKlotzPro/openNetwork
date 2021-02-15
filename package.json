@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.0.0-alpha.38",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.16",
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/svg": "^0.1.12",
     "@nuxtjs/tailwindcss": "^3.4.2",
@@ -91,7 +92,6 @@
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
     "@types/mocha": "^8.2.0",
     "@vue/test-utils": "^1.1.2",
     "babel-core": "7.0.0-bridge.0",
