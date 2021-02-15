@@ -10,6 +10,7 @@
       v-bind="$attrs"
       :maxlength="maxLength"
       :value="value"
+      ref="input"
       @input="emitInputValue"
     />
 
@@ -22,7 +23,9 @@
   <Fragment v-else-if="tagInput">
     <label
       :class="
-        stylesLabel ? stylesLabel : 'block mb-2 text-base font-bold text-grey-800'
+        stylesLabel
+          ? stylesLabel
+          : 'block mb-2 text-base font-bold text-grey-800'
       "
       :for="name"
     >
@@ -54,7 +57,9 @@
   <Fragment v-else>
     <label
       :class="
-        stylesLabel ? stylesLabel : 'block mb-2 text-base font-bold text-grey-800'
+        stylesLabel
+          ? stylesLabel
+          : 'block mb-2 text-base font-bold text-grey-800'
       "
       :for="name"
     >
@@ -148,6 +153,9 @@ export default {
     }
   },
   methods: {
+    focus: function() {
+      this.$refs.input.focus();
+    },
     emitInputValue($event) {
       this.currentValue = $event.target.value;
       this.$emit("input", this.currentValue);

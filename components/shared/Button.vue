@@ -1,13 +1,5 @@
 <template>
-  <nuxt-link
-    v-if="to"
-    :to="to"
-    :class="[
-      buttonCheck,
-      buttonWidth ? 'w-' + buttonWidth : 'w-48',
-      buttonStyles.container
-    ]"
-  >
+  <nuxt-link v-if="to" :to="to" :class="[buttonCheck, buttonStyles.container]">
     <div class="text">
       <p :class="buttonStyles.paragraph">
         <slot></slot>
@@ -17,11 +9,7 @@
   <component
     v-else
     :is="setButtonType"
-    :class="[
-      buttonCheck,
-      buttonWidth ? 'w-' + buttonWidth : 'w-48',
-      buttonStyles.container
-    ]"
+    :class="[buttonStyles.container, buttonCheck]"
   >
     <div class="text">
       <p :class="[buttonStyles.paragraph, buttonDisabled && 'text-grey-400']">
@@ -58,9 +46,9 @@ export default {
       setButtonType: this.buttonType,
       buttonStyles: {
         container:
-          "bg-white px-6 md:px-8 rounded font-hind h-10 md:h-12 flex items-center cursor-pointer justify-center no-underline",
+          "rounded-md border-0 inline-flex overflow-hidden px-6 md:px-8 text-white items-center justify-center relative cursor-pointer font-hind no-underline h-11 md:h-12",
         paragraph:
-          "font-hind text-xs md:text-xs font-semibold uppercase tracking-widest"
+          "relative z-10 pointer-events-none font-hind text-sm md:text-lg"
       }
     };
   },
@@ -77,64 +65,88 @@ export default {
 </script>
 
 <style scoped>
+/** Button General */
 .button {
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   will-change: box-shadow, transform;
 }
-.button:hover,
+.button:hover {
+  transform: translateY(-2px);
+}
 .button:focus {
-  transform: translateY(-2px);
+  outline: 0px;
 }
-.button.white {
-  background: linear-gradient(#fff, #e4e4e9) no-repeat;
-  box-shadow: 0 7px 14px -3px rgba(45, 35, 66, 0.3),
-    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
-}
+/** Button General End */
+/** Button Nebula */
 .button.nebula {
-  text-shadow: 0 1px 0 #2b3cbb;
-  background: linear-gradient(#aeb7ff, #5468ff) no-repeat;
-  box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
-    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
+  background: radial-gradient(100% 100% at 100% 0%, #5adaff 0%, #3c4fe0 100%);
+  box-shadow: 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 rgba(58, 65, 111, 0.5);
+
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  min-width: 200px;
 }
-.button.disabled {
-  background: linear-gradient(#f5f5fa, #e4e4e9) no-repeat;
-  box-shadow: 0 7px 14px -3px rgba(45, 35, 66, 0.3),
-    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
+.button.nebula:hover {
+  box-shadow: 0 4px 8px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #2b3cbb;
 }
-.button.black {
-  text-shadow: 0 1px 0 #23263b;
-  background: linear-gradient(#484c7a, #36395a) no-repeat;
-  box-shadow: 0 7px 13px -3px rgba(45, 35, 66, 0.3),
-    0 2px 4px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #5a5e9a;
-}
-.button.white:hover,
-.button.white:focus {
-  box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
-    0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #cfd1e3;
-  transform: translateY(-2px);
-}
-.button.nebula:hover,
 .button.nebula:focus {
-  box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
-    0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #4b58ba;
-}
-.button.black:hover,
-.button.black:focus {
-  box-shadow: 0 11px 16px -3px rgba(45, 35, 66, 0.3),
-    0 4px 5px 0 rgba(45, 35, 66, 0.4), inset 0 -2px 0 0 #5a5e9a;
-}
-.button.white:active {
-  box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
-    inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #e4e4e9;
+  box-shadow: inset 0 0 0 1.5px #2b3cbb, 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #2b3cbb;
 }
 .button.nebula:active {
-  background-blend-mode: multiply, normal;
-  box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
-    inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #5468ff;
+  box-shadow: inset 0 3px 7px #2b3cbb;
+  transform: translateY(2px);
 }
-.button.black:active {
-  background-blend-mode: multiply, normal;
-  box-shadow: inset 0 2px 0 1px rgba(132, 138, 184, 0.11),
-    inset 0 2px 9px 0 rgba(93, 100, 148, 0.5), inset 0 -1px 0 1px #36395a;
+/** Button Nebula End */
+/** Button White */
+.button.white {
+  background: #f5f5fa;
+  box-shadow: 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #cfd1e3;
+  min-width: 200px;
 }
+.button.white:hover {
+  box-shadow: 0 4px 8px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #cfd1e3;
+  transform: translateY(-2px);
+}
+.button.white:focus {
+  box-shadow: inset 0 0 0 1.5px #cfd1e3, 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #cfd1e3;
+}
+.button.white:active {
+  box-shadow: inset 0 3px 7px #cfd1e3;
+  transform: translateY(2px);
+}
+/** Button White End */
+/** Button Black */
+.button.black {
+  background: radial-gradient(100% 100% at 100% 0%, #5a5e9a 0%, #23263b 100%);
+  box-shadow: 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 rgba(58, 65, 111, 0.5);
+
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+}
+.button.black:hover {
+  box-shadow: inset 0 0 0 1.5px #23263b, 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #23263b;
+}
+.button.nebula:focus {
+  box-shadow: inset 0 0 0 1.5px #23263b, 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #23263b;
+}
+.button.nebula:active {
+  box-shadow: inset 0 3px 7px #23263b;
+  transform: translateY(2px);
+}
+/** Button Disabled */
+.button.disabled {
+  background: #cccccc;
+  box-shadow: 0 2px 4px rgba(45, 35, 66, 0.4),
+    0 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0 -3px 0 #999999;
+  min-width: 200px;
+}
+/** Button Disabled End */
 </style>

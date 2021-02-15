@@ -35,9 +35,13 @@
           </div>
         </div>
         <div class="mt-5 sm:mt-6">
-          <Button buttonColor="nebula" :href="url" target="_blank" class="mx-auto">{{
-            buttonText
-          }}</Button>
+          <Button
+            buttonColor="nebula"
+            :href="url"
+            target="_blank"
+            class="mx-auto w-full"
+            >{{ buttonText }}</Button
+          >
         </div>
       </div>
     </div>
