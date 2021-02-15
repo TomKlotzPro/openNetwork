@@ -10,8 +10,12 @@
         </span>
         <span class="block sm:ml-2 sm:inline-block">
           <a href="https://mail.google.com/mail/u/0/" target="_blank" class="text-white font-semibold underline">
-            Access your Gmail <span aria-hidden="true">&rarr;</span></a
-          >
+            Access your Gmail <span aria-hidden="true">&rarr;</span>
+          </a>
+          You did not receive any email ?
+          <a @click="resend" class="text-white font-semibold underline">
+            Resend a confirmation email <span aria-hidden="true">&rarr;</span>
+          </a>
         </span>
       </p>
     </Banner>
@@ -327,6 +331,21 @@ export default {
       this.$store
         .dispatch("auth/logout")
         .then(() => this.$router.push("/signin"));
+    },
+    resend() {
+      this.$store
+        .dispatch("auth/sendConfirmationEmail", { email: this.user.email})
+        .then(() => {
+          console.log("email resent")
+          this.$toasted.global.on_success({
+            message: "Email sent"
+          })
+        })
+        .catch(() =>
+          this.$toasted.global.on_error({
+            message: "Wrong Email"
+          })
+        );
     }
   }
 };

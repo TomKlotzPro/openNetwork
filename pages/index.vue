@@ -5,9 +5,9 @@
         <Hero />
       </div>
     </div>
-    <div class="pt-24 bg-white sm:pt-40">
+    <div class="pt-40 bg-white lg:pt-12">
       <div class="max-w-xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 class="sr-only">A better way to send money.</h2>
+        <h2 class="sr-only">A better way to work together.</h2>
         <dl class="space-y-10 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
           <Feature styles="bg-grey-200">
             <template v-slot:svg>
@@ -31,8 +31,8 @@
               Project Visibility
             </template>
             <template v-slot:description>
-              Our aim is to proviside visibility to all kinds of projects
-              whatever they may be to potential contributors or investors
+              Our aim is to provide visibility to all kinds of projects whatever
+              they may be to potential contributors or investors
             </template>
           </Feature>
           <Feature styles="bg-grey-200">
@@ -93,67 +93,54 @@
     <div
       class="max-w-xl mx-auto px-4 py-24 font-hind sm:px-6 lg:max-w-7xl lg:px-8"
     >
-      <div class="relative pt-12 pb-20 px-4 sm:px-6 lg:pt-12 lg:pb-20 lg:px-8">
-        <div class="absolute inset-0">
-          <div class="bg-white h-1/3 sm:h-2/3"></div>
-        </div>
-        <div class="relative max-w-7xl mx-auto">
-          <Header>
-            <template v-slot:title>
-              Published Projects
+      <div class="relative pb-20 lg:pb-20">
+        <div class="relative max-w-7xl">
+          <Cta
+            image="standout.jpg"
+            altImg="Standout"
+            cta_type="image_in_container"
+          >
+            <template v-slot:headline>
+              <span class="block">Ready to dive in?</span>
+              <span class="block">Start now and stand out your project!</span>
             </template>
             <template v-slot:description>
-              Have a look at these projects published by some of our community
-              members!
+              Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
+              Malesuada adipiscing sagittis vel nulla nec.
             </template>
-          </Header>
-          <div
-            class="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
+            <template v-slot:button>
+              <Button to="/signup" buttonColor="nebula" class="mx-auto mt-12"
+                >Sign up</Button
+              >
+            </template>
+          </Cta>
+          <Cta
+            image="collaborate.jpg"
+            altImg="Standout"
+            cta_type="image_next_to_container"
           >
-            <div
-              v-for="project in projects"
-              :key="project._id"
-              class="flex flex-col rounded-lg shadow-lg overflow-hidden"
-            >
-              <v-popover offset="16" trigger="hover" placement="right-start">
-                <ProjectCard :project="project" />
-                <template slot="popover">
-                  <ProjectCardTooltip
-                    :title="project.title"
-                    :subtitle="project.subtitle"
-                    :description="project.description"
-                    :category="
-                      project.category ? project.category.name : 'None'
-                    "
-                    :author="project.author"
-                  />
-                </template>
-              </v-popover>
-            </div>
-          </div>
-          <Button to="/projects" buttonColor="nebula" class="mx-auto mt-12"
-            >Go to Projects</Button
-          >
+            <template v-slot:intro>
+              Always striving for the best! 🚀
+            </template>
+            <template v-slot:headline>
+              Collaboration and success stories
+            </template>
+            <template v-slot:description>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et,
+              egestas tempus tellus etiam sed. Quam a scelerisque amet
+              ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat
+              quisque ut interdum tincidunt duis.
+            </template>
+            <template v-slot:button>
+              <Button to="/projects" buttonColor="black" class="mx-auto mt-12"
+                >Projects</Button
+              >
+            </template>
+          </Cta>
         </div>
       </div>
     </div>
-    <div class="container px-4 sm:px-8 lg:px-16 font-hind xl:px-20 mx-auto">
-      <div class="relative max-w-7xl mx-auto">
-        <Header>
-          <template v-slot:title>
-            Featured Articles
-          </template>
-          <template v-slot:description>
-            Have a look at these projects published by some of our community
-            members!
-          </template>
-        </Header>
-        <BlogPost :blogs="featuredBlogs" />
-        <Button to="/blogs" buttonColor="nebula" class="mx-auto mt-12"
-          >Go to Blog</Button
-        >
-      </div>
-    </div>
+    <Newsletter />
   </div>
 </template>
 
@@ -164,6 +151,8 @@ import ProjectCard from "~/components/ProjectCard";
 import BlogPost from "~/components/BlogPost";
 import Button from "~/components/shared/Button";
 import Header from "~/components/shared/Header";
+import Cta from "~/components/shared/Cta";
+import Newsletter from "~/components/shared/Newsletter";
 import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
@@ -176,6 +165,8 @@ export default {
     BlogPost,
     Button,
     Header,
+    Cta,
+    Newsletter,
     ProjectCardTooltip
   },
   computed: {
