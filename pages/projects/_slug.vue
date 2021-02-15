@@ -105,6 +105,9 @@
             </div>
           </section>
 
+          <!-- Tasks -->
+          <Tasks :project="project"></Tasks>
+
           <!-- Comments-->
           <Comments :author="project.author" :project="project"></Comments>
         </div>
@@ -180,6 +183,7 @@
 <script>
 import Button from "~/components/shared/Button";
 import Comments from "~/components/shared/Comments";
+import Tasks from "~/components/shared/Tasks";
 export default {
   head() {
     return {
@@ -247,7 +251,8 @@ export default {
     }
   },
   components: {
-    Button
+    Button,
+    Tasks
   },
   computed: {
     project() {
