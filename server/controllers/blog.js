@@ -11,7 +11,7 @@ exports.getBlogs = (req, res) => {
   const filters = req.query.filter || {};
 
   Blog.find({ status: "published", ...filters })
-    .sort({ "upvotes": -1 })
+    .sort({ upvotes: -1 })
     .populate("author -_id -password -products -email -role")
     .skip(skips)
     .limit(pageSize)
@@ -143,18 +143,19 @@ exports.updateBlogUpvotes = async function(req, res) {
 
   Blog.findById(blogId)
     .populate("category")
-    .exec((errors, blog) => {
+    .exec(async (errors, blog) => {
       if (errors) {
         return res.status(422).send(errors);
       }
 
-      let foundUpvoteIndex = blog.upvotes.findIndex(blogUpvote =>
-        Upvote.findById(blogUpvote)
-          .then(data => {
-            return data;
-          })
-          .then(data => data.author === upvote.author)
-          .catch(err => console.log(err))
+      const blogUpvotes = await Promise.all(
+        blog.upvotes.map(blogUpvote =>
+          Upvote.findById(blogUpvote).then(data => data)
+        )
+      );
+
+      let foundUpvoteIndex = blogUpvotes.findIndex(
+        upvoteDB => upvoteDB?.author.toString() == upvote.author
       );
 
       if (foundUpvoteIndex !== -1) {
@@ -165,7 +166,9 @@ exports.updateBlogUpvotes = async function(req, res) {
             throw errorsDeleteUpvote;
           }
         });
-        Upvote.deleteOne({ _id: upvote._id }, function(errorsDeleteSecondUpvote) {
+        Upvote.deleteOne({ _id: upvote._id }, function(
+          errorsDeleteSecondUpvote
+        ) {
           if (errorsDeleteSecondUpvote) {
             throw errorsDeleteSecondUpvote;
           }

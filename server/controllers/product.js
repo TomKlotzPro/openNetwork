@@ -1,12 +1,13 @@
 const Product = require("../models/product");
 const Upvote = require("../models/upvote");
 const slugify = require("slugify");
+var mongoose = require("mongoose");
 
 exports.getProducts = function(req, res) {
   Product.find({ status: "published" })
     .populate("author -_id -password -project -email -role")
     .populate("category")
-    .sort({ "upvotes": -1 })
+    .sort({ upvotes: -1 })
     .exec((errors, products) => {
       if (errors) {
         return res.status(422).send(errors);
@@ -114,27 +115,33 @@ exports.updateProductUpvotes = async function(req, res) {
 
   Product.findById(productId)
     .populate("category")
-    .exec((errors, product) => {
+    .exec(async (errors, product) => {
       if (errors) {
         return res.status(422).send(errors);
       }
 
-      let foundUpvoteIndex = product.upvotes.findIndex(productUpvote =>
-        Upvote.findById(productUpvote)
-          .then(data => data.author === upvote.author)
-          .catch(err => console.log(err))
+      const productUpvotes = await Promise.all(
+        product.upvotes.map(productUpvote =>
+          Upvote.findById(productUpvote).then(data => data)
+        )
+      );
+
+      let foundUpvoteIndex = productUpvotes.findIndex(
+        upvoteDB => upvoteDB?.author.toString() == upvote.author
       );
 
       if (foundUpvoteIndex !== -1) {
         Upvote.deleteOne(
-          { _id: product.upvotes[foundUpvoteIndex]._id },
+          { _id: product.upvotes[foundUpvoteIndex]?._id },
           function(errorsDeletingUpvote) {
             if (errorsDeletingUpvote) {
               throw errorsDeletingUpvote;
             }
           }
         );
-        Upvote.deleteOne({ _id: upvote._id }, function(errorsDeletingSecondUpvote) {
+        Upvote.deleteOne({ _id: upvote?._id }, function(
+          errorsDeletingSecondUpvote
+        ) {
           if (errorsDeletingSecondUpvote) {
             throw errorsDeletingSecondUpvote;
           }

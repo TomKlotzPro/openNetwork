@@ -1,9 +1,8 @@
 import Upvote from "../models/upvote";
 
 export const createUpvote = (req, res) => {
-  const upvoteData = req.body;
-  const user = req.user;
-  const upvote = new Upvote(upvoteData);
+  const user = req.user.id;
+  const upvote = new Upvote();
   upvote.author = user;
 
   upvote.save((errors, createdUpvote) => {
