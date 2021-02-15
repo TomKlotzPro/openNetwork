@@ -1,4 +1,4 @@
-const tcolors = require('tailwindcss/colors')
+const tcolors = require("tailwindcss/colors");
 module.exports = {
   purge: [],
   theme: {
@@ -14,6 +14,9 @@ module.exports = {
         mello: "#8e44ad",
         sols: "#3a416f",
         input: "#d2d6dc",
+        persimmon: "#fd6d50",
+        tapestry: "#a4499e",
+        electricViolet: "#4825f2",
         blueGray: tcolors.blueGray,
         coolGray: tcolors.coolGray,
         fuchsia: tcolors.fuchsia,
@@ -117,5 +120,9 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [require('@tailwindcss/forms'), require("@tailwindcss/ui")]
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/ui"),
+    require("@tailwindcss/aspect-ratio")
+  ]
 };

@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 const Upvote = require("../models/upvote");
+const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
-var mongoose = require("mongoose");
 
 exports.getProducts = function(req, res) {
   Product.find({ status: "published" })
@@ -76,12 +76,54 @@ exports.createProduct = function(req, res) {
   });
 };
 
+exports.createProductComment = asyncHandler(async (req, res) => {
+  const { projectID, comment } = req.body;
+  const product = await Product.findById(projectID);
+  if (product) {
+    const review = {
+      name: req.user.name,
+      email: req.user.email,
+      avatar: req.user.avatar,
+      comment: comment,
+      user: req.user._id
+    };
+    product.comments.push(review);
+    await product.save((errors, savedProduct) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      return res.status(201).json(savedProduct);
+    });
+  } else {
+    res.status(404);
+    throw new Error("The project does not exist");
+  }
+});
+exports.createProductCommentReply = asyncHandler(async (req, res) => {
+  const { projectID, comments } = req.body;
+  const product = await Product.findById(projectID);
+  if (product) {
+    product.comments = comments;
+    await product.save((errors, savedProduct) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      return res.status(201).json(savedProduct);
+    });
+  } else {
+    res.status(404);
+    throw new Error("The project does not exist");
+  }
+});
+
 exports.updateProduct = async function(req, res) {
   const productId = req.params.id;
   const productData = req.body;
 
   Product.findById(productId)
-    .populate("category")
+    .populate("author")
     .exec((errors, product) => {
       if (errors) {
         return res.status(422).send(errors);

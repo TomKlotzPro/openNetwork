@@ -62,7 +62,16 @@ router.post(
   //AuthCtrl.onlyAdmin,
   ProductCtrl.createProduct
 );
-
+router.patch(
+  "/reviews",
+  AuthCtrl.onlyAuthUser,
+  ProductCtrl.createProductComment
+);
+router.patch(
+  "/replies",
+  AuthCtrl.onlyAuthUser,
+  ProductCtrl.createProductCommentReply
+);
 /**
  * Allow to add an image to a product
  * @route POST /products/:id/add-project-image

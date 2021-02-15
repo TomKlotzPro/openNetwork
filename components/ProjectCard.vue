@@ -9,9 +9,9 @@
           <span
             v-for="tag in project.tags"
             :key="tag"
-            class="inline-flex ml-1 items-center px-3 py-0.5 rounded text-sm font-medium bg-nebula-100 text-nebula-800"
+            class="inline-flex mr-1 items-center px-3 py-0.5 rounded text-sm font-medium bg-nebula-100 text-nebula-800"
           >
-            #{{ tag }}
+            {{ tag }}
           </span>
         </template>
         <template v-else>

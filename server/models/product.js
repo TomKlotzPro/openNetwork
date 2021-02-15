@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { commentSchema } = require("./comment");
 const mongooseAlgolia = require("mongoose-algolia");
 
 const Schema = mongoose.Schema;
@@ -19,6 +20,7 @@ const productSchema = new Schema({
     enum: ["active", "inactive", "deleted", "published"],
     default: "active"
   },
+  comments: [commentSchema],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   category: { type: Schema.Types.ObjectId, ref: "Category" },

@@ -26,8 +26,7 @@
         buttonType="button"
         @click.native="emitRemove(index)"
         buttonColor="black"
-        buttonWidth="32"
-        :class="['ml-3', hover === index ? 'opacity-100' : 'opacity-0']"
+        :class="['ml-3 w-32', hover === index ? 'opacity-100' : 'opacity-0']"
         >Delete</Button
       >
     </div>
@@ -35,8 +34,7 @@
       buttonType="button"
       @click.native="emitAdd"
       buttonColor="nebula"
-      buttonWidth="32"
-      class="mt-3"
+      class="mt-3 w-32"
       >Add</Button
     >
   </div>
@@ -71,24 +69,24 @@ export default {
   },
   computed: {
     lastInput() {
-      return this.inputs[this.inputs.length - 1]
+      return this.inputs[this.inputs.length - 1];
     },
-    hasInputs(){
-      return this.inputs.length > 0
+    hasInputs() {
+      return this.inputs.length > 0;
     },
     hasLastInputValue() {
-      return this.lastInput && this.lastInput.value !== ''
+      return this.lastInput && this.lastInput.value !== "";
     },
     canDeleteInput() {
-      return this.inputs.length > 1
+      return this.inputs.length > 1;
     },
     canAddInput() {
-      return this.hasInputs && this.hasLastInputValue
+      return this.hasInputs && this.hasLastInputValue;
     }
   },
   methods: {
     emitAdd() {
-      if(this.canAddInput || this.inputs.length === 0) {
+      if (this.canAddInput || this.inputs.length === 0) {
         this.$emit("addInput");
       }
     },
