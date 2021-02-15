@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Upvote = require("../models/upvote");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 
@@ -6,7 +7,7 @@ exports.getProducts = function(req, res) {
   Product.find({ status: "published" })
     .populate("author -_id -password -project -email -role")
     .populate("category")
-    .sort({ updatedAt: -1 })
+    .sort({ upvotes: -1 })
     .exec((errors, products) => {
       if (errors) {
         return res.status(422).send(errors);
@@ -143,6 +144,58 @@ exports.updateProduct = async function(req, res) {
       product.save((errors, savedProduct) => {
         if (errors) {
           return res.status(422).send(errors);
+        }
+
+        return res.json(savedProduct);
+      });
+    });
+};
+
+exports.updateProductUpvotes = async function(req, res) {
+  const productId = req.params.id;
+  const upvote = req.body;
+
+  Product.findById(productId)
+    .populate("category")
+    .exec(async (errors, product) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      const productUpvotes = await Promise.all(
+        product.upvotes.map(productUpvote =>
+          Upvote.findById(productUpvote).then(data => data)
+        )
+      );
+
+      let foundUpvoteIndex = productUpvotes.findIndex(
+        upvoteDB => upvoteDB?.author.toString() == upvote.author
+      );
+
+      if (foundUpvoteIndex !== -1) {
+        Upvote.deleteOne(
+          { _id: product.upvotes[foundUpvoteIndex]?._id },
+          function(errorsDeletingUpvote) {
+            if (errorsDeletingUpvote) {
+              throw errorsDeletingUpvote;
+            }
+          }
+        );
+        Upvote.deleteOne({ _id: upvote?._id }, function(
+          errorsDeletingSecondUpvote
+        ) {
+          if (errorsDeletingSecondUpvote) {
+            throw errorsDeletingSecondUpvote;
+          }
+        });
+        product.upvotes.splice(foundUpvoteIndex, 1);
+      } else {
+        product.upvotes.push(upvote);
+      }
+
+      product.save((errorsSavingProduct, savedProduct) => {
+        if (errorsSavingProduct) {
+          return res.status(422).send(errorsSavingProduct);
         }
 
         return res.json(savedProduct);

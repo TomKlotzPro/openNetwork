@@ -28,7 +28,7 @@ export const actions = {
   uploadProjectImage({ state, commit }) {
     const file = document.getElementById("file").files;
     const formData = new FormData();
-    formData.append("image", file[0])
+    formData.append("image", file[0]);
     const project = state.item;
     return this.$axios
       .$post(`/api/v1/products/${project._id}/add-project-image`, formData)
@@ -43,7 +43,7 @@ export const actions = {
       .$patch(`/api/v1/products/${project._id}`, project)
       .then(project => {
         commit("setProject", project);
-        commit("setCanUpdateProject", false)
+        commit("setCanUpdateProject", false);
         return state.item;
       })
       .catch(error => Promise.reject(error));
@@ -52,20 +52,19 @@ export const actions = {
   // TODO: Set can update only when project values has been updated
   updateInput({ commit }, { index, payload, field }) {
     commit("setInputValue", { index, payload, field });
-    commit("setCanUpdateProject", true)
+    commit("setCanUpdateProject", true);
   },
   updateProjectValue({ commit }, { payload, field }) {
     commit("setProjectValue", { payload, field });
-    commit("setCanUpdateProject", true)
-
+    commit("setCanUpdateProject", true);
   },
   updateTags({ commit }, { payload, field }) {
     commit("setTagValue", { payload, field });
-    commit("setCanUpdateProject", true)
+    commit("setCanUpdateProject", true);
   },
   removeTag({ commit }, { field, index }) {
     commit("setRemoveTagValue", { field, index });
-    commit("setCanUpdateProject", true)
+    commit("setCanUpdateProject", true);
   }
 };
 

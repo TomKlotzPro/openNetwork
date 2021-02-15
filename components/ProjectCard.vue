@@ -53,6 +53,12 @@
             </time>
           </div>
         </div>
+        <div class="ml-auto">
+          <Upvote
+            @click.native="createUpvote"
+            :upvoteNumber="project.upvotes.length"
+          />
+        </div>
       </div>
     </div>
   </Fragment>
@@ -70,6 +76,17 @@ export default {
   },
   components: {
     Fragment
+  },
+  methods: {
+    createUpvote() {
+      this.$store
+        .dispatch("project/upvoteProject", this.project._id)
+        .catch(() =>
+          this.$toasted.global.on_warning({
+            message: "You need to be connected, please log in before upvoting!"
+          })
+        );
+    }
   }
 };
 </script>

@@ -8,6 +8,7 @@ const productSchema = new Schema({
   slug: { type: String, unique: true, sparse: true },
   title: { type: String, required: true },
   subtitle: String,
+  upvotes: [{ type: Schema.Types.ObjectId, ref: "Upvote" }],
   image: String,
   description: String,
   wsl: [{ type: Schema.Types.Mixed, value: String }],

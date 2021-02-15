@@ -8,6 +8,7 @@ const blogSchema = new Schema({
   title: { type: String, maxlength: 96 },
   subtitle: { type: String },
   paragraph: { type: String },
+  upvotes: [{ type: Schema.Types.ObjectId, ref: "Upvote" }],
   content: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

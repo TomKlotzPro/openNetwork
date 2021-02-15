@@ -16,7 +16,7 @@ const recursiveFind = (replies, id) => {
       if (found) return found;
     }
   }
-}
+};
 
 export const actions = {
   fetchProjects({ commit }) {
@@ -37,6 +37,22 @@ export const actions = {
         return state.item;
       })
       .catch(error => Promise.reject(error));
+  },
+  upvoteProject({ commit }, projectId) {
+    return this.$axios
+      .$post("/api/v1/upvotes")
+      .then(upvoteCreated =>
+        this.$axios.$patch(
+          `/api/v1/products/${projectId}/upvote`,
+          upvoteCreated
+        )
+      )
+      .catch(err => {
+        Promise.reject(err);
+      })
+      .then(project => {
+        commit("updateProjectUpvotes", project);
+      });
   },
   createProjectReview({ commit, state }, projectData) {
     return this.$axios
@@ -60,11 +76,17 @@ export const mutations = {
   setProject(state, project) {
     state.item = project;
   },
-  updateProjectComment(state, {comments, userInfo, text, id}) {
+  updateProjectUpvotes(state, project) {
+    const indexOfProject = state.items.findIndex(
+      item => item._id === project._id
+    );
+    state.items[indexOfProject].upvotes = project.upvotes;
+  },
+  updateProjectComment(state, { comments, userInfo, text, id }) {
     const comment = recursiveFind(comments, id);
     if (comment) {
-      userInfo.comment = text
-      comment.replies.push(userInfo)
+      userInfo.comment = text;
+      comment.replies.push(userInfo);
     }
   }
 };
