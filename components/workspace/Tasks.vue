@@ -193,9 +193,9 @@ export default {
   components: {
     Input,
     SelectDifficulty,
-    TaskDescriptionEditor
+    TaskDescriptionEditor,
+    BadgeDifficulty
   }
 };
 </script>
 
-<style></style>

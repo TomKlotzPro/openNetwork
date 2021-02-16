@@ -32,8 +32,8 @@ export default {
     change(e) {
       if (this.options) {
         const selectedName = e.target.value;
-        const option = this.options.find(option => {
-          return selectedName === option;
+        const option = this.options.find(selected => {
+          return selectedName === selected;
         });
         this.$emit("input", option);
       }
@@ -42,4 +42,3 @@ export default {
 };
 </script>
 
-<style></style>
