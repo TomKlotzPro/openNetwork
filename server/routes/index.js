@@ -14,6 +14,7 @@ const productRoutes = require("./product");
 const categoryRoutes = require("./category");
 const blogRoutes = require("./blog");
 const apiRoutes = require("./api");
+const upvoteRoutes = require("./upvote");
 
 require("../services/passport");
 
@@ -52,6 +53,7 @@ app.use("/users", usersRoutes);
 app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/blogs", blogRoutes);
+app.use("/upvotes", upvoteRoutes);
 
 
 module.exports = {
