@@ -4,16 +4,18 @@
       <div class="container px-6 sm:px-16 lg:px-20 xl:px-24 mx-auto">
       <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-if="success">Your email has been confirmed ! Please sign in.</p>
       <p class="text-center text-grey-500 text-lg md:text-2xl mt-8 font-normal leading-snug font-hind" v-else-if="success === false">The token is either invalid or expired 😢</p>
-      <Button
-        v-if="success"
-        buttonType="button"
-        buttonColor="nebula"
-        buttonWidth="44"
-        class="mx-auto my-4"
-        to="/signin"
-      >
-        Sign In
-      </Button>
+      <div class="justify-center flex">
+        <Button
+          v-if="success"
+          buttonType="button"
+          buttonColor="nebula"
+          buttonWidth="44"
+          class="mx-auto my-4"
+          to="/signin"
+        >
+          Sign In
+        </Button>
+      </div>
 
       <form
             @submit.prevent="onSubmit"
