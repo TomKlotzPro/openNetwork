@@ -1,4 +1,5 @@
 import Vue from "vue";
+import { recursiveFind } from "../utils/functions";
 
 export const state = () => ({
   item: {},
@@ -47,6 +48,22 @@ export const actions = {
       })
       .catch(error => Promise.reject(error));
   },
+  createBlogReview({ commit, state }, blogData) {
+    return this.$axios
+      .$post(`/api/v1/blogs/reviews`, blogData)
+      .then(blog => {
+        return blog;
+      })
+      .catch(error => Promise.reject(error));
+  },
+  createBlogReviewReply({ commit, state }, blogData) {
+    return this.$axios
+      .$post(`/api/v1/blogs/replies`, blogData)
+      .then(blog => {
+        return blog;
+      })
+      .catch(error => Promise.reject(error));
+  },
   upvoteBlog({ commit }, blogId) {
     return this.$axios
       .$post("/api/v1/upvotes")
@@ -81,5 +98,12 @@ export const mutations = {
       item => item._id === blog._id
     );
     state.items.all[indexOfBlog].upvotes = blog.upvotes;
+  },
+  updateBlogComment(state, { comments, userInfo, text, id }) {
+    const comment = recursiveFind(comments, id);
+    if (comment) {
+      userInfo.comment = text;
+      comment.replies.push(userInfo);
+    }
   }
 };
