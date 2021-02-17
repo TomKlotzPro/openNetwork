@@ -66,12 +66,13 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     "@nuxtjs/tailwindcss",
-    "@nuxtjs/google-analytics"
+    [
+      "@nuxtjs/google-analytics",
+      {
+        id: process.env.GOOGLE_ANALYTICS_UA_ID
+      }
+    ]
   ],
-
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_UA_ID
-  },
 
   // Defaults options
   tailwindcss: {
