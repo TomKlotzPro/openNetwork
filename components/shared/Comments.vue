@@ -8,13 +8,39 @@
           </h2>
         </div>
         <!-- Comment -->
-        <h2
+        <div
+          class="bg-gray-50 px-4 py-6 sm:px-6"
           v-if="project.comments.length === 0 || project.comments === null"
-          id="notes-title"
-          class="text-lg font-medium text-gray-900"
         >
-          No comments for the moment
-        </h2>
+          <div class="flex space-x-3">
+            <div class="min-w-0 flex-1">
+              <div class="mt-3 flex items-center justify-between">
+                <span
+                  class="group inline-flex items-start text-sm space-x-2 text-grey-800 hover:text-grey-900"
+                >
+                  <!-- Heroicon name: solid/question-mark-circle -->
+                  <svg
+                    class="flex-shrink-0 h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>
+                    No comments on this project
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
         <Comment
           v-else
           v-for="comment in project.comments"
