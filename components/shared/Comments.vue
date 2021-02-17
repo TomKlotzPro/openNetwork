@@ -10,8 +10,8 @@
         <!-- Comment -->
         <div
           class="bg-gray-50 px-4 py-6 sm:px-6"
-          v-if="project.comments.length === 0 || project.comments === null"
-        >
+          v-if="(project && project.comments.length === 0) ||
+              (blog && blog.comments.length === 0)">
           <div class="flex space-x-3">
             <div class="min-w-0 flex-1">
               <div class="mt-3 flex items-center justify-between">
@@ -42,8 +42,15 @@
           </div>
         </div>
         <Comment
-          v-else
+          v-else-if="project"
           v-for="comment in project.comments"
+          :key="comment._id"
+          :comment="comment"
+          @event_child="eventChild"
+        ></Comment>
+        <Comment
+          v-else-if="blog"
+          v-for="comment in blog.comments"
           :key="comment._id"
           :comment="comment"
           @event_child="eventChild"
@@ -101,17 +108,25 @@ export default {
   },
   watch: {
     comments: async function() {
-      await this.$store.dispatch(
-        "project/fetchProjectBySlug",
-        this.project.slug
-      );
+      if (this.project) {
+        await this.$store.dispatch(
+          "project/fetchProjectBySlug",
+          this.project.slug
+        );
+      } else if (this.blog) {
+        await this.$store.dispatch("blog/fetchBlogBySlug", this.blog.slug);
+      }
       this.commentText = "";
     }
   },
   props: {
     project: {
       type: Object,
-      required: true
+      required: false
+    },
+    blog: {
+      type: Object,
+      required: false
     },
     author: {
       type: Object,
@@ -128,48 +143,93 @@ export default {
         user: this.user._id,
         replies: []
       };
-      this.$store.commit("project/updateProjectComment", {
-        comments: this.project.comments,
-        userInfo,
-        text: data.text,
-        id: data.parent_id
-      });
-      this.$store
-        .dispatch("project/createProjectReviewReply", {
-          projectID: this.project._id,
-          comments: this.project.comments
-        })
-        .then(project => {
-          this.comments = project.comments;
-          this.$toasted.global.on_success({
-            message: "Reply Added!"
-          });
-        })
-        .catch(_ => {
-          this.$toasted.global.on_error({
-            message: "Something went wrong..."
-          });
+      if (this.project) {
+        this.$store.commit("project/updateProjectComment", {
+          comments: this.project.comments,
+          userInfo,
+          text: data.text,
+          id: data.parent_id
         });
+        this.$store
+          .dispatch("project/createProjectReviewReply", {
+            projectID: this.project._id,
+            comments: this.project.comments
+          })
+          .then(project => {
+            this.comments = project.comments;
+            this.$toasted.global.on_success({
+              message: "Reply Added!"
+            });
+          })
+          .catch(_ => {
+            this.$toasted.global.on_error({
+              message: "Something went wrong..."
+            });
+          });
+      } else if (this.blog) {
+        this.$store.commit("blog/updateBlogComment", {
+          comments: this.blog.comments,
+          userInfo,
+          text: data.text,
+          id: data.parent_id
+        });
+        this.$store
+          .dispatch("blog/createBlogReviewReply", {
+            blogID: this.blog._id,
+            comments: this.blog.comments
+          })
+          .then(blog => {
+            this.comments = blog.comments;
+            this.$toasted.global.on_success({
+              message: "Reply Added!"
+            });
+          })
+          .catch(_ => {
+            this.$toasted.global.on_error({
+              message: "Something went wrong..."
+            });
+          });
+      }
     },
     addComment: function() {
       if (this.commentText.trim() === "") return false;
-      const projectData = {
-        projectID: this.project._id,
-        comment: this.commentText
-      };
-      this.$store
-        .dispatch("project/createProjectReview", projectData)
-        .then(project => {
-          this.comments = project.comments;
-          this.$toasted.global.on_success({
-            message: "Comment Added!"
+      if (this.project) {
+        const projectData = {
+          projectID: this.project._id,
+          comment: this.commentText
+        };
+        this.$store
+          .dispatch("project/createProjectReview", projectData)
+          .then(project => {
+            this.comments = project.comments;
+            this.$toasted.global.on_success({
+              message: "Comment Added!"
+            });
+          })
+          .catch(_ => {
+            this.$toasted.global.on_error({
+              message: "Something went wrong..."
+            });
           });
-        })
-        .catch(_ => {
-          this.$toasted.global.on_error({
-            message: "Something went wrong..."
+      } else if (this.blog) {
+        const blogData = {
+          blogID: this.blog._id,
+          comment: this.commentText
+        };
+        this.$store
+          .dispatch("blog/createBlogReview", blogData)
+          .then(blog => {
+            this.comments = blog.comments;
+            this.$toasted.global.on_success({
+              message: "Comment Added!"
+            });
+          })
+          .catch(_ => {
+            this.$toasted.global.on_error({
+              message: "Something went wrong..."
+            });
           });
-        });
+      }
     }
   },
   computed: {

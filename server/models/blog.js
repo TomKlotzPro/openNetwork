@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { commentSchema } = require("./comment");
 const mongooseAlgolia = require('mongoose-algolia');
 
 const Schema = mongoose.Schema;
@@ -10,6 +11,7 @@ const blogSchema = new Schema({
   paragraph: { type: String },
   upvotes: [{ type: Schema.Types.ObjectId, ref: "Upvote" }],
   content: { type: String, required: true },
+  comments: [commentSchema],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   featured: { type: Boolean, default: false },

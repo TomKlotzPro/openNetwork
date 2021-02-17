@@ -1,6 +1,7 @@
 const Blog = require("../models/blog");
 const Upvote = require("../models/upvote");
 const slugify = require("slugify");
+const asyncHandler = require("express-async-handler");
 const AsyncLock = require("async-lock");
 const lock = new AsyncLock();
 
@@ -124,6 +125,48 @@ exports.createBlog = (req, res) => {
     return res.status(422).send({ message: "Blog is getting saved!" });
   }
 };
+
+exports.createBlogComment = asyncHandler(async (req, res) => {
+  const { blogID, comment } = req.body;
+  const blog = await Blog.findById(blogID);
+  if (blog) {
+    const review = {
+      name: req.user.name,
+      email: req.user.email,
+      avatar: req.user.avatar,
+      comment: comment,
+      user: req.user._id
+    };
+    blog.comments.push(review);
+    await blog.save((errors, savedBlog) => {
+      if (errors) {
+        return res.status(432).send(errors);
+      }
+
+      return res.status(201).json(savedBlog);
+    });
+  } else {
+    res.status(404);
+    throw new Error("The blog/article does not exist");
+  }
+});
+exports.createBlogCommentReply = asyncHandler(async (req, res) => {
+  const { blogID, comments } = req.body;
+  const blog = await Blog.findById(blogID);
+  if (blog) {
+    blog.comments = comments;
+    await blog.save((errors, savedBlog) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      return res.status(201).json(savedBlog);
+    });
+  } else {
+    res.status(404);
+    throw new Error("The blog/article does not exist");
+  }
+});
 
 exports.deleteBlog = (req, res) => {
   const blogId = req.params.id;
