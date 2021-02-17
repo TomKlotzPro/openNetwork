@@ -69,7 +69,16 @@ router.patch(
   //AuthCtrl.onlyAdmin,
   blogCtrl.updateBlogUpvotes
 );
-
+router.post(
+  "/reviews",
+  AuthCtrl.onlyAuthUser,
+  blogCtrl.createBlogComment
+);
+router.post(
+  "/replies",
+  AuthCtrl.onlyAuthUser,
+  blogCtrl.createBlogCommentReply
+);
 /**
  * Allow to delete a blog
  * @route DELETE /blogs

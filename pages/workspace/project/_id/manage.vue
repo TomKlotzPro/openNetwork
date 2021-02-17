@@ -40,6 +40,14 @@
                   >Project Landing Page</a
                 >
               </li>
+              <li
+                class="border-l-4 border-grey-200 py-2 pl-4 pr-2 mb-4"
+                :class="activeComponentStyle(3)"
+              >
+                <a @click.prevent="navigateToComponent(3)"
+                  >Project Tasks</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -52,17 +60,17 @@
             <ul class="mt-4 text-sm leading-5 text-gray-600">
               <li
                 class="border-l-4 border-grey-200 py-2 pl-4 pr-2 mb-4"
-                :class="activeComponentStyle(3)"
+                :class="activeComponentStyle(4)"
               >
-                <a @click.prevent="navigateToComponent(3)"
+                <a @click.prevent="navigateToComponent(4)"
                   >Tags and Image</a
                 >
               </li>
               <li
                 class="border-l-4 border-grey-200 py-2 pl-4 pr-2 mb-4"
-                :class="activeComponentStyle(4)"
+                :class="activeComponentStyle(5)"
               >
-                <a @click.prevent="navigateToComponent(4)">Status</a>
+                <a @click.prevent="navigateToComponent(5)">Status</a>
               </li>
             </ul>
           </div>
@@ -92,6 +100,7 @@ import Status from "~/components/workspace/Status";
 import Navbar from "~/components/shared/Navbar";
 import TagsImage from "~/components/workspace/TagsImage";
 import TargetAudience from "~/components/workspace/TargetAudience";
+import Tasks from "~/components/workspace/Tasks";
 import Input from "~/components/shared/Input";
 import ComponentsMixin from '~/mixins/ComponentsMixin';
 import { mapState } from 'vuex'
@@ -102,13 +111,14 @@ export default {
     Status,
     TagsImage,
     TargetAudience,
+    Tasks,
     LandingPage,
     Navbar
   },
   mixins: [ComponentsMixin],
   data() {
     return {
-      steps: ["TargetAudience", "LandingPage", "TagsImage", "Status"]
+      steps: ["TargetAudience", "LandingPage", "Tasks", "TagsImage", "Status"]
     };
   },
   async fetch({store, params}) {

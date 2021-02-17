@@ -74,6 +74,10 @@ export default {
     ]
   ],
 
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_UA_ID
+  },
+
   // Defaults options
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
