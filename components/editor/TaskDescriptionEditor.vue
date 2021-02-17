@@ -61,6 +61,9 @@ export default {
         new BulletList(),
         new ListItem()
       ],
+      parseOptions: {
+        preserveWhitespace: true
+      },
       onUpdate: () => {
         this.emitUpdate()
       }
