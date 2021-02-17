@@ -49,7 +49,6 @@ export const actions = {
       .catch(error => Promise.reject(error));
   },
   createBlogReview({ commit, state }, blogData) {
-    console.log(blogData)
     return this.$axios
       .$post(`/api/v1/blogs/reviews`, blogData)
       .then(blog => {
