@@ -25,15 +25,17 @@
               <span class="text-gray-500 font-medium">{{
                 comment.createdAt | formatDate
               }}</span>
-              <span class="text-gray-500 font-medium">&middot;</span>
-              <button
-                @click="clickReply()"
-                type="button"
-                class="text-gray-900 font-medium focus:outline-none"
-              >
-                {{ replyText }}
-              </button>
-              <span v-show="comment.replies.length">
+              <span v-show="isAuth" class=" space-x-2">
+                <span class="text-gray-500 font-medium">&middot;</span>
+                <button
+                  @click="clickReply()"
+                  type="button"
+                  class="text-gray-900 font-medium focus:outline-none"
+                >
+                  {{ replyText }}
+                </button>
+              </span>
+              <span v-show="comment.replies.length" class=" space-x-2">
                 <span class="text-gray-500 font-medium">&middot;</span>
                 <button
                   @click="toggleGroup()"
@@ -42,6 +44,14 @@
                 >
                   {{ toggleText }}
                 </button>
+              </span>
+            </div>
+            <div class="mt-2 text-sm space-x-2">
+              <span v-if="comment.replies.length !== 0">
+                <span class="text-grey-700 font-medium focus:outline-none">
+                  {{ comment.replies.length }}
+                  {{ comment.replies.length === 1 ? "reply" : "replies" }}
+                </span>
               </span>
             </div>
             <div
@@ -71,6 +81,7 @@
 
 <script>
 import AddComment from "~/components/shared/AddComment";
+import { mapGetters } from "vuex";
 export default {
   mounted() {
     console.log(this.comment.user);
@@ -118,6 +129,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      user: "auth/authUser",
+      isAuth: "auth/isAuthenticated"
+    }),
     replyText() {
       if (this.isReplying) {
         return "Cancel";

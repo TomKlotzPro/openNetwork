@@ -64,8 +64,16 @@ export const actions = {
   },
   removeTag({ commit }, { field, index }) {
     commit("setRemoveTagValue", { field, index });
-    commit("setCanUpdateProject", true);
-  }
+    commit("setCanUpdateProject", true)
+  },
+  addProjectTask({ commit }, task) {
+    commit("addTask", task);
+    commit("setCanUpdateProject", true)
+  },
+  removeProjectTask({ commit }, index) {
+    commit("removeTask", index);
+    commit("setCanUpdateProject", true)
+  },
 };
 
 export const mutations = {
@@ -86,6 +94,12 @@ export const mutations = {
   },
   setInputValue(state, { index, payload, field }) {
     state.item[field][index].value = payload;
+  },
+  addTask(state, task) {
+    state.item['tasks'].push(task);
+  },
+  removeTask(state, index) {
+    state.item['tasks'].splice(index, 1);
   },
   setTagValue(state, { payload, field }) {
     state.item[field].push(payload);
