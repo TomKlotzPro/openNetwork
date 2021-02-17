@@ -48,12 +48,12 @@ describe("Upload", () => {
   });
 
   afterAll(async () => {
-    User.deleteOne({ _id: createdUser.body._id }, function (err) {
+    await User.deleteOne({ _id: createdUser.body._id }, function (err) {
       if (err) {
         console.log("Error while deleting test user in upload integration tests", err);
       }
     });
-    Product.deleteOne({ _id: createdProduct._id }, function (err) {
+    await Product.deleteOne({ _id: createdProduct._id }, function (err) {
       if (err) {
         console.log("Error while deleting test project in upload integration tests", err);
       }

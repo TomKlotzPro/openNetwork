@@ -75,7 +75,8 @@ describe("UserController", () => {
 
   it("should be able to create user", async () => {
     const response = await request.post("/users/register").send(user);
-    const obj = response.body
+    const obj = response.body;
+    createdUser = response.body;
     expect(obj._id).toBeDefined();
     expect(obj.name).toBe(user.name);
     expect(obj.username).toBe(user.username);

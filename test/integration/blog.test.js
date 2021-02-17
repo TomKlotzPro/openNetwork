@@ -37,7 +37,7 @@ describe("Blog", () => {
       .post("/users/login")
       .send({ email: userForBlog.email, password: userForBlog.password });
     const responseBlogs = await request.get("/blogs");
-    countBlogAtStart = responseBlogs.body.blogs.length
+    countBlogAtStart = responseBlogs.body.blogs.length;
   });
   afterAll(async () => {
     User.deleteOne({ _id: createdUserForBlog.body._id }, function (err) {
