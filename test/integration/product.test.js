@@ -1,6 +1,8 @@
 const supertest = require("supertest");
 const app = require("../src/app");
 var request = supertest.agent(app);
+const User = require("../../server/models/user");
+const Product = require("../../server/models/product");
 
 const userForProduct = {
   username: "test-user-product",
@@ -32,13 +34,26 @@ const updateProduct = {
 
 describe("Product", () => {
   let createdProduct = null;
+  let createdUserForProduct = null;
 
   beforeAll(async () => {
     // register and login a user
-    await request.post("/users/register").send(userForProduct);
+    createdUserForProduct = await request.post("/users/register").send(userForProduct);
     await request
       .post("/users/login")
       .send({ email: userForProduct.email, password: userForProduct.password });
+  });
+  afterAll(async () => {
+    User.deleteOne({ _id: createdUserForProduct.body._id }, function (err) {
+      if (err) {
+        console.log("Error while deleting test user in project integration tests", err);
+      }
+    });
+    Product.deleteOne({ _id: createdProduct.body._id }, function (err) {
+      if (err) {
+        console.log("Error while deleting test project in project integration tests", err);
+      }
+    });
   });
   it("should return empty array if no products", async () => {
     const response = await request.get("/products");
