@@ -1,6 +1,7 @@
 const supertest = require("supertest");
 const app = require("../src/app");
 var request = supertest.agent(app);
+const User = require("../../server/models/user");
 
 const user = {
   username: "test-user",
@@ -63,9 +64,19 @@ const resetWrongConfirmation = {
 };
 
 describe("UserController", () => {
+  let createdUser = null;
+  afterAll(async () => {
+    User.deleteOne({ _id: createdUser._id }, function (err) {
+      if (err) {
+        console.log("Error while deleting test user in user integration tests", err);
+      }
+    });
+  });
+
   it("should be able to create user", async () => {
     const response = await request.post("/users/register").send(user);
-    const obj = response.body
+    const obj = response.body;
+    createdUser = response.body;
     expect(obj._id).toBeDefined();
     expect(obj.name).toBe(user.name);
     expect(obj.username).toBe(user.username);

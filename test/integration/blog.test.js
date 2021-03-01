@@ -1,6 +1,7 @@
 const supertest = require("supertest");
 const app = require("../src/app");
 var request = supertest.agent(app);
+const User = require("../../server/models/user");
 
 const userForBlog = {
   username: "test-blog",
@@ -27,16 +28,27 @@ const partialBlog = {
 
 describe("Blog", () => {
   let createdBlog = null;
+  let createdUserForBlog = null;
+  let countBlogAtStart = null;
 
   beforeAll(async () => {
-    await request.post("/users/register").send(userForBlog);
+    createdUserForBlog = await request.post("/users/register").send(userForBlog);
     await request
       .post("/users/login")
       .send({ email: userForBlog.email, password: userForBlog.password });
+    const responseBlogs = await request.get("/blogs");
+    countBlogAtStart = responseBlogs.body.blogs.length;
+  });
+  afterAll(async () => {
+    User.deleteOne({ _id: createdUserForBlog.body._id }, function (err) {
+      if (err) {
+        console.log("Error while deleting test user in blog integration tests", err);
+      }
+    });
   });
   it("should return empty array if no blogs", async () => {
     const response = await request.get("/blogs");
-    expect(response.body.blogs).toHaveLength(0);
+    expect(response.body.blogs).toHaveLength(countBlogAtStart);
   });
   it("should be able to create blog", async () => {
     const response = await request.post("/blogs").send(blog);
@@ -52,7 +64,7 @@ describe("Blog", () => {
   });
   it("should return empty array if no blog has been published", async () => {
     const response = await request.get("/blogs");
-    expect(response.body.blogs).toHaveLength(0);
+    expect(response.body.blogs).toHaveLength(countBlogAtStart);
   });
   it("should not create blog if no body", async () => {
     const response = await request.post("/blogs").send({});
