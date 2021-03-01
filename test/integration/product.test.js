@@ -1,6 +1,8 @@
 const supertest = require("supertest");
 const app = require("../src/app");
 var request = supertest.agent(app);
+const User = require("../../server/models/user");
+const Product = require("../../server/models/product");
 
 const userForProduct = {
   username: "test-user-product",
@@ -32,17 +34,33 @@ const updateProduct = {
 
 describe("Product", () => {
   let createdProduct = null;
+  let createdUserForProduct = null;
+  let countProjectAtStart = null;
 
   beforeAll(async () => {
     // register and login a user
-    await request.post("/users/register").send(userForProduct);
+    createdUserForProduct = await request.post("/users/register").send(userForProduct);
     await request
       .post("/users/login")
       .send({ email: userForProduct.email, password: userForProduct.password });
+    const responseProjects = await request.get("/products");
+    countProjectAtStart = responseProjects.body.length;
+  });
+  afterAll(async () => {
+    User.deleteOne({ _id: createdUserForProduct.body._id }, function (err) {
+      if (err) {
+        console.log("Error while deleting test user in project integration tests", err);
+      }
+    });
+    Product.deleteOne({ _id: createdProduct._id }, function (err) {
+      if (err) {
+        console.log("Error while deleting test project in project integration tests", err);
+      }
+    });
   });
   it("should return empty array if no products", async () => {
     const response = await request.get("/products");
-    expect(response.body).toHaveLength(0);
+    expect(response.body).toHaveLength(countProjectAtStart);
   });
   it("should return empty array if no user products", async () => {
     const response = await request.get("/products/user-products");
@@ -61,7 +79,7 @@ describe("Product", () => {
   });
   it("should return empty array if no products has been published", async () => {
     const response = await request.get("/products");
-    expect(response.body).toHaveLength(0);
+    expect(response.body).toHaveLength(countProjectAtStart);
   });
   it("should not create product if no body", async () => {
     const response = await request.post("/products").send({});
@@ -83,7 +101,7 @@ describe("Product", () => {
   });
   it("should return a non empty array of published products", async () => {
     const response = await request.get("/products");
-    expect(response.body).not.toHaveLength(0);
+    expect(response.body).not.toHaveLength(countProjectAtStart);
   });
   it("should return a non empty array of users products", async () => {
     const response = await request.get("/products/user-products");

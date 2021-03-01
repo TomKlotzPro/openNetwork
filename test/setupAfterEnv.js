@@ -3,7 +3,7 @@ require("dotenv").config();
 const databaseHelper = require("../server/db");
 
 beforeAll(() => {
-  databaseHelper.truncate();
+  //databaseHelper.truncate();
   return databaseHelper.connect();
 });
 
