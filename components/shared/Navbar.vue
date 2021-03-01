@@ -39,9 +39,6 @@
             </div>
             <template v-if="defaultNav">
               <div class="hidden lg:ml-6 lg:flex lg:space-x-8 font-hind">
-                <CustomLink customLink url="/about">
-                  About
-                </CustomLink>
                 <CustomLink customLink url="/blogs">
                   Blogs
                 </CustomLink>
