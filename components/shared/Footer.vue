@@ -95,7 +95,7 @@
         </a>
       </div>
       <p class="mt-8 text-center text-base text-gray-400">
-        &copy; 2020 OpenNetwork, Inc. All rights reserved.
+        &copy; {{ new Date().getFullYear() }} OpenNetwork, Inc. All rights reserved.
       </p>
     </div>
   </footer>
@@ -110,7 +110,8 @@ export default {
         { link: "/signup", name: "Sign up" },
         { link: "/projects", name: "Projects" },
         { link: "/blogs", name: "Blogs" },
-        { link: "/join", name: "Join us" }
+        { link: "/join", name: "Join us" },
+        { link: "/about", name: "About" }
       ]
     };
   }

@@ -62,14 +62,6 @@ export default {
         },
         {
           profileImage:
-            "https://opntwk-project-images.s3-eu-west-1.amazonaws.com/members/sofiane.jpg",
-          name: "Sofiane Mektane",
-          role: "Software Engineer",
-          twitter_link: "https://twitter.com",
-          linkedIn_link: "https://www.linkedin.com/in/sofiane-mektane",
-        },
-        {
-          profileImage:
             "https://opntwk-project-images.s3-eu-west-1.amazonaws.com/members/ulrich.jpg",
           name: "Ulrich Ekeu",
           role: "Software Engineer",
@@ -78,11 +70,11 @@ export default {
         },
         {
           profileImage:
-            "https://opntwk-project-images.s3-eu-west-1.amazonaws.com/members/mouloud.jpg",
-          name: "Mouloud Daoud",
+            "https://opntwk-project-images.s3-eu-west-1.amazonaws.com/members/emrick.jpg",
+          name: "Emrick Donadei",
           role: "Software Engineer",
-          twitter_link: "https://twitter.com",
-          linkedIn_link: "www.linkedin.com",
+          twitter_link: "https://twitter.com/emrickdonadei",
+          linkedIn_link: "https://www.linkedin.com/in/emrick-donadei/",
         },
       ],
     };
