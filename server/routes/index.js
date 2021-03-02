@@ -15,6 +15,7 @@ const categoryRoutes = require("./category");
 const blogRoutes = require("./blog");
 const apiRoutes = require("./api");
 const upvoteRoutes = require("./upvote");
+const subscribeRoutes = require("./subscribe");
 
 require("../services/passport");
 
@@ -54,6 +55,7 @@ app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/blogs", blogRoutes);
 app.use("/upvotes", upvoteRoutes);
+app.use("/subscribe", subscribeRoutes);
 
 
 module.exports = {

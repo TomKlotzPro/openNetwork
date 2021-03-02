@@ -15,16 +15,18 @@
           </p>
         </div>
         <div class="mt-8 sm:w-full sm:max-w-md xl:mt-0 xl:ml-8">
-          <form class="sm:flex">
+          <form class="sm:flex" @submit.prevent="onSubscribe">
             <label for="emailAddress" class="sr-only">Email address</label>
             <Input
               id="emailAddress"
               name="emailAddress"
+              v-model="subscribeForm.email"
               type="email"
               autocomplete="email"
               required
               placeholder="Enter your email"
               noLabel
+              :error="$v.subscribeForm.email.$error"
             />
             <Button
               buttonType="button"
@@ -49,10 +51,51 @@
 <script>
 import Input from "~/components/shared/Input";
 import Button from "~/components/shared/Button";
+import { required, email } from "vuelidate/lib/validators";
 export default {
   components: {
     Input,
     Button
+  },
+  data() {
+    return {
+      subscribeForm: {
+        email: ""
+      }
+    };
+  },
+  validations: {
+    subscribeForm: {
+      email: {
+        required,
+        emailValidator: email
+      }
+    }
+  },
+  computed: {
+    isFormValid() {
+      return !this.$v.$invalid;
+    }
+  },
+  methods: {
+    onSubscribe() {
+      this.$v.subscribeForm.$touch();
+      if (this.isFormValid) {
+        this.$axios
+          .$post(`/api/v1/subscribe`, this.subscribeForm)
+          .then(data => {
+            this.$toasted.global.on_success({
+              message: "Thanks for subscribing!"
+            });
+          })
+          .catch(error => {
+            console.error(error);
+            this.$toasted.global.on_success({
+              message: "Something went wrong. Please try again!"
+            });
+          });
+      }
+    }
   }
 };
 </script>
