@@ -105,7 +105,8 @@
               <span class="block">The open source community awaits you</span>
             </template>
             <template v-slot:description>
-              Create or participate in hundreds of new open source projects. Grow your knowledge and your network.
+              Create or participate in hundreds of new open source projects.
+              Grow your knowledge and your network.
             </template>
             <template v-slot:button>
               <Button to="/signup" buttonColor="nebula" class="mx-auto mt-12"
@@ -125,7 +126,7 @@
               Collaboration and success stories
             </template>
             <template v-slot:description>
-              We aim to increase the collaboration on open source projects. We care to provide strong solutions for the industry and we think open source is a strong way to generate new powerful ideas for the engineers of tomorrow. 
+              We aim to increase the collaboration on open source projects. We always cared to provide strong solutions within the industry. Collaboration is the key !
             </template>
             <template v-slot:button>
               <Button to="/projects" buttonColor="black" class="mx-auto mt-12"
