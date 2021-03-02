@@ -17,12 +17,12 @@
           can share, contribute or donate on any open source projects!
         </p>
         <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
-          <Button to="/projects" class="w-full">Contribute</Button>
+          <Button to="/projects" class="w-full">Contribute to projects</Button>
           <Button
-            to="/projects"
+            to="/blogs"
             buttonColor="nebula"
             class="mt-4 sm:mt-0 sm:ml-4 w-full"
-            >Projects</Button
+            >Read blog posts</Button
           >
         </div>
       </div>

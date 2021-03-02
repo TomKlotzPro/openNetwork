@@ -206,9 +206,8 @@
                 </div>
               </div>
               <div class="mt-3 space-y-1 divide-y">
-                <CustomLink defaultLink url="/about">About</CustomLink>
-                <CustomLink defaultLink url="/blogs">Blogs</CustomLink>
                 <CustomLink defaultLink url="/projects">Projects</CustomLink>
+                <CustomLink defaultLink url="/blogs">Blogs</CustomLink>
                 <CustomLink defaultLink url="/join">Join Us</CustomLink>
                 <CustomLink
                   defaultLink
