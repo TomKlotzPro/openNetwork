@@ -102,11 +102,11 @@
           >
             <template v-slot:headline>
               <span class="block">Ready to dive in?</span>
-              <span class="block">Start now and stand out your project!</span>
+              <span class="block">The open source community awaits you</span>
             </template>
             <template v-slot:description>
-              Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
-              Malesuada adipiscing sagittis vel nulla nec.
+              Create or participate in hundreds of new open source projects.
+              Grow your knowledge and your network.
             </template>
             <template v-slot:button>
               <Button to="/signup" buttonColor="nebula" class="mx-auto mt-12"
@@ -120,16 +120,13 @@
             cta_type="image_next_to_container"
           >
             <template v-slot:intro>
-              Always striving for the best! 🚀
+              Help to build the open sources projects of the future! 🚀
             </template>
             <template v-slot:headline>
               Collaboration and success stories
             </template>
             <template v-slot:description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et,
-              egestas tempus tellus etiam sed. Quam a scelerisque amet
-              ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat
-              quisque ut interdum tincidunt duis.
+              We aim to increase the collaboration on open source projects. We always cared to provide strong solutions within the industry. Collaboration is the key !
             </template>
             <template v-slot:button>
               <Button to="/projects" buttonColor="black" class="mx-auto mt-12"
@@ -146,7 +143,6 @@
 
 <script>
 import Hero from "~/components/shared/Hero";
-import Feature from "~/components/shared/Feature";
 import ProjectCard from "~/components/ProjectCard";
 import BlogPost from "~/components/BlogPost";
 import Button from "~/components/shared/Button";
