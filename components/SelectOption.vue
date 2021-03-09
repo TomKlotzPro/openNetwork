@@ -10,7 +10,7 @@
           @change="change"
         >
           <option value="default">Change Status</option>
-          <option value="active">Active</option>
+          <option value="active">Draft</option>
           <option value="published"> Published</option>
         </select>
       </div>
